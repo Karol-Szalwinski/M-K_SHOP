@@ -1,8 +1,9 @@
 <?php
 require_once 'src/Product.php';
 require_once 'src/connection.php';
+require_once 'src/User.php';
 
-
+/**
 $produkt1 = new Product();
 //$produkt1->setId(1);
 $produkt1->setIdGroup(2);
@@ -18,5 +19,22 @@ $produkt1->setAvailability(19);
 
 $produkt2 = Product::loadAllProducts($conn);
 var_dump($produkt2);
+**/
+
+$user1 = new User();
+
+$user1->setEmail('jan@mail.com');
+$user1->setName('jan');
+$user1->setId(1);
+$user1->setPassword('haslo2');
+$user1->setSurname('xxxxxx');
+
+//var_dump($user1);
+
+$user1->saveToDB($conn);
 
 
+
+$user2 = User::loadAllUsers($conn, 1);
+
+var_dump($user2);
