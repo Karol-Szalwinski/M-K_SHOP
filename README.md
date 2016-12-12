@@ -1,2 +1,2 @@
 # M-K_SHOP
-Warsztaty zaawansowane PHP
+Sklep internetowy Michał&Karol 
