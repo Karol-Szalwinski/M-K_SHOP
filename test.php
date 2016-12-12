@@ -35,6 +35,6 @@ $user1->saveToDB($conn);
 
 
 
-$user2 = User::loadAllUsers($conn, 1);
+$user2 = User::load($conn, 1);
 
 var_dump($user2);

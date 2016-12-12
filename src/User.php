@@ -57,8 +57,9 @@ class User {
     }
 
     public function setEmail($newEmail) {
-        // dopisać filtr sanitize
-        $this->email = $newEmail;
+        if (filter_var($newEmail, FILTER_VALIDATE_EMAIL) == true) {
+            $this->email = $newEmail;
+        }
     }
 
     public function getEmail() {
@@ -162,28 +163,30 @@ class User {
         return true;
     }
 
-    /**
-      static public function loadUserByEmail(mysqli $connection, $email) {
+    static public function loadUserByEmail(mysqli $connection, $email) {
 
-      $sql = "SELECT * FROM users WHERE email='$email'";
+        $sql = "SELECT * FROM Users WHERE email='$email'";
 
-      $result = $connection->query($sql);
+        $result = $connection->query($sql);
 
-      if ($result == true && $result->num_rows == 1) {
+        if ($result == true && $result->num_rows == 1) {
 
-      $row = $result->fetch_assoc();
-      $loadedUser = new User();
-      $loadedUser->id = $row['id'];
-      $loadedUser->username = $row['username'];
-      $loadedUser->hashedPassword = $row['hashed_password'];
-      $loadedUser->email = $row['email'];
+            $row = $result->fetch_assoc();
+            $loadedUser = new User();
+            $loadedUser->id = $row['id'];
+            $loadedUser->name = $row['name'];
+            $loadedUser->surname = $row['surname'];
+            $loadedUser->hashedPassword = $row['hashed_password'];
+            $loadedUser->email = $row['email'];
 
-      return $loadedUser;
-      }
+            return $loadedUser;
+        }
 
-      return null;
-      }
-     * */
+        return null;
+    }
+
+   
+
     static public function logIn(mysqli $connection, $email, $password) {
         $loadedUser = self::loadUserByEmail($connection, $email);
 
