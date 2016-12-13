@@ -6,3 +6,5 @@
  * przedmiotów i karuzelę z kilkoma wybranymi przedmiotami.
  */
 
+require_once __DIR__ . '/header.php';
+?>
