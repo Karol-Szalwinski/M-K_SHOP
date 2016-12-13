@@ -23,3 +23,6 @@ require_once __DIR__ . '/../src/required.php';
     </ul>
   </div>
 </nav>
+<div class="alert alert-success">
+  <strong>Success!</strong> Udało nam się uruchomić Bootstrapa ;-)
+</div>
