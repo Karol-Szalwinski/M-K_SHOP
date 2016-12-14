@@ -65,7 +65,7 @@ class Message {
     }
 
     public function setCreationDate($newCreationDate) {
-        if (is_string($newCreationDate)) {
+        if (is_integer($newCreationDate)) {
             $this->creationDate = $newCreationDate;
         }
     }

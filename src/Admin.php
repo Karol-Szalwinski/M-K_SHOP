@@ -65,7 +65,7 @@ class Admin {
             //Saving new Admin to DB
 
             $sql = "INSERT INTO Admin(name, email, hashed_password)
-                   VALUES ('$this->name', '$this->semail', '$this->hashedPassword')";
+                   VALUES ('$this->name', '$this->email', '$this->hashedPassword')";
 
             $result = $connection->query($sql);
             if ($result == true) {

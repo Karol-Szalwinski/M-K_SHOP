@@ -2,6 +2,7 @@
 require_once 'src/Product.php';
 require_once 'src/connection.php';
 require_once 'src/User.php';
+require_once 'src/Admin.php';
 
 /**
 $produkt1 = new Product();
@@ -20,7 +21,7 @@ $produkt1->setAvailability(19);
 $produkt2 = Product::loadAllProducts($conn);
 var_dump($produkt2);
 **/
-
+/**
 $user1 = new User();
 
 $user1->setEmail('jan@mail.com');
@@ -38,3 +39,20 @@ $user1->saveToDB($conn);
 $user2 = User::load($conn, 1);
 
 var_dump($user2);
+ * 
+ * 
+ */
+$admin1 = new Admin();
+
+$admin1->setId(1);
+$admin1->setName('admin1');
+$admin1->setEmail('admin1@admin.pl');
+$admin1->setPassword('haslo2');
+
+//var_dump($admin1);
+
+$admin1->saveToDB($conn);
+
+$admin = Admin::loadAdminById($conn, 1);
+
+var_dump($admin);
