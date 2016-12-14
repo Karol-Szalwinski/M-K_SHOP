@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * klasa przedmiotu:
+ * - możliwość wyświetlania również przedmiotu dla danej grupy
+ * - możliwość wyświetlania wszytskich przedmiotów
+ * - możliwość wprowadzania nowego przedmiotu do sklepu i usuwania go
+ * coś jeszcze?
+ */
 class Product {
 
     private $id;

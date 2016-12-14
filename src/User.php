@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * klasa użytkownika:
+ * -możliwość zakładania/usuwania konta użytkownika
+ * -możliwość wyświetlania danych użytkownika wg id/maila
+ * -wyświetlanie wszytskich użytkowników, logowanie
+ */
 class User {
 
     private $id;

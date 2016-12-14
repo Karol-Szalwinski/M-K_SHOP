@@ -1,5 +1,10 @@
 <?php
-//klasa administratora
+/**
+ * klasa administratora:
+ * -możliwość zakładania/usuwania konta administratora
+ * -możliwość wyświetlania danych admiistratora wg id/maila
+ * -logowanie dla administratora
+ */
 class Admin {
 
     private $id;
