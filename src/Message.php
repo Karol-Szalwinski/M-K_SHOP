@@ -11,15 +11,15 @@
 class Message {
 
     private $id;
-    private $receiverId;
-    private $senderId;
+    private $idReceiver;
+    private $idSender;
     private $textMessage;
     private $creationDate;
 
     public function __construct() {
         $this->id = -1;
-        $this->receiverId = 0;
-        $this->senderId = 0;
+        $this->idReceiver = 0;
+        $this->idSender = 0;
         $this->textMessage = "";
         $this->creationDate = "";
     }
@@ -36,22 +36,22 @@ class Message {
 
     public function setReceiverId($newReceiverId) {
         if (is_numeric($newReceiverId)) {
-            $this->receiverId = $newReceiverId;
+            $this->idReceiver = $newReceiverId;
         }
     }
 
     public function getReceiverId() {
-        return $this->receiverId;
+        return $this->idReceiver;
     }
 
     public function setSenderId($newSenderId) {
         if (is_numeric($newSenderId)) {
-            $this->senderId = $newSenderId;
+            $this->idSender = $newSenderId;
         }
     }
 
     public function getSenderId() {
-        return $this->senderId;
+        return $this->idSender;
     }
 
     public function setTextMessage($newTextMessage) {
@@ -80,8 +80,8 @@ class Message {
 
             //Saving new Message to DB
 
-            $sql = "INSERT INTO Messages(receiver_id, sender_id, text_message)
-                   VALUES ('$this->receiverId', '$this->senderId', '$this->textMessage')";
+            $sql = "INSERT INTO Messages(id_receiver, id_sender, text_message)
+                   VALUES ('$this->idReceiver', '$this->idSender', '$this->textMessage')";
 
             $result = $connection->query($sql);
             if ($result == true) {
@@ -95,9 +95,9 @@ class Message {
         }
     }
 
-    static public function loadMessagesByReceiverId(mysqli $connection, $receiverId) {
+    static public function loadMessagesByReceiverId(mysqli $connection, $idReceiver) {
 
-        $sql = "SELECT * FROM Messages WHERE receiver_id=$receiverId";
+        $sql = "SELECT * FROM Messages WHERE receiver_id=$idReceiver";
 
         $result = $connection->query($sql);
 
@@ -106,8 +106,8 @@ class Message {
             $row = $result->fetch_assoc();
             $loadedMessage = new Message();
             $loadedMessage->id = $row['id'];
-            $loadedMessage->receiverId = $row['receiver_id'];
-            $loadedMessage->senderId = $row['sender_id'];
+            $loadedMessage->idReceiver = $row['id_receiver'];
+            $loadedMessage->idSender = $row['id_sender'];
             $loadedMessage->textMessage = $row['text_message'];
             $loadedMessage->creationDate = $row['creation_date'];
 
@@ -118,9 +118,9 @@ class Message {
         return null;
     }
 
-    static public function loadMessagesBySenderId(mysqli $connection, $senderId) {
+    static public function loadMessagesBySenderId(mysqli $connection, $idSender) {
 
-        $sql = "SELECT * FROM Messages WHERE sender_id=$senderId";
+        $sql = "SELECT * FROM Messages WHERE sender_id=$idSender";
 
         $result = $connection->query($sql);
 
@@ -129,8 +129,8 @@ class Message {
             $row = $result->fetch_assoc();
             $loadedMessage = new Message();
             $loadedMessage->id = $row['id'];
-            $loadedMessage->receiverId = $row['receiver_id'];
-            $loadedMessage->senderId = $row['sender_id'];
+            $loadedMessage->idReceiver = $row['id_receiver'];
+            $loadedMessage->idSender = $row['id_sender'];
             $loadedMessage->textMessage = $row['text_message'];
             $loadedMessage->creationDate = $row['creation_date'];
 

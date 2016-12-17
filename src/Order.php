@@ -10,7 +10,7 @@
 class Order {
 
     private $id;
-    private $userId;
+    private $idUser;
     private $status;
     private $creationDate;
     private $paymentMethod;
@@ -18,7 +18,7 @@ class Order {
 
     public function __consruct() {
         $this->id = -1;
-        $this->userId = 0;
+        $this->idUser = 0;
         $this->status = "";
         $this->creationDate = "";
         $this->paymentMethod = "";
@@ -36,12 +36,12 @@ class Order {
     }
 
     public function getUserId() {
-        return $this->userId;
+        return $this->idUser;
     }
 
     public function setUserId($newUserId) {
         if (is_numeric($newUserId)) {
-            $this->userId = $newUserId;
+            $this->idUser = $newUserId;
         }
     }
 
@@ -83,6 +83,105 @@ class Order {
         if (is_numeric($newAmount)) {
             $this->amount = $newAmount;
         }
+    }
+
+    public function saveToDB(mysqli $connection) {
+
+        if ($this->id == -1) {
+
+            //Saving new Order to DB
+
+            $sql = "INSERT INTO Orders(id_user, status,  payment_method, amount)
+               VALUES ('$this->idUser','$this->status', '$this->paymentMethod', '$this->amount' )";
+
+            $result = $connection->query($sql);
+            if ($result == true) {
+                $this->id = $connection->insert_id;
+
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            $sql = "UPDATE Orders SET status='$this->status', payment_method='$this->paymentMethod', amount='$this->amount'
+                 WHERE id=$this->id";
+            $result = $connection->query($sql);
+            if ($result == true) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    static public function loadOrderById(mysqli $connection, $id) {
+
+        $sql = "SELECT * FROM Orders WHERE id=$id";
+
+        $result = $connection->query($sql);
+
+        if ($result == true && $result->num_rows == 1) {
+
+            $row = $result->fetch_assoc();
+            $loadedOrder = new Order();
+            $loadedOrder->id = $row['id'];
+            $loadedOrder->idUser = $row['id_user'];
+            $loadedOrder->status = $row['status'];
+            $loadedOrder->creationDate = $row['creation_date'];
+            $loadedOrder->paymentMethod = $row['payment_method'];
+            $loadedOrder->amount = $row['amount'];
+
+            return $loadedOrder;
+        }
+
+        return null;
+    }
+
+    static public function loadAllOrdersByUserId(mysqli $connection, $userId) {
+
+        $sql = "SELECT * FROM Orders WHERE id_user=$userId ORDER BY name DESC";
+        $ret = [];
+
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+
+                $loadedOrder = new Order();
+                $loadedOrder->id = $row['id'];
+                $loadedOrder->status = $row['status'];
+                $loadedOrder->creationDate = $row['creation_date'];
+                $loadedOrder->paymentMethod = $row['payment_method'];
+                $loadedOrder->amount = $row['amount'];
+                $ret[] = $loadedOrder;
+            }
+
+            return $ret;
+        }
+    }
+
+    static public function loadAllOrders(mysqli $connection) {
+
+        $sql = "SELECT * FROM Orders ORDER BY status DESC";
+        $ret = [];
+
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+
+
+                $loadedOrder = new Order();
+                $loadedOrder->id = $row['id'];
+                $loadedOrder->idUser = $row['id_user'];
+                $loadedOrder->status = $row['status'];
+                $loadedOrder->creationDate = $row['creation_date'];
+                $loadedOrder->paymentMethod = $row['payment_method'];
+                $loadedOrder->amount = $row['amount'];
+
+                $ret[] = $loadedOrder;
+            }
+        }
+
+        return $ret;
     }
 
 }
