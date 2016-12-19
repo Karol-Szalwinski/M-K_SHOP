@@ -57,6 +57,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-info">Zarejestruj</button>
+                        <hr>
                     </form>
 
                 </div>

@@ -37,7 +37,7 @@
                     <form>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email" value="jan@kowalski.pl">
+                            <input type="email" class="form-control" id="email" value="jan@kowalski.pl">
                         </div>
                         <div class="form-group">
                             <label for="name">Imię:</label>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group">
                             <label for="surname">Nazwisko:</label>
-                            <input type="email" class="form-control" id="surname" value="Kowalski">
+                            <input type="text" class="form-control" id="surname" value="Kowalski">
                         </div>
                         <button type="submit" class="btn btn-info">Popraw dane</button>
                     </form>
