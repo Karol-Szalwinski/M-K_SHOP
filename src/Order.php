@@ -184,4 +184,48 @@ class Order {
         return $ret;
     }
 
+    static public function loadCartById(mysqli $connection, $id) {
+
+        $sql = "SELECT * FROM product_orders WHERE id=$id";
+
+        $result = $connection->query($sql);
+
+        if ($result == true && $result->num_rows == 1) {
+
+            $row = $result->fetch_assoc();
+            $loadedCart = new Cart();
+            $loadedCart->id = $row['id'];
+            $loadedCart->idOrder = $row['id_orders'];
+            $loadedCart->idProduct = $row['id_product'];
+
+
+
+            return $loadedCart;
+        }
+
+        return null;
+    }
+
+    static public function loadAllProductsByOrderId(mysqli $connection, $idOrder) {
+
+        $sql = "SELECT * FROM product_orders WHERE id_orders=$idOrder ORDER BY name DESC";
+        $ret = [];
+
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+
+                $loadedCart = new Cart();
+                $loadedCart->id = $row['id'];
+                $loadedCart->idOrder = $row['id_orders'];
+                $loadedCart->idProduct = $row['id_product'];
+                $ret[] = $loadedCart;
+            }
+
+            return $ret;
+        }
+    }
+    
+    
+    
 }

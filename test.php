@@ -3,6 +3,7 @@ require_once 'src/Product.php';
 require_once 'src/connection.php';
 require_once 'src/User.php';
 require_once 'src/Admin.php';
+require_once 'src/Message.php';
 
 /**
 $produkt1 = new Product();
@@ -42,6 +43,7 @@ var_dump($user2);
  * 
  * 
  */
+/*
 $admin1 = new Admin();
 
 $admin1->setId(1);
@@ -56,3 +58,20 @@ $admin1->saveToDB($conn);
 $admin = Admin::loadAdminById($conn, 1);
 
 var_dump($admin);
+ * 
+ */
+//$message3 = new Message();
+
+$message3->setId(1);
+$message3->setReceiverId(1);
+$message3->setSenderId(1);
+$message3->setTextMessage('wiadomosc');
+
+
+//var_dump($message3);
+
+//$message3->saveToDB($conn);
+//var_dump($message3);
+
+$message = Message::loadMessagesBySenderId($conn, 1);
+var_dump($message);

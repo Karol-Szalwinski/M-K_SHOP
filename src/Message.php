@@ -97,7 +97,7 @@ class Message {
 
     static public function loadMessagesByReceiverId(mysqli $connection, $idReceiver) {
 
-        $sql = "SELECT * FROM Messages WHERE receiver_id=$idReceiver";
+        $sql = "SELECT * FROM Messages WHERE id_receiver=$idReceiver";
 
         $result = $connection->query($sql);
 
@@ -120,7 +120,7 @@ class Message {
 
     static public function loadMessagesBySenderId(mysqli $connection, $idSender) {
 
-        $sql = "SELECT * FROM Messages WHERE sender_id=$idSender";
+        $sql = "SELECT * FROM Messages WHERE id_sender=$idSender";
 
         $result = $connection->query($sql);
 

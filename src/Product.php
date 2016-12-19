@@ -1,4 +1,5 @@
 <?php
+
 /**
  * klasa przedmiotu:
  * - możliwość wyświetlania również przedmiotu dla danej grupy
@@ -181,5 +182,7 @@ class Product {
 
         return false;
     }
+
+    
 
 }
