@@ -77,9 +77,9 @@
                     <div class="col-sm-3 text-left"> 
                         <h4>Opis przedmiotu</h4>
                         <p>Niesamowita wydajność i wspaniała grafika zaczynają się tutaj.
-                            Procesory Intel® Core™ i3 czwartej generacji zapewniają korzystanie w pełni z płynnych i atrakcyjnych efektów wizualnych, oferują większe bezpieczeństwo przez funkcje zabezpieczeń i doskonały czas pracy na akumulatorach.1
-
-                            Inteligentna wielozadaniowość, zasługa technologii Intel® Hyper-Threading, umożliwia płynne korzystanie z kilku aplikacji.2 Bezproblemowe oglądanie filmów i zdjęć oraz granie w gry zapewnia zestaw wbudowanych w procesorze funkcji graficznych, eliminujących konieczność instalacji dodatkowego sprzętu</p>
+                            Procesory Intel® Core™ i3 czwartej generacji zapewniają korzystanie w pełni z płynnych i atrakcyjnych efektów wizualnych, oferują większe bezpieczeństwo przez funkcje zabezpieczeń i doskonały czas pracy na akumulatorach.
+                            <br>1 Inteligentna wielozadaniowość, zasługa technologii Intel® Hyper-Threading, umożliwia płynne korzystanie z kilku aplikacji.
+                            <br>2 Bezproblemowe oglądanie filmów i zdjęć oraz granie w gry zapewnia zestaw wbudowanych w procesorze funkcji graficznych, eliminujących konieczność instalacji dodatkowego sprzętu</p>
                     </div>
 
                     <div class="col-sm-2 text-right panel panel-default panel-body">
