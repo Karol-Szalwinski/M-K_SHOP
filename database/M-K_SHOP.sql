@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 20, 2016 at 05:43 PM
--- Server version: 5.5.53-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.20
+-- Czas wygenerowania: 20 Gru 2016, 23:18
+-- Wersja serwera: 5.5.50-0ubuntu0.14.04.1
+-- Wersja PHP: 5.5.9-1ubuntu4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,18 +17,17 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `M-K_SHOP`
+-- Baza danych: `M-K_SHOP`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Admin`
+-- Struktura tabeli dla tabeli `Admin`
 --
 
 CREATE TABLE IF NOT EXISTS `Admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `hashed_password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
@@ -36,16 +35,16 @@ CREATE TABLE IF NOT EXISTS `Admin` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `Admin`
+-- Zrzut danych tabeli `Admin`
 --
 
-INSERT INTO `Admin` (`id`, `name`, `email`, `hashed_password`) VALUES
-(1, 'admin1', 'admin1@admin.pl', '$2y$10$rqZKTBh37Nutx1Q2Rfsv7enV6CZkGdKO7Ry7E79PUqedahpObegiO');
+INSERT INTO `Admin` (`id`, `email`, `hashed_password`) VALUES
+(1, 'admin1@admin.pl', '$2y$10$rqZKTBh37Nutx1Q2Rfsv7enV6CZkGdKO7Ry7E79PUqedahpObegiO');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Groups`
+-- Struktura tabeli dla tabeli `Groups`
 --
 
 CREATE TABLE IF NOT EXISTS `Groups` (
@@ -58,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `Groups` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Messages`
+-- Struktura tabeli dla tabeli `Messages`
 --
 
 CREATE TABLE IF NOT EXISTS `Messages` (
@@ -75,15 +74,15 @@ CREATE TABLE IF NOT EXISTS `Messages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Orders`
+-- Struktura tabeli dla tabeli `Orders`
 --
 
 CREATE TABLE IF NOT EXISTS `Orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `payment_method` varchar(255) NOT NULL,
+  `payment_method` varchar(100) NOT NULL,
   `amount` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
@@ -93,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `Orders` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Photos`
+-- Struktura tabeli dla tabeli `Photos`
 --
 
 CREATE TABLE IF NOT EXISTS `Photos` (
@@ -106,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `Photos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Product`
+-- Struktura tabeli dla tabeli `Product`
 --
 
 CREATE TABLE IF NOT EXISTS `Product` (
@@ -123,10 +122,10 @@ CREATE TABLE IF NOT EXISTS `Product` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_orders`
+-- Struktura tabeli dla tabeli `Product_orders`
 --
 
-CREATE TABLE IF NOT EXISTS `product_orders` (
+CREATE TABLE IF NOT EXISTS `Product_orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_orders` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
@@ -138,12 +137,12 @@ CREATE TABLE IF NOT EXISTS `product_orders` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Statuses`
+-- Struktura tabeli dla tabeli `Statuses`
 --
 
 CREATE TABLE IF NOT EXISTS `Statuses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status_name` varchar(255) NOT NULL DEFAULT 'niezłożone',
+  `status_name` varchar(100) NOT NULL DEFAULT 'niezłożone',
   PRIMARY KEY (`id`),
   UNIQUE KEY `status_name` (`status_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -151,53 +150,52 @@ CREATE TABLE IF NOT EXISTS `Statuses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Users`
+-- Struktura tabeli dla tabeli `Users`
 --
 
 CREATE TABLE IF NOT EXISTS `Users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `surname` varchar(100) NOT NULL,
   `hashed_password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `adress_street` varchar(255) NOT NULL,
-  `adress_local` int(11) NOT NULL,
-  `postal_code` int(11) NOT NULL,
-  `adress_city` varchar(255) NOT NULL,
+  `adress_local` varchar(20) NOT NULL,
+  `postal_code` varchar(20) NOT NULL,
+  `adress_city` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Constraints for dumped tables
+-- Ograniczenia dla zrzutów tabel
 --
 
 --
--- Constraints for table `Messages`
+-- Ograniczenia dla tabeli `Messages`
 --
 ALTER TABLE `Messages`
   ADD CONSTRAINT `Messages_ibfk_1` FOREIGN KEY (`id_sender`) REFERENCES `Admin` (`id`),
   ADD CONSTRAINT `Messages_ibfk_2` FOREIGN KEY (`id_receiver`) REFERENCES `Users` (`id`);
 
 --
--- Constraints for table `Orders`
+-- Ograniczenia dla tabeli `Orders`
 --
 ALTER TABLE `Orders`
-  ADD CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`),
-  ADD CONSTRAINT `Orders_ibfk_2` FOREIGN KEY (`status`) REFERENCES `Statuses` (`status_name`) ON DELETE CASCADE;
+  ADD CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`);
 
 --
--- Constraints for table `Product`
+-- Ograniczenia dla tabeli `Product`
 --
 ALTER TABLE `Product`
   ADD CONSTRAINT `Product_ibfk_1` FOREIGN KEY (`id_group`) REFERENCES `Groups` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `product_orders`
+-- Ograniczenia dla tabeli `Product_orders`
 --
-ALTER TABLE `product_orders`
-  ADD CONSTRAINT `product_orders_ibfk_1` FOREIGN KEY (`id_orders`) REFERENCES `Orders` (`id`),
-  ADD CONSTRAINT `product_orders_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `Product` (`id`);
+ALTER TABLE `Product_orders`
+  ADD CONSTRAINT `Product_orders_ibfk_1` FOREIGN KEY (`id_orders`) REFERENCES `Orders` (`id`),
+  ADD CONSTRAINT `Product_orders_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `Product` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

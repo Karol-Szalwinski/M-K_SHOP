@@ -7,4 +7,5 @@
 session_start();
 
 require_once __DIR__. '/bootstrap.html';
-//require_once __DIR__. '/connection.php';
+require_once '../src/User.php';
+require_once __DIR__. '/connection.php';

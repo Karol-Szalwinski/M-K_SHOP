@@ -22,22 +22,26 @@ $produkt1->setAvailability(19);
 $produkt2 = Product::loadAllProducts($conn);
 var_dump($produkt2);
 **/
-/**
+
 $user1 = new User();
 
-$user1->setEmail('jan@mail.com');
+$user1->setEmail('jand2@mail.com');
 $user1->setName('jan');
-$user1->setId(1);
+//$user1->setId(1);
 $user1->setPassword('haslo2');
-$user1->setSurname('xxxxxx');
+$user1->setSurname('kowalski');
+$user1->setAdressStreet("Kwiatowa");
+$user1->setAdressLocalNo("10b");
+$user1->setPostalCode("39-345");
+$user1->setAdressCity("Poznań");
 
-//var_dump($user1);
+var_dump($user1);
 
-$user1->saveToDB($conn);
+var_dump($user1->saveToDB($conn));
 
 
 
-$user2 = User::load($conn, 1);
+/*$user2 = User::load($conn, 1);
 
 var_dump($user2);
  * 
@@ -59,8 +63,8 @@ $admin = Admin::loadAdminById($conn, 1);
 
 var_dump($admin);
  * 
- */
-//$message3 = new Message();
+ *
+$message3 = new Message();
 
 $message3->setId(1);
 $message3->setReceiverId(1);
@@ -75,3 +79,6 @@ $message3->setTextMessage('wiadomosc');
 
 $message = Message::loadMessagesBySenderId($conn, 1);
 var_dump($message);
+ * 
+ * 
+ */

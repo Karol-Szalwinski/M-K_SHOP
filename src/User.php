@@ -26,8 +26,8 @@ class User {
         $this->hashedPassword = "";
         $this->email = "";
         $this->adressStreet = "";
-        $this->adressLocalNo = 0;
-        $this->postalCode = 0;
+        $this->adressLocalNo = "";
+        $this->postalCode = "";
         $this->adressCity = "";
     }
 
@@ -39,12 +39,14 @@ class User {
         if (is_numeric($newId)) {
             $this->id = $newId;
         }
+        return $this;
     }
 
     public function setName($newName) {
         if (is_string($newName)) {
             $this->name = $newName;
         }
+        return $this;
     }
 
     public function getName() {
@@ -55,6 +57,7 @@ class User {
         if (is_string($newSurname)) {
             $this->surname = $newSurname;
         }
+        return $this;
     }
 
     public function getSurname() {
@@ -64,6 +67,7 @@ class User {
     public function setPassword($newPassword) {
         $newHashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
         $this->hashedPassword = $newHashedPassword;
+        return $this;
     }
 
     public function getHashedPassword() {
@@ -74,6 +78,7 @@ class User {
         if (filter_var($newEmail, FILTER_VALIDATE_EMAIL) == true) {
             $this->email = $newEmail;
         }
+        return $this;
     }
 
     public function getEmail() {
@@ -92,6 +97,7 @@ class User {
         if (is_string($newAdressStreet)) {
             $this->adressStreet = $newAdressStreet;
         }
+        return $this;
     }
 
     public function getAdressLocalNo() {
@@ -102,6 +108,7 @@ class User {
         if (is_numeric($newAdressLocal) || is_string($newAdressLocal)) {
             $this->adressLocalNo = $newAdressLocal;
         }
+        return $this;
     }
 
     public function getPostalCode() {
@@ -109,9 +116,10 @@ class User {
     }
 
     public function setPostalCode($newPostalCode) {
-        if (is_numeric($newPostalCode)) {
+        if (is_string($newPostalCode)) {
             $this->postalCode = $newPostalCode;
         }
+        return $this;
     }
 
     public function getAdressCity() {
@@ -122,6 +130,7 @@ class User {
         if (is_string($newAdressCity)) {
             $this->adressCity = $newAdressCity;
         }
+        return $this;
     }
 
     public function saveToDB(mysqli $connection) {
@@ -130,8 +139,10 @@ class User {
 
             //Saving new user to DB
 
-            $sql = "INSERT INTO Users(name, surname, hashed_password, email, adress_street, adress_local, postal_code, adress_city)
-                   VALUES ('$this->name', '$this->surname', '$this->hashedPassword', '$this->email', '$this->adressStreet', '$this->adressLocalNo', '$this->postalCode', '$this->adressCity')";
+            $sql = "INSERT INTO Users(name, surname, hashed_password, email,
+                adress_street, adress_local, postal_code, adress_city)
+                   VALUES ('$this->name', '$this->surname', '$this->hashedPassword', '$this->email',
+                     '$this->adressStreet', '$this->adressLocalNo', '$this->postalCode', '$this->adressCity')";
 
             $result = $connection->query($sql);
             if ($result == true) {
@@ -261,5 +272,14 @@ class User {
             return false;
         }
     }
-
+    //metoda sprawdza czy jest dostępny adres email w bazie
+    static public
+            function emailIsAvailable(mysqli $connection, $email) {
+        $sql = "SELECT * FROM Users WHERE `email`='$email'";
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows == 0) {
+            return true;
+        }
+        return false;
+    }
 }
