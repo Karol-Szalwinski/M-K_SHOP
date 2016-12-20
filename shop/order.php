@@ -56,7 +56,7 @@
                                 <td>Procesor I3-4160</td>
                                 <td>5</td>
                                 <td>590.50</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
+                                <td><button type="button" class="btn btn-warning" onclick="location.href='product.php';">Zmień</button></td>
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
 
                             </tr>
