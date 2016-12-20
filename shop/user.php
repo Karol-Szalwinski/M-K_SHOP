@@ -17,7 +17,7 @@
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-<?php require_once __DIR__ . '/header.php' ?>
+            <?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -27,7 +27,7 @@
             <div class="row content">
 
                 <!—-----------Panel z kategoriami --------------->
-<?php require_once __DIR__ . '/sidebar.php' ?>
+                <?php require_once __DIR__ . '/sidebar.php' ?>
 
                 <div class="col-sm-8 text-left"> 
 
@@ -48,6 +48,27 @@
                             <input type="text" class="form-control" id="surname" value="Kowalski">
                         </div>
                         <button type="submit" class="btn btn-info">Popraw dane</button>
+                    </form>
+                    <hr>
+                    <h4>Mój adres</h4>
+                    <form>
+                        <div class="form-group">
+                            <label for="street">Ulica:</label>
+                            <input type="text" class="form-control" id="street" value="Ogrodowa">
+                        </div>
+                        <div class="form-group">
+                            <label for="no">Nr domu / lokalu:</label>
+                            <input type="text" class="form-control" id="no" value="998c">
+                        </div>
+                        <div class="form-group">
+                            <label for="postcode">Kod pocztowy:</label>
+                            <input type="text" class="form-control" id="postcode" value="96-987">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Miejscowość:</label>
+                            <input type="text" class="form-control" id="city" value="Zadupie głębokie">
+                        </div>
+                        <button type="submit" class="btn btn-info">Popraw dane adresowe</button>   
                     </form>
                     <hr>
                     <h4>Zmień hasło</h4>
@@ -89,7 +110,7 @@
                                 <td>01 grudzień 2018</td>
                                 <td>1590.50</td>
                                 <td>Opłacone</td>
-                                <td><button type="button" class="btn btn-danger" onclick="location.href='order.php';">Pokaż</button></td>
+                                <td><button type="button" class="btn btn-danger" onclick="location.href = 'order.php';">Pokaż</button></td>
 
                             </tr>
 
@@ -108,7 +129,7 @@
     </div>
 
     <!—--------------Stopka------------------->
-<?php require_once __DIR__ . '/footer.php' ?>
+    <?php require_once __DIR__ . '/footer.php' ?>
 
 </body>
 </html>
