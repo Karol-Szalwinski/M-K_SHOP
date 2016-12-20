@@ -35,9 +35,9 @@
             <div class="row content">
 
                 <!—-----------Panel z kategoriami --------------->
-                <?php require_once __DIR__ . '/sidebar.php' ?>
+                <?php //require_once __DIR__ . '/sidebar.php' ?>
 
-                <div class="col-sm-10 text-left"> 
+                <div class="col-sm-12 text-left"> 
 
                     <h3>Procesor Intel Core i3-4160, 3.6GHz</h3>
                     <hr>
@@ -74,22 +74,26 @@
                             </a>
                         </div>
                     </div>
-
-                    <div class="col-sm-2 text-right">
-                        <br>
-                        <h3> Cena 590.50 PLN</h3>
-                        <br><br>
-                        <button type="button" class="btn btn-danger btn-lg">Dodaj do koszyka</button>
-
-                    </div>
-
-                    <div class="col-sm-7 text-left"> 
-                        <hr>
+                    <div class="col-sm-3 text-left"> 
+                        <h4>Opis przedmiotu</h4>
                         <p>Niesamowita wydajność i wspaniała grafika zaczynają się tutaj.
                             Procesory Intel® Core™ i3 czwartej generacji zapewniają korzystanie w pełni z płynnych i atrakcyjnych efektów wizualnych, oferują większe bezpieczeństwo przez funkcje zabezpieczeń i doskonały czas pracy na akumulatorach.1
 
                             Inteligentna wielozadaniowość, zasługa technologii Intel® Hyper-Threading, umożliwia płynne korzystanie z kilku aplikacji.2 Bezproblemowe oglądanie filmów i zdjęć oraz granie w gry zapewnia zestaw wbudowanych w procesorze funkcji graficznych, eliminujących konieczność instalacji dodatkowego sprzętu</p>
                     </div>
+
+                    <div class="col-sm-2 text-right panel panel-default panel-body">
+                        <br>
+                        <h3> Cena</h3>
+                        <h3> 590.50 PLN</h3>
+                        <br><br>
+                        <input type="number" class="input-lg " name="Ilość" min="1" max="10" step="1" value="1">
+                        <br><br>
+                        <input type="submit" class="btn btn-danger btn-lg" value="Dodaj do koszyka">
+                        <br> 
+                    </div>
+
+
                 </div>
             </div>
 
@@ -97,7 +101,7 @@
     </div>
 
     <!—--------------Stopka------------------->
-    <?php require_once __DIR__ . '/footer.php' ?>
+    <?php //require_once __DIR__ . '/footer.php' ?>
 
 </body>
 </html>
