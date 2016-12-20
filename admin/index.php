@@ -5,3 +5,41 @@
  * 
  */
 
+?>
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>M&K Shop - Admin Panel</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    </head>
+    <body>
+        <!-----------Nagłówek z menu-------------->
+        <header>
+            <?php require_once __DIR__ . '/header.php' ?>
+        </header>
+
+        <!—-----------Główna treść --------------->
+
+        <div class="container-fluid text-center">
+
+            <div class="row content">
+                <div class="col-sm-2 text-left">
+                    
+                </div>
+                
+                <div class="col-sm-8 text-left"> 
+                    <h2>Witamy w panelu administracyjnym M&K SHOP</h2>
+                    <p> Możesz zarządzać z tego miejsca kategoriami, produktami, użytkownikami i zamówieniami</p>
+                    <hr>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>
