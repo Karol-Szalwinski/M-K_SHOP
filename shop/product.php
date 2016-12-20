@@ -87,7 +87,10 @@
                         <h3> Cena</h3>
                         <h3> 590.50 PLN</h3>
                         <br><br>
-                        <input type="number" class="input-lg " name="Ilość" min="1" max="10" step="1" value="1">
+                        <label class="input-lg">
+                            Sztuk&nbsp;
+                            <input type="number" class="input-lg" name="Ilość" min="1" max="10" step="1" value="1">
+                        </label>
                         <br><br>
                         <input type="submit" class="btn btn-danger btn-lg" value="Dodaj do koszyka">
                         <br> 
