@@ -30,10 +30,10 @@
                     </form>
                 </div>
 
-                <div class="col-sm-8 text-left">
+                <div class="col-sm-12 text-left">
                     <br>
                     <hr>
-                    <h4>Lista kategorii</h4>
+                    <h3>Lista produktów</h3>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -86,6 +86,7 @@
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
                             </tr>
                         </tbody>
+                    </table>
                 </div>
             </div>
         </div>
