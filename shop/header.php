@@ -7,7 +7,11 @@
 
 require_once __DIR__ . '/../src/required.php';
 ?>
-
+<script>
+    $(document).ready(function() {
+        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+    });
+</script>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
