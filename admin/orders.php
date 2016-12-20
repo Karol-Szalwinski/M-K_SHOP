@@ -53,7 +53,7 @@
                                 <td>1590.50</td>
                                 <td>Opłacone</td>
                                 <td><button type="button" class="btn btn-info">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning">Wyślij wiadomość</button></td>
+                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
                             </tr>
                             <tr>
@@ -64,7 +64,7 @@
                                 <td>155.50</td>
                                 <td>Zrealizowane</td>
                                 <td><button type="button" class="btn btn-info">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning">Wyślij wiadomość</button></td>
+                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
                             </tr>
                         </tbody>

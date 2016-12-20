@@ -19,8 +19,8 @@ require_once __DIR__ . '/../src/required.php';
             <li><a href="orders.php"><span class="glyphicon glyphicon-list-alt"></span> Zamówienia</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="registerUser.php"><span class="glyphicon glyphicon-user"></span> Zarejestruj Administratora</a></li>
-            <li><a href="loginUser.php"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
+            <li><a href="registerAdmin.php"><span class="glyphicon glyphicon-user"></span> Zarejestruj Administratora</a></li>
+            <li><a href="loginAdmin.php"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
         </ul>
     </div>
 </nav>

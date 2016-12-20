@@ -51,7 +51,7 @@
                                 <td>00-090</td>
                                 <td>Warszawa</td>
                                 <td><button type="button" class="btn btn-info">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning">Wyślij wiadomość</button></td>
+                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
                             </tr>
                             <tr>
@@ -64,7 +64,7 @@
                                 <td>90-090</td>
                                 <td>Łowicz</td>
                                 <td><button type="button" class="btn btn-info">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning">Wyślij wiadomość</button></td>
+                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
                             </tr>
                             <tr>
@@ -77,7 +77,7 @@
                                 <td>00-090</td>
                                 <td>Warszawa</td>
                                 <td><button type="button" class="btn btn-info">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning">Wyślij wiadomość</button></td>
+                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
                             </tr>
                             <tr>
@@ -90,7 +90,7 @@
                                 <td>70-090</td>
                                 <td>Poznań</td>
                                 <td><button type="button" class="btn btn-info">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning">Wyślij wiadomość</button></td>
+                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
                                 <td><button type="button" class="btn btn-danger">Usuń</button></td>
                             </tr>
                         </tbody>
