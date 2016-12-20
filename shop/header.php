@@ -18,6 +18,7 @@ require_once __DIR__ . '/../src/required.php';
       <!--li><a href="#"><span class="glyphicon glyphicon-hand-right"></span> Nowe produkty</a></li-->
       <li><a href="user.php"><span class="glyphicon glyphicon-hand-right"></span> Moje konto</a></li>
       <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Mój koszyk (10)</a></li>
+      <li><a href="myMessages.php"><span class="glyphicon glyphicon-envelope"></span> Wiadomości (3)</a></li>
       <li><a href="aboutUs.php"><span class="glyphicon glyphicon-globe"></span> O nas</a></li>
       <li><a href="contact.php"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>
     </ul>
