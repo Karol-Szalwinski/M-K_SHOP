@@ -14,7 +14,7 @@ require_once __DIR__ . '/../src/required.php';
         <ul class="nav navbar-nav">
             <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Główna</a></li>
             <li><a href="category.php"><span class="glyphicon glyphicon-th-list"></span> Kategorie</a></li>
-            <li><a href="products.php.php"><span class="glyphicon glyphicon-shopping-cart"></span> Produkty</a></li>
+            <li><a href="products.php"><span class="glyphicon glyphicon-shopping-cart"></span> Produkty</a></li>
             <li><a href="users.php"><span class="glyphicon glyphicon-user"></span> Użytkownicy</a></li>
             <li><a href="orders.php"><span class="glyphicon glyphicon-list-alt"></span> Zamówienia</a></li>
         </ul>
