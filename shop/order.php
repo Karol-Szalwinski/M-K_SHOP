@@ -11,6 +11,11 @@
  * informacje dotyczące płatności.
  */
 require_once __DIR__ . '/../src/required.php';
+//Ustalamy id i name zalogowanego usera
+if ($loggedUser = isLoggedUser($conn)) {
+    $loggedUserName = $loggedUser->getName();
+    $loggedUserId = $loggedUser->getId();
+}
 ?>
 
 <!DOCTYPE html>

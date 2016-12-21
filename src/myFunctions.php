@@ -13,7 +13,7 @@ function isLoggedUser($conn) {
 //Zbieram błędy z całej strony, a potem wyświetlam tam gdzie chcę
 function printErrors($errorsArray) {
     foreach ($errorsArray as $error) {
-        echo "<div class='error'>" . $error . "</div>";
+        echo "<div class='alert alert-danger'>" . $error . "</div>";
     }
     if (empty($errorsArray)) {
         return false;

@@ -52,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php require_once __DIR__ . '/sidebar.php' ?>
 
                 <div class="col-sm-5 text-left"> 
-
+                    <!-Tutaj wyświetlam błędy-->
+                    <?php printErrors($errors); ?>
                     <h3>Zaloguj się</h3>
                     <form  action=# method="POST">
                         <div class="form-group">
