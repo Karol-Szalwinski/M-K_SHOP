@@ -22,7 +22,7 @@ class Order {
     public function __consruct() {
         $this->id = -1;
         $this->idUser = 0;
-        $this->status = "";
+        $this->status = 0;
         $this->creationDate = "";
         $this->paymentMethod = "";
         $this->amount = 0;
@@ -57,7 +57,7 @@ class Order {
     }
 
     public function setStatus($newStatus) {
-        if (is_integer($newStatus)) {
+        if (is_numeric($newStatus)) {
             $this->status = $newStatus;
         }
         return $this;
