@@ -34,11 +34,11 @@ class Status {
     public function getStatusName() {
         return $this->statusName;
     }
+    //zapisywanie statusu do bazy danych i jego aktualizacja
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
 
-            //Saving new Status to DB
 
             $sql = "INSERT INTO Statuses(status_name)
                    VALUES ('$this->statusName')";
@@ -64,7 +64,7 @@ class Status {
             }
         }
     }
-    
+ // wyświetlanie wszystkich statusów   
         static public function loadAllStatuses(mysqli $connection) {
 
         $sql = "SELECT * FROM Statuses ORDER BY status_name DESC";

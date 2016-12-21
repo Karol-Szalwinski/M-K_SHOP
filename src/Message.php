@@ -73,12 +73,11 @@ class Message {
     public function getCreationDate() {
         return $this->creationDate;
     }
-
+// wysyłanie - zpaisywanie nowej wiadomosci do bazy
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
 
-            //Saving new Message to DB
 
             $sql = "INSERT INTO Messages(id_receiver, id_sender, text_message)
                    VALUES ('$this->idReceiver', '$this->idSender', '$this->textMessage')";
@@ -94,7 +93,7 @@ class Message {
             }
         }
     }
-
+//wyświetlanie wiadomości wg id odbiorcy (użytkownika) - odebrane
     static public function loadMessagesByReceiverId(mysqli $connection, $idReceiver) {
 
         $sql = "SELECT * FROM Messages WHERE id_receiver=$idReceiver";
@@ -117,7 +116,7 @@ class Message {
 
         return null;
     }
-
+//wyświetlanie wiadomosci wg id wysyłającego (admina) - wiadomości wysłane
     static public function loadMessagesBySenderId(mysqli $connection, $idSender) {
 
         $sql = "SELECT * FROM Messages WHERE id_sender=$idSender";

@@ -15,6 +15,9 @@ class Order {
     private $creationDate;
     private $paymentMethod;
     private $amount;
+    private $idProduct;
+    private $quantity;
+    private $idOrders;
 
     public function __consruct() {
         $this->id = -1;
@@ -23,6 +26,9 @@ class Order {
         $this->creationDate = "";
         $this->paymentMethod = "";
         $this->amount = 0;
+        $this->idProduct = 0;
+        $this->quantity = 0;
+        $this->idOrders = 0;
     }
 
     public function getId() {
@@ -43,6 +49,7 @@ class Order {
         if (is_numeric($newUserId)) {
             $this->idUser = $newUserId;
         }
+        return $this;
     }
 
     public function getStatus() {
@@ -50,9 +57,10 @@ class Order {
     }
 
     public function setStatus($newStatus) {
-        if (is_string($newStatus)) {
+        if (is_integer($newStatus)) {
             $this->status = $newStatus;
         }
+        return $this;
     }
 
     public function getCreationDate() {
@@ -63,6 +71,7 @@ class Order {
         if (is_integer($newCreationDate)) {
             $this->creationDate = $newCreationDate;
         }
+        return $this;
     }
 
     public function getPaymentMethod() {
@@ -73,6 +82,7 @@ class Order {
         if (is_string($newPaymentMethod)) {
             $this->paymentMethod = $newPaymentMethod;
         }
+        return $this;
     }
 
     public function getAmount() {
@@ -83,13 +93,47 @@ class Order {
         if (is_numeric($newAmount)) {
             $this->amount = $newAmount;
         }
+        return $this;
+    }
+
+    public function getProductId() {
+        return $this->idProduct;
+    }
+
+    public function setProductId($newProductId) {
+        if (is_numeric($newProductId)) {
+            $this->idProduct = $newProductId;
+        }
+        return $this;
+    }
+
+    public function getQuantity() {
+        return $this->quantity;
+    }
+
+    public function setQuantity($newQuantity) {
+        if (is_numeric($newQuantity)) {
+            $this->quantity = $newQuantity;
+        }
+        return $this;
+    }
+
+    public function getOrderId() {
+        return $this->idOrders;
+    }
+
+    public function setOrderId($newOrderId) {
+        if (is_numeric($newOrderId)) {
+            $this->idOrders = $newOrderId;
+        }
+        return $this;
     }
 
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
 
-            //Saving new Order to DB
+            //zapisywanie zamówienia do bazy danych
 
             $sql = "INSERT INTO Orders(id_user, status,  payment_method, amount)
                VALUES ('$this->idUser','$this->status', '$this->paymentMethod', '$this->amount' )";
@@ -114,6 +158,7 @@ class Order {
         return false;
     }
 
+// wyświetlanie zamówień wg id zamówienia
     static public function loadOrderById(mysqli $connection, $id) {
 
         $sql = "SELECT * FROM Orders WHERE id=$id";
@@ -137,6 +182,7 @@ class Order {
         return null;
     }
 
+// wyświetlanie wszystkich zamówień wg id użytkownika
     static public function loadAllOrdersByUserId(mysqli $connection, $userId) {
 
         $sql = "SELECT * FROM Orders WHERE id_user=$userId ORDER BY name DESC";
@@ -159,6 +205,7 @@ class Order {
         }
     }
 
+// wyświetlanie wszystkich zamówień w bazie
     static public function loadAllOrders(mysqli $connection) {
 
         $sql = "SELECT * FROM Orders ORDER BY status DESC";
@@ -184,6 +231,7 @@ class Order {
         return $ret;
     }
 
+// wyświetlanie koszyka wg numeru koszyka - pytanie czy potrzebujemy takiej metody ?
     static public function loadCartById(mysqli $connection, $id) {
 
         $sql = "SELECT * FROM product_orders WHERE id=$id";
@@ -195,10 +243,10 @@ class Order {
             $row = $result->fetch_assoc();
             $loadedCart = new Cart();
             $loadedCart->id = $row['id'];
-            $loadedCart->idOrder = $row['id_orders'];
+            $loadedCart->idOrders = $row['id_orders'];
             $loadedCart->idProduct = $row['id_product'];
-
-
+            $loadedCart->quantity = $row['quantity'];
+            $loadedCart->amount = $row['amount'];
 
             return $loadedCart;
         }
@@ -206,6 +254,7 @@ class Order {
         return null;
     }
 
+    // wyświetlanie koszyka wg numeru zamówienia - order
     static public function loadAllProductsByOrderId(mysqli $connection, $idOrder) {
 
         $sql = "SELECT * FROM product_orders WHERE id_orders=$idOrder ORDER BY name DESC";
@@ -217,15 +266,44 @@ class Order {
 
                 $loadedCart = new Cart();
                 $loadedCart->id = $row['id'];
-                $loadedCart->idOrder = $row['id_orders'];
+                $loadedCart->idOrders = $row['id_orders'];
                 $loadedCart->idProduct = $row['id_product'];
+                $loadedCart->quantity = $row['quantity'];
+                $loadedCart->amount = $row['amount'];
                 $ret[] = $loadedCart;
             }
 
             return $ret;
         }
     }
-    
-    
-    
+
+    public function saveToCart(mysqli $connection) {
+
+        if ($this->id == -1) {
+
+            //dodawanie produktu do koszyka i zapisywanie nowego koszyka do bazy danych, skąd weźmiemy zmienną id_orders i id_product ?
+
+            $sql = "INSERT INTO Product_orders(id_orders, id_product,  quantity, amount)
+               VALUES ('$this->idOrders','$this->idProduct', '$this->quantity', '$this->amount' )";
+
+            $result = $connection->query($sql);
+            if ($result == true) {
+                $this->id = $connection->insert_id;
+
+                return true;
+            } else {
+                return false;
+            }
+        } else { //aktualizacja koszyka
+            $sql = "UPDATE Product_orders SET id_orders='$this->idOrders', id_product='$this->idProduct', 
+                    quantity='$this->quantity', amount='$this->amount'
+                 WHERE id=$this->id";
+            $result = $connection->query($sql);
+            if ($result == true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

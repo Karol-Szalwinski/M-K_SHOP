@@ -48,7 +48,7 @@ class Photo {
             $this->path = $newPath;
         }
     }
-
+//zapisywanie zdjęcia (jego ścieżki do bazy danych - modyfikacja
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
@@ -80,7 +80,7 @@ class Photo {
             }
         }
     }
-
+//wyświetlanie zdjęcia wg id danego zdjecia
     static public function loadPhotoById(mysqli $connection, $id) {
 
         $sql = "SELECT * FROM Photos WHERE id=$id";
@@ -101,7 +101,7 @@ class Photo {
 
         return null;
     }
-    
+//wyświetlanie zdjęć danego produktu wg id tego produktu    
         static public function loadAllPhotosByProductId(mysqli $connection, $productId) {
 
         $sql = "SELECT * FROM Photos WHERE id_product=$productId ORDER BY name DESC";
@@ -121,7 +121,7 @@ class Photo {
             return $ret;
         }
     }
-    
+ //wyświetlanie zdjęć wszystkich produktów   
         static public function loadAllPhotos(mysqli $connection) {
 
         $sql = "SELECT * FROM Photos ORDER BY id DESC";

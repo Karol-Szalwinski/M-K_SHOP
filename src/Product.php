@@ -83,7 +83,7 @@ class Product {
     public function getAvailability() {
         return $this->availability;
     }
-
+// wyświetlanie produktu wg id
     static public function loadProductById(mysqli $connection, $id) {
 
         $sql = "SELECT * FROM Product WHERE id=$id";
@@ -106,7 +106,7 @@ class Product {
 
         return null;
     }
-
+// wyświetlanie produktu wg nr grupy
     static public function loadAllProductsByGroupId(mysqli $connection, $idGroup) {
 
         $sql = "SELECT * FROM Product WHERE id_group=$idGroup ORDER BY name DESC";
@@ -129,7 +129,7 @@ class Product {
             return $ret;
         }
     }
-
+// wyświetlanie wszytskich produktów w bazie
     static public function loadAllProducts(mysqli $connection) {
 
         $sql = "SELECT * FROM Product ORDER BY name DESC";
@@ -153,12 +153,11 @@ class Product {
 
         return $ret;
     }
-
+// zapisywanie produktu do bazy danych
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
 
-            //Saving new product to DB
 
             $sql = "INSERT INTO Product(id_group, name, price, description, availability)
                VALUES ('$this->idGroup','$this->name', '$this->price', '$this->description', '$this->availability' )";
