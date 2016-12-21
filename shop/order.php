@@ -10,6 +10,7 @@
  * całkowita kwota zamówienia,
  * informacje dotyczące płatności.
  */
+require_once __DIR__ . '/../src/required.php';
 ?>
 
 <!DOCTYPE html>

@@ -5,6 +5,7 @@
  * karuzeli. Jest też możliwość dodania przedmiotu do koszyka obecnie
  * zalogowanego użytkownika.
  */
+require_once __DIR__ . '/../src/required.php';
 ?>
 
 <!DOCTYPE html>

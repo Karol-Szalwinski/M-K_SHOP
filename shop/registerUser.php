@@ -4,6 +4,11 @@
  * Strona do rejestracji użytkownika. Ma pobierać wszystkie informacje o
  * użytkowniku.
  */
+require_once __DIR__ . '/../src/required.php';
+//jeśli user jest zalogowany to przekierowuję na główną
+if (isset($_SESSION['loggedUser'])) {
+    header("Location: index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,10 +88,7 @@
     </body>
 </html>
 <?php
-//jeśli user jest zalogowany to przekierowuję na główną
-if (isset($_SESSION['loggedUser'])) {
-    header("Location: index.php");
-}
+
 $errors = [];
 //sprawdzam co user wpisał w formularz
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -162,10 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newUser->setPostalCode($userPostcode)->setAdresscity($userCity);           
         $newUser->setPassword($userPassword)->saveToDB($conn);
         var_dump($newUser);
-        //$_SESSION['loggedUser'] = $newUser->getId();
-        //header("Location: index.php");
+        $_SESSION['loggedUser'] = $newUser->getId();
+        header("Location: index.php");
     }
 }
-?>
+
 
 

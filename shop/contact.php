@@ -4,6 +4,7 @@
 /*
  * Strona kontaktu z administracja naszego sklepu
  */
+require_once __DIR__ . '/../src/required.php';
 ?>
 
 

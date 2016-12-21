@@ -262,12 +262,19 @@ class User {
 
         return null;
     }
+    //metoda sprawdza czy jest email w bazie i porównuje z hasłem
+    static public function loginUser(mysqli $conn, $email, $password) {
+        $sql = "SELECT * FROM Users WHERE email = '$email'";
+        $result = $conn->query($sql);
+        if ($result->num_rows == 1) {
+            //zwracamy wynik jako tabl assocjacyjne, gdzi kluczami sa nazwy kolumn
+            $row = $result->fetch_assoc();
 
-    static public function logIn(mysqli $connection, $email, $password) {
-        $loadedUser = self::loadUserByEmail($connection, $email);
-
-        if (password_verify($password, $loadedUser->hashedPassword)) {
-            return $loadedUser;
+            if (password_verify($password, $row['hashed_password'])) {
+                return $row['id'];
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

@@ -3,6 +3,7 @@
 /*
  * Strona opisująca właściciela sklepu
  */
+require_once __DIR__ . '/../src/required.php';
 ?>
 
 

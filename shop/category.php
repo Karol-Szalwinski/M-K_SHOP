@@ -3,6 +3,7 @@
  * Strona kategori
  * Wyświetla wszystkie towary z danej kategorii
  */
+require_once __DIR__ . '/../src/required.php';
 ?>
 
 <!DOCTYPE html>

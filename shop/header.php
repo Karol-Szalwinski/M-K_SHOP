@@ -5,7 +5,7 @@
  * Używany tam gdzie chcemy mieć w pełni funkcjonalne menu
  */
 
-require_once __DIR__ . '/../src/required.php';
+//require_once __DIR__ . '/../src/required.php';
 ?>
 <script>
     $(document).ready(function() {
@@ -19,7 +19,7 @@ require_once __DIR__ . '/../src/required.php';
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Główna</a></li>
-      <!--li><a href="#"><span class="glyphicon glyphicon-hand-right"></span> Nowe produkty</a></li-->
+   
       <li><a href="user.php"><span class="glyphicon glyphicon-hand-right"></span> Moje konto</a></li>
       <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Mój koszyk (10)</a></li>
       <li><a href="myMessages.php"><span class="glyphicon glyphicon-envelope"></span> Wiadomości (3)</a></li>
@@ -27,8 +27,19 @@ require_once __DIR__ . '/../src/required.php';
       <li><a href="contact.php"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="registerUser.php"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
-      <li><a href="loginUser.php"><span class="glyphicon glyphicon-log-in"></span> Zaloguj</a></li>
+        <!--Mechanizm wyswietlajacy inne menu w zależności czy jestesmy zalogowani-->
+        <?php
+            if (isset($_SESSION['loggedUser'])) {
+                echo "<li><a>Jesteś zalogowany jako " . $loggedUserName ."</a></li>
+                <li><a href='logoutUser.php'><span class='glyphicon glyphicon-log-out'></span> Wyloguj</a></li>";
+              
+            } else {
+                echo "<li><a href='registerUser.php'><span class='glyphicon glyphicon-user'></span> Zarejestruj się</a></li>
+                <li><a href='loginUser.php'><span class='glyphicon glyphicon-log-in'></span> Zaloguj</a></li>";
+                
+            }
+        ?>
+      
     </ul>
   </div>
 </nav>

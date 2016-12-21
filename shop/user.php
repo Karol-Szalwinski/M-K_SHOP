@@ -5,6 +5,7 @@
  * informacji, pokazywać wszystkie poprzednie zakupy tego użytkownika.
  * Użytkownik może zobaczyć tylko swój panel.
  */
+require_once __DIR__ . '/../src/required.php';
 ?>
 
 <!DOCTYPE html>
