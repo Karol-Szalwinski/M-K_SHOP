@@ -13,8 +13,8 @@ $errors = [];
 //sprawdzam co user wpisał w formularz
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //sprawdzam przesłany e-mail, jego długość po usunięciu białych znaków
-    if (isset($_POST['user-email']) && strlen(trim($_POST['user-email'])) > 5) {
-        $userEmail = trim($_POST['user-email']);
+    if (isset($_POST['email']) && strlen(trim($_POST['email'])) > 5) {
+        $adminEmail = trim($_POST['email']);
 
         //sprawdzam czy mail jest już w bazie wbudowaną funkcją
         if (!Admin::emailIsAvailable($conn, $adminEmail)) {
@@ -25,18 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     //sprawdzam przesłane imię i trimuję
     if (isset($_POST['name']) && strlen(trim($_POST['name'])) > 0) {
-        $userName = substr(trim($_POST['name']), 0, 20);
+        $adminName = substr(trim($_POST['name']), 0, 20);
     } else {
         $errors[] = 'Podałeś nieprawidłowe imię użytkownika';
     }
     
     //sprawdzam hasło, jego długość, obcinam białe znaki
     if (isset($_POST['user-password']) && strlen(trim($_POST['user-password'])) >= 5) {
-        $userPassword = trim($_POST['user-password']);
+        $adminPassword = trim($_POST['user-password']);
         //sprawdzam czy hasło zgadza się w obydwu polach
         if (isset($_POST['user-confirm-password']) &&
-                trim($_POST['user-confirm-password']) == $userPassword) {
-            $userConfirmPassword = trim($_POST['user-confirm-password']);
+                trim($_POST['user-confirm-password']) == $adminPassword) {
+            $adminConfirmPassword = trim($_POST['user-confirm-password']);
         } else {
             $errors[] = 'Podane hasła nie zgadzają się';
         }
@@ -48,11 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) {
         echo "Dane rejestracji są poprawne<br>";
         $newAdmin = new Admin;
-        $newUser->setEmail($userEmail)->setName($userName);
-        $newUser->setPassword($userPassword)->saveToDB($conn);
+        $newAdmin->setEmail($adminEmail)->setName($adminName);
+        $newAdmin->setPassword($adminPassword)->saveToDB($conn);
+        var_dump($newAdmin);
         //loguję użytkownika i przekiwrowuję
         $_SESSION['loggedAdmin'] = $newAdmin->getId();
-        header("Location: index.php");
+        //header("Location: index.php");
     }
 }
 ?>
@@ -75,10 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!—-----------Główna treść --------------->
 
         <div class="container-fluid text-center">
-            <div class="col-sm-4 text-left"> 
-
+            <div class="col-sm-5 text-left"> 
+                    <!-Tutaj wyświetlam błędy-->
+                    <?php printErrors($errors); ?>
                 <h3>Zarejestruj nowego administratora</h3>
-                <form>
+                <form action=# method="POST">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Podaj email">
@@ -96,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="password" class="form-control" id="user-confirm-password" name="user-confirm-password" placeholder="Wprowadź hasło ponownie">
                     </div>
 
-                    <button type="submit" class="btn btn-info">Zarejestruj administratora</button>
+                    <button type="submit" class="btn btn-info">Zarejestruj admina</button>
                     <hr>
                 </form>
 

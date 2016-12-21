@@ -27,6 +27,7 @@ class Admin {
         if (is_numeric($newId)) {
             $this->id = $newId;
         }
+        return $this;
     }
 
     public function setName($newName) {
@@ -43,6 +44,7 @@ class Admin {
         if (filter_var($newEmail, FILTER_VALIDATE_EMAIL) == true) {
             $this->email = $newEmail;
         }
+        return $this;
     }
 
     public function getEmail() {
@@ -52,6 +54,7 @@ class Admin {
     public function setPassword($newPassword) {
         $newHashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
         $this->hashedPassword = $newHashedPassword;
+        return $this;
     }
 
     public function getHashedPassword() {

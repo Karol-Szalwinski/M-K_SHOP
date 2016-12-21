@@ -2,6 +2,29 @@
 /*
  * Lista kategorii w korej mozemy dodac i usunac dowolna z nich
  */
+require_once __DIR__ . '/../src/required.php';
+
+//jeśli user jest zalogowany to przekierowuję na główną
+if (!isLoggedAdmin($conn)) {
+    header("Location: loginAdmin.php");
+}
+$errors = [];
+
+//sprawdzam czy został przesłany e-mail i hasło
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['category']) && strlen(trim($_POST['category'])) > 4) {
+        $newCategory = $_POST['category'];
+        $category = new Group();
+        $category->setGroupName($newCategory);
+        if ($category->saveToDB($conn)) {
+            $errors[] = "Dodano nową kategorię";
+        } else {
+            $errors[] = "Nie udało się dodać kategorii";
+        }
+    } else {
+        $errors[] = "Podana kategoria jest za krotka";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,12 +44,14 @@
 
         <div class="container-fluid text-center">
 
-            <div class="row content">            
+            <div class="row content"> 
+                <!-Tutaj wyświetlam błędy-->
+                <?php printErrors($errors); ?>
                 <div class="col-sm-6 text-left">
-                    <form>
+                    <form action=# method="POST">
                         <div class="form-group">
                             <label for="category"><h4>Dodaj kategorię:</h4></label>
-                            <input type="text" class="form-control" id="category" placeholder="Wprowadź nowa kategorię">
+                            <input type="text" class="form-control" id="category" name="category" placeholder="Wprowadź nowa kategorię">
                         </div>
                         <button type="submit" class="btn btn-info">Dodaj kategorię</button>
                     </form>
@@ -47,35 +72,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Procesory</td>
-                                <td>10</td>
-                                <td><button type="button" class="btn btn-warning" onclick="location.href = 'product.php';">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Płyty główne</td>
-                                <td>25</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Dyski HDD</td>
-                                <td>2</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Karty graficzne</td>
-                                <td>3</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
+                            <?php
+                            //Wyświetlam wszystkie kategorie
+                            $no = 0;
+                            $allCategories = Group::loadAllGroups($conn);
+                            foreach ($allCategories as $category) {
+                                
+                                $no++;
+                                $category->showCategoryInTabRow($conn, $no);
+                            }
+                            ?>
                         </tbody>
                     </table>
 

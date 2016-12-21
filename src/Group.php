@@ -36,6 +36,7 @@ class Group {
     public function getGroupName() {
         return $this->groupName;
     }
+
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
@@ -59,28 +60,25 @@ class Group {
                     WHERE id=$this->id";
 
             $result = $connection->query($sql);
-            if($result == true) {
+            if ($result == true) {
                 return true;
             } else {
                 return false;
             }
         }
     }
-    
-        static public function loadAllGroups(mysqli $connection) {
 
-        $sql = "SELECT * FROM Groups ORDER BY group_name DESC";
+    static public function loadAllGroups(mysqli $connection) {
+
+        $sql = "SELECT * FROM Groups ORDER BY group_name ASC";
         $ret = [];
 
         $result = $connection->query($sql);
         if ($result == true && $result->num_rows != 0) {
             foreach ($result as $row) {
-
                 $loadedGroup = new Group();
                 $loadedGroup->id = $row['id'];
                 $loadedGroup->groupName = $row['group_name'];
-                
-
                 $ret[] = $loadedGroup;
             }
         }
@@ -88,5 +86,14 @@ class Group {
         return $ret;
     }
 
-    
+    public function showCategoryInTabRow($conn, $no) {
+        echo "<tr>";
+        echo"<td>$no</td>";
+        echo"<td>$this->groupName</td>";
+        echo"<td>10</td>";
+        echo"<td><button type='button' class='btn btn-warning' onclick='location.href = 'product.php';'>Zmień</button></td>";
+        echo"<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
+        echo"</tr>";
+    }
+
 }
