@@ -4,7 +4,11 @@
  * plik główny panelu administratora
  * 
  */
-
+require_once __DIR__ . '/../src/required.php';
+//Ustalamy id i name zalogowanego admina
+if (!isLoggedAdmin($conn)) {
+    header("Location: loginAdmin.php");
+}
 ?>
 
 

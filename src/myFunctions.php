@@ -8,6 +8,14 @@ function isLoggedUser($conn) {
     }
     return User::loadUserById($conn, $_SESSION['loggedUser']);
 }
+//Funkcja sprawdza czy jestesmy zalogowani jako admin, jeśli nie to nas przekierowuje do logowania
+//Zwraca też obiekt Admin
+function isLoggedAdmin($conn) {
+    if (!isset($_SESSION['loggedAdmin'])) {
+        return null;
+    }
+    return Admin::loadAdminById($conn, $_SESSION['loggedAdmin']);
+}
 
 //Funkcja wyświetla kod html do wyświetlenia errorów w wybranym miejscu strony
 //Zbieram błędy z całej strony, a potem wyświetlam tam gdzie chcę

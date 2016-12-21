@@ -134,14 +134,32 @@ class Admin {
         return null;
     }
    
-    static public function logIn(mysqli $connection, $email, $password) {
-        $loadedAdmin = self::loadUserByEmail($connection, $email);
+        //metoda sprawdza czy jest email w bazie i porównuje z hasłem
+    static public function loginAdmin(mysqli $conn, $email, $password) {
+        $sql = "SELECT * FROM Admin WHERE email = '$email'";
+        $result = $conn->query($sql);
+        if ($result->num_rows == 1) {
+            //zwracamy wynik jako tabl assocjacyjne, gdzi kluczami sa nazwy kolumn
+            $row = $result->fetch_assoc();
 
-        if (password_verify($password, $loadedAdmin->hashedPassword)) {
-            return $loadedAdmin;
+            if (password_verify($password, $row['hashed_password'])) {
+                return $row['id'];
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
+    }
+        //metoda sprawdza czy jest dostępny adres email w bazie
+    static public
+            function emailIsAvailable(mysqli $connection, $email) {
+        $sql = "SELECT * FROM Admin WHERE `email`='$email'";
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows == 0) {
+            return true;
+        }
+        return false;
     }
 
 }

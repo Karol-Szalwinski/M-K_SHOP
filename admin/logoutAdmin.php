@@ -3,9 +3,8 @@
 /*
  * Strona wylogowania
  */
-
-require_once __DIR__ . '/../src/required.php';
-if (isset($_SESSION['loggedUserId'])) {
-    unset($_SESSION['loggedUserId']);
+session_start();
+if (isset($_SESSION['loggedAdmin'])) {
+    unset($_SESSION['loggedAdmin']);
 }
 header("Location: index.php");
