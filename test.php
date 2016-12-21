@@ -25,15 +25,15 @@ var_dump($produkt2);
 
 $user1 = new User();
 
-$user1->setEmail('jand2@mail.com');
+$user1->setEmail('jan@mail.com');
 $user1->setName('jan');
 //$user1->setId(1);
 $user1->setPassword('haslo2');
 $user1->setSurname('kowalski');
 $user1->setAdressStreet("Kwiatowa");
-$user1->setAdressLocalNo("10b");
+$user1->setAdressLocalNo("24a/33");
 $user1->setPostalCode("39-345");
-$user1->setAdressCity("Poznań");
+$user1->setAdressCity("Warszawa");
 
 var_dump($user1);
 

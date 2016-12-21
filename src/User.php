@@ -105,7 +105,7 @@ class User {
     }
 
     public function setAdressLocalNo($newAdressLocal) {
-        if (is_numeric($newAdressLocal) || is_string($newAdressLocal)) {
+        if (preg_match("/[^\s]*$/", $newAdressLocal)) {
             $this->adressLocalNo = $newAdressLocal;
         }
         return $this;
@@ -116,7 +116,7 @@ class User {
     }
 
     public function setPostalCode($newPostalCode) {
-        if (is_string($newPostalCode)) {
+        if (preg_match("/[0-9][0-9]-[0-9][0-9][0-9]$/", $newPostalCode)) {
             $this->postalCode = $newPostalCode;
         }
         return $this;
