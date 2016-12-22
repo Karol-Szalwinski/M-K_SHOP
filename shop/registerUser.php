@@ -83,9 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newUser->setAdressStreet($userStreet)->setAdressLocalNo($userLocalNo);
         $newUser->setPostalCode($userPostcode)->setAdresscity($userCity);
         $newUser->setPassword($userPassword)->saveToDB($conn);
+        //tworzę pusty koszyk dla użytkownika
+        $newCart = new Order();
+        $newCart->setUserId($newUserId->getId())->setStatus(0)->setPaymentMethod("Cash")
+                ->setAmount(0.00);
+        var_dump($newUser, $newCart);
         //loguję użytkownika i przekiwrowuję
         $_SESSION['loggedUser'] = $newUser->getId();
-        header("Location: index.php");
+        //header("Location: index.php");
     }
 }
 ?>

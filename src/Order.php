@@ -15,9 +15,9 @@ class Order {
     private $creationDate;
     private $paymentMethod;
     private $amount;
-    private $idProduct;
-    private $quantity;
-    private $idOrders;
+    //private $idProduct;
+    //private $quantity;
+    //private $idOrders;
 
     public function __consruct() {
         $this->id = -1;
@@ -26,9 +26,9 @@ class Order {
         $this->creationDate = "";
         $this->paymentMethod = "";
         $this->amount = 0;
-        $this->idProduct = 0;
-        $this->quantity = 0;
-        $this->idOrders = 0;
+        //$this->idProduct = 0;
+        //$this->quantity = 0;
+       //$this->idOrders = 0;
     }
 
     public function getId() {
@@ -39,6 +39,7 @@ class Order {
         if (is_numeric($newId)) {
             $this->id = $newId;
         }
+        return $this;
     }
 
     public function getUserId() {
@@ -95,7 +96,7 @@ class Order {
         }
         return $this;
     }
-
+/*
     public function getProductId() {
         return $this->idProduct;
     }
@@ -128,7 +129,7 @@ class Order {
         }
         return $this;
     }
-
+*/
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
