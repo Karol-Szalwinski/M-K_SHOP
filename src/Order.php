@@ -19,13 +19,13 @@ class Order {
     //private $quantity;
     //private $idOrders;
 
-    public function __consruct() {
+    public function __construct() {
         $this->id = -1;
         $this->idUser = 0;
         $this->status = 0;
         $this->creationDate = "";
         $this->paymentMethod = "";
-        $this->amount = 0;
+        $this->amount = 0.00;
         //$this->idProduct = 0;
         //$this->quantity = 0;
        //$this->idOrders = 0;

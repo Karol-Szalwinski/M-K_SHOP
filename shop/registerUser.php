@@ -85,8 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newUser->setPassword($userPassword)->saveToDB($conn);
         //tworzę pusty koszyk dla użytkownika
         $newCart = new Order();
-        $newCart->setUserId($newUserId->getId())->setStatus(0)->setPaymentMethod("Cash")
-                ->setAmount(0.00);
+        $newUserId = $newUser->getId();
+        $newCart->setUserId($newUserId)
+                ->setStatus(0)
+                ->setPaymentMethod("Cash")
+                ->setAmount(0.00)->saveToDB($conn);
         var_dump($newUser, $newCart);
         //loguję użytkownika i przekiwrowuję
         $_SESSION['loggedUser'] = $newUser->getId();
