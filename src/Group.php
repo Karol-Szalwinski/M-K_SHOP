@@ -25,12 +25,14 @@ class Group {
         if (is_numeric($newId)) {
             $this->id = $newId;
         }
+        return $this;
     }
 
     public function setGroupName($newGroupName) {
         if (is_string($newGroupName)) {
             $this->groupName = $newGroupName;
         }
+        return $this;
     }
 
     public function getGroupName() {
@@ -85,7 +87,7 @@ class Group {
 
         return $ret;
     }
-
+    //Wyswietla kategorię w wierszu tabeli
     public function showCategoryInTabRow($conn, $no) {
         echo "<tr>";
         echo"<td>$no</td>";
@@ -96,7 +98,14 @@ class Group {
         echo"<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
         echo"</tr>";
     }
-    
+    //wyswietla kategorię jako przycisk sidebara
+    public function showCategoryInSidebar() {
+        echo "<li>";
+        echo "<a href='category.php?categoryId=$this->id'>";
+        echo $this->groupName;
+        echo"</a></li>";      
+    }
+    //Usuwa kategorię po id
     static public function deleteCategoryById(mysqli $connection, $id) {
 
         if ($id > 0) {
@@ -110,4 +119,6 @@ class Group {
         return true;
     }
 
+    
+    
 }
