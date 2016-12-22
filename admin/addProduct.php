@@ -4,6 +4,62 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+require_once __DIR__ . '/../src/required.php';
+
+//jeśli user jest zalogowany to przekierowuję na główną
+if (!isLoggedAdmin($conn)) {
+    header("Location: loginAdmin.php");
+}
+$errors = [];
+
+//sprawdzam czy zostały przesłane odpowiednie dane
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //sprawdzam przesłane id kategorii
+    if (isset($_POST['category']) && is_numeric($_POST['category']) &&
+            $_POST['category'] > 0) {
+        $categoryId = intval($_POST['category']);
+    } else {
+        $errors[] = 'Nie wybrałeś kategorii';
+    }
+    //sprawdzam przesłaną nazwę produktu
+    if (isset($_POST['name']) && strlen(trim($_POST['name'])) > 0) {
+        $name = substr(trim($_POST['name']), 0, 20);
+    } else {
+        $errors[] = 'Podałeś nieprawidłową nazwę';
+    }
+    //sprawdzam przesłany opis produktu
+    if (isset($_POST['description']) && strlen(trim($_POST['description'])) > 20) {
+        $description = trim($_POST['description']);
+    } else {
+        $errors[] = 'Podałeś za krótki opis. Napisz chociaż jedno zdanie';
+    }
+    //sprawdzam przesłaną ilość
+    if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) &&
+            $_POST['quantity'] > 0) {
+        $quantity = intval($_POST['quantity']);
+    } else {
+        $errors[] = 'Ilość musi być większa od 0';
+    }
+    //sprawdzam przesłaną cenę
+    if (isset($_POST['price']) && is_numeric($_POST['price']) &&
+            $_POST['price'] > 0) {
+        $price = floatval($_POST['price']);
+    } else {
+        $errors[] = 'Cena musi być większa od 0';
+    }
+
+//Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy nowy
+//produkt i wracamy do listy produktów
+    if (empty($errors)) {
+        echo "Dane produktu są poprawne<br>";
+        var_dump($categoryId);
+        $newProduct = new Product();
+        $newProduct->setIdGroup($categoryId)->setName($name)->setDescription($description)
+                ->setAvailability($quantity)->setPrice($price)->saveToDB($conn);
+        var_dump($newProduct);
+        //header("Location: index.php");
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,21 +80,25 @@
         <div class="container-fluid text-center">
 
             <div class="row content">            
-
+                <!-Tutaj wyświetlam błędy-->
+                <?php printErrors($errors); ?>
                 <div class="col-sm-12 text-left">
 
                     <h3>Dodaj produkt</h3>
                 </div>
                 <div class="col-sm-6 text-left">
 
-                    <form>
+                    <form method="POST">
                         <div class="form-group">
                             <label for="category">Kategoria</label>
                             <select class="form-control" id="category" name="category">
-                                <option value="1">Wybierz kategorię</option>
-                                <option value="2">Kategoria 1</option>
-                                <option value="3">Kategoria 2</option>
-                                <option value="4">Kategoria 3</option>
+                                <option value="0">Wybierz kategorię</option>
+                                <?php
+                                $allCategories = Group::loadAllGroups($conn);
+                                foreach ($allCategories as $category) {
+                                    echo "<option value='" . $category->getId() . "'>" . $category->getGroupName() . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -52,7 +112,11 @@
                         </div>
                         <div class="form-group">
                             <label for="quantity">Dostępna ilość</label>                           
-                            <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="10" step="1" value="1">
+                            <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="1000" step="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Cena sprzedaży</label>                           
+                            <input type="number" class="form-control" id="price" name="price" min="1" step="0.01" value="1">
                         </div>
                         <button type="submit" class="btn btn-danger">Dodaj nowy produkt</button>
                     </form>

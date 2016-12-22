@@ -30,6 +30,7 @@ class Product {
         if (is_integer($newId)) {
             $this->id = $newId;
         }
+        return $this;
     }
 
     public function getId() {
@@ -40,12 +41,14 @@ class Product {
         if (is_string($newName)) {
             $this->name = $newName;
         }
+        return $this;
     }
 
     public function setIdGroup($newIdGroup) {
         if (is_integer($newIdGroup)) {
             $this->idGroup = $newIdGroup;
         }
+        return $this;
     }
 
     public function getIdGroup() {
@@ -60,6 +63,7 @@ class Product {
         if (is_numeric($newPrice)) {
             $this->price = $newPrice;
         }
+        return $this;
     }
 
     public function getPrice() {
@@ -69,7 +73,7 @@ class Product {
     public function setDescription($newDescription) {
         if (is_string($newDescription)) {
             $this->description = $newDescription;
-        }
+        } return $this;
     }
 
     public function getDescription() {
@@ -78,7 +82,9 @@ class Product {
 
     public function setAvailability($newAvailability) {
         $this->availability = $newAvailability;
+        return $this;
     }
+    
 
     public function getAvailability() {
         return $this->availability;
