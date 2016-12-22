@@ -1,10 +1,39 @@
 <?php
-
 /*
  * Strona przedmiotu
  * Na tej stronie wyświetla się opis przedmiotu oraz jego zdjęcia w postaci
  * karuzeli.
  */
+require_once __DIR__ . '/../src/required.php';
+
+//jeśli user nie jest zalogowany to przekierowuję do logowania
+if (!isLoggedAdmin($conn)) {
+    header("Location: loginAdmin.php");
+}
+$errors = [];
+// Jeżeli dostaliśmy poprawny productId w adresie
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['productId']) && is_numeric($_GET['productId'])) {
+        $productId = $_GET['productId'];
+
+        //Jeżeli produkt o tym productId jest w bazie
+        if ($product = Product::loadProductById($conn, $productId)) {
+            $productname = $product->getName();
+            $category = $product->getIdGroup();
+            $description = $product->getDescription();
+            $availability = $product->getAvailability();
+            $price = $product->getPrice();
+        } else {
+            $errors[] = 'Nie ma takiego towaru w bazie.';
+        }
+    } else {
+        $errors[] = 'Grrr... coś kombinujesz z adresem url... Nieładnie!';
+    }
+    if (!empty($errors)) {
+        printErrors($errors);
+        die();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,14 +63,13 @@
 
             <div class="row content">
 
-                <!—-----------Panel z kategoriami --------------->
-                <?php //require_once __DIR__ . '/sidebar.php' ?>
 
                 <div class="col-sm-12 text-left"> 
 
-                    <h3>Procesor Intel Core i3-4160, 3.6GHz</h3>
+                    <h3><?php echo $productname ?></h3>
+                    <h4>Kategoria :<?php echo $category ?></h4>
                     <hr>
-                    <div class="col-sm-7 text-left"> 
+                    <div class="col-sm-6 text-left"> 
 
                         <h4>Galeria zdjęć</h4>
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -76,23 +104,20 @@
                     </div>
                     <div class="col-sm-3 text-left"> 
                         <h4>Opis przedmiotu</h4>
-                        <p>Niesamowita wydajność i wspaniała grafika zaczynają się tutaj.
-                            Procesory Intel® Core™ i3 czwartej generacji zapewniają korzystanie w pełni z płynnych i atrakcyjnych efektów wizualnych, oferują większe bezpieczeństwo przez funkcje zabezpieczeń i doskonały czas pracy na akumulatorach.
-                            <br>1 Inteligentna wielozadaniowość, zasługa technologii Intel® Hyper-Threading, umożliwia płynne korzystanie z kilku aplikacji.
-                            <br>2 Bezproblemowe oglądanie filmów i zdjęć oraz granie w gry zapewnia zestaw wbudowanych w procesorze funkcji graficznych, eliminujących konieczność instalacji dodatkowego sprzętu</p>
+                        <p><?php echo $description ?> </p>
                     </div>
+                    <div class="col-sm-3 ">
+                        <div class="text-right panel panel-default panel-body">
+                            <br>
+                            <h3> Cena</h3>
+                            <h3> <?php echo $price ?> PLN</h3>
+                            <br><br>
+                            <h3> Dostępnych</h3>
+                            <h3> <?php echo $availability ?> Sztuk</h3>
+                            <br><br>
+                        </div> 
 
-                    <div class="col-sm-2 text-right panel panel-default panel-body">
-                        <br>
-                        <h3> Cena</h3>
-                        <h3> 590.50 PLN</h3>
-                        <br><br>
-                        <h3>Dostępnych 87 sztuk </h3>
-                        <br><br>
-                        
                     </div>
-
-
                 </div>
             </div>
 
@@ -100,7 +125,7 @@
     </div>
 
     <!—--------------Stopka------------------->
-    <?php //require_once __DIR__ . '/footer.php' ?>
+    <?php //require_once __DIR__ . '/footer.php'  ?>
 
 </body>
 </html>
