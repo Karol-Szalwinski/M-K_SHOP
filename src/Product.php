@@ -91,11 +91,8 @@ class Product {
     }
 // wyświetlanie produktu wg id
     static public function loadProductById(mysqli $connection, $id) {
-
         $sql = "SELECT * FROM Product WHERE id=$id";
-
         $result = $connection->query($sql);
-
         if ($result == true && $result->num_rows == 1) {
 
             $row = $result->fetch_assoc();
@@ -134,6 +131,7 @@ class Product {
 
             return $ret;
         }
+        return $ret;
     }
 // wyświetlanie wszytskich produktów w bazie
     static public function loadAllProducts(mysqli $connection) {
@@ -152,9 +150,10 @@ class Product {
                 $loadedProduct->price = $row['price'];
                 $loadedProduct->description = $row['description'];
                 $loadedProduct->availability = $row['availability'];
-
                 $ret[] = $loadedProduct;
             }
+            return $ret;
+            
         }
 
         return $ret;
@@ -188,6 +187,19 @@ class Product {
         return false;
     }
 
-    
+        //Wyswietla produkt w wierszu tabeli
+    public function showProductInTabRow($conn, $no) {
+        echo '<tr onclick="location.href=';
+        echo "'product.php?productId=";
+        echo $this->getId();
+        echo "'" . '">';
+        echo "<td>" . $no . "</td>";
+        echo "<td><img src='../images/image_1.jpg' width='100'"
+        . " height='100'></td>";
+        echo "<td>" . $this->getName() . "</td>";
+        echo "<td>" . $this->getAvailability() . "</td>";
+        echo "<td>" . $this->getPrice() . " PLN</td>";
+        echo "</tr>";
+    }
 
 }

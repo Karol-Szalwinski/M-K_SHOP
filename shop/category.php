@@ -9,6 +9,31 @@ if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
 }
+// Jeżeli dostaliśmy poprawny productId w adresie
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['categoryId']) && is_numeric($_GET['categoryId'])) {
+        $categoryId = $_GET['categoryId'];
+
+        //Ustalamy czy wyswietlamy wszystkie, czy konkretna kategorię
+        if ($categoryId == 0) {
+            $allProducts = Product::loadAllProducts($conn);
+        } else {
+            $allProducts = Product::loadAllProductsByGroupId($conn, $categoryId);
+        }
+        //Jeżeli kategoria o tym Id jest w bazie i ma produkty to dostosuwujemy tytuł
+        if (!empty($allProducts)) {
+            $title = "Wszystkie towary z kategorii";
+        } else {
+            $title = 'Nie ma produktów w tej kategorii.';
+        }
+    } else {
+        $errors[] = 'Grrr... coś kombinujesz z adresem url... Nieładnie!';
+    }
+    if (!empty($errors)) {
+        printErrors($errors);
+        die();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +60,7 @@ if ($loggedUser = isLoggedUser($conn)) {
 
                 <div class="col-sm-10 text-left"> 
 
-                    <h3>Wszystkie towary z kategorii</h3>
+                    <h3><?php echo $title ?></h3>
 
                     <table class="table table-hover">
                         <thead>
@@ -48,37 +73,16 @@ if ($loggedUser = isLoggedUser($conn)) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="product.php" target="_blank">1</a></td>                              
-                                <td><a href="product.php" target="_blank"><img src="../images/image_1.jpg" width="100" height="100" border="0"></a></td>
-                                <td><a href="product.php" target="_blank">Procesor I3-4160</a></td>
-                                <td><a href="product.php" target="_blank">5</a></td>
-                                <td><a href="product.php" target="_blank">590.50 PLN</a></td>                            
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="product.php" target="_blank"><img src="../images/image_1.jpg" width="100" height="100" border="0"></a></td>
-                                <td>Procesor I5-4460</td>
-                                <td>5</td>
-                                <td>750.99 PLN</td>
+                            <?php
+                            //Wyświetlam wszystkie produkty
+                            $no = 0;
+                            foreach ($allProducts as $product) {
 
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="product.php" target="_blank"><img src="../images/image_3.jpg" width="100" height="100" border="0"></a></td>                                
-                                <td>Dysk Toshiba 4 Tb SSD</td>
-                                <td>2</td>
-                                <td>1055.50 PLN</td>
+                                $no++;
+                                $product->showProductInTabRow($conn, $no);
+                            }
+                            ?>
 
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a href="product.php" target="_blank"><img src="../images/image_4.jpg" width="100" height="100" border="0"></a></td>                                
-                                <td>Karta graficzna GTX 1050</td>
-                                <td>3</td>
-                                <td>789.00 PLN</td>
-
-                            </tr>
                         </tbody>
                     </table>
                 </div>

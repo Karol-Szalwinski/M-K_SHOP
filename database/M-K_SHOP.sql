@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2016 at 09:39 AM
+-- Generation Time: Dec 22, 2016 at 03:21 PM
 -- Server version: 5.5.50-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
@@ -56,18 +56,20 @@ CREATE TABLE IF NOT EXISTS `Groups` (
   `group_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `Groups`
 --
 
 INSERT INTO `Groups` (`id`, `group_name`) VALUES
-(1, 'Monitory'),
-(2, 'Telewizory'),
-(3, 'Procesory'),
-(4, 'Pralki'),
-(5, 'Telefony');
+(6, 'Pralki'),
+(8, 'PiÅ‚ki'),
+(10, 'Dyski SSD'),
+(11, 'Dyski FDSH'),
+(12, 'Monitory'),
+(13, 'PÅ‚yty gÅ‚Ã³wne'),
+(14, 'Komputery');
 
 -- --------------------------------------------------------
 
@@ -132,7 +134,18 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `availability` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_group` (`id_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `Product`
+--
+
+INSERT INTO `Product` (`id`, `id_group`, `name`, `price`, `description`, `availability`) VALUES
+(1, 10, 'PÅ‚yta MSI H81', 561.67, 'PÅ‚yta gÅ‚Ã³wna, Å›wietna i nowa i jest kosa.', 14),
+(2, 12, 'AEC 17 cali', 550.68, 'Super monitor gamingowy. Wysoki kontrast i rozdzielczoÅ›Ä‡', 133),
+(3, 14, 'Komputer Acer', 341, 'Bardzo wydajny komputer z wieloma fajnymi podzespoÅ‚ami', 100),
+(4, 14, 'MSI GAMING COMPUTER ', 105.98, 'MSI to jeden z najwiÄ™kszych i najbardziej znanych na Å›wiecie producentÃ³w sprzÄ™tu dla graczy. W swojej ofercie posiada rozwiÄ…zania przeznaczone dla mniej zaawansowanych uÅ¼ytkownikÃ³w, jak rÃ³wnieÅ¼ sprzÄ™t dla prawdziwych profesjonalistÃ³w. Jako jeden z niewielu producentÃ³w na Å›wiecie, oprÃ³cz klasycznych komputerÃ³w stacjonarnych, MSI oferuje takÅ¼e zaprojektowane specjalnie dla graczy komputery All-in-One.', 100),
+(5, 14, 'MSI GAMING COMPUTER ', 10258.9, 'MSI to jeden z najwiÄ™kszych i najbardziej znanych na Å›wiecie producentÃ³w sprzÄ™tu dla graczy. W swojej ofercie posiada rozwiÄ…zania przeznaczone dla mniej zaawansowanych uÅ¼ytkownikÃ³w, jak rÃ³wnieÅ¼ sprzÄ™t dla prawdziwych profesjonalistÃ³w. Jako jeden z niewielu producentÃ³w na Å›wiecie, oprÃ³cz klasycznych komputerÃ³w stacjonarnych, MSI oferuje takÅ¼e zaprojektowane specjalnie dla graczy komputery All-in-One.', 189);
 
 -- --------------------------------------------------------
 
