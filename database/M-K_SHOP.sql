@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 21, 2016 at 04:57 PM
+-- Generation Time: Dec 22, 2016 at 09:39 AM
 -- Server version: 5.5.50-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `Admin` (
   `hashed_password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `Admin`
@@ -41,7 +41,9 @@ CREATE TABLE IF NOT EXISTS `Admin` (
 
 INSERT INTO `Admin` (`id`, `name`, `email`, `hashed_password`) VALUES
 (1, '', 'admin1@admin.pl', '$2y$10$rqZKTBh37Nutx1Q2Rfsv7enV6CZkGdKO7Ry7E79PUqedahpObegiO'),
-(2, 'Admin', 'admin@admin', '$2y$10$u2w3q9.yWVirbzN9WWD2jOBqi2EKxrrpnUQi69EQcy8kE/MM2fQuq');
+(2, 'Admin', 'admin@admin', '$2y$10$u2w3q9.yWVirbzN9WWD2jOBqi2EKxrrpnUQi69EQcy8kE/MM2fQuq'),
+(3, 'Admin drugi', '', '$2y$10$s2XTQaHmrraqZWM1PrxviurdHb2Dyz.EBbyNXBHeeq5PB.8Uf.V3a'),
+(5, 'Admin2', 'admin@wp.pl', '$2y$10$c8Oei4DTa/ifgo8/aGKaWeANR427pHm/C69yu6Sse8d2e0IPNNN9C');
 
 -- --------------------------------------------------------
 
@@ -54,7 +56,18 @@ CREATE TABLE IF NOT EXISTS `Groups` (
   `group_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `Groups`
+--
+
+INSERT INTO `Groups` (`id`, `group_name`) VALUES
+(1, 'Monitory'),
+(2, 'Telewizory'),
+(3, 'Procesory'),
+(4, 'Pralki'),
+(5, 'Telefony');
 
 -- --------------------------------------------------------
 
@@ -71,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `Messages` (
   PRIMARY KEY (`id`),
   KEY `id_sender` (`id_sender`),
   KEY `id_receiver` (`id_receiver`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -167,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `adress_city` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `Users`
@@ -175,7 +188,8 @@ CREATE TABLE IF NOT EXISTS `Users` (
 
 INSERT INTO `Users` (`id`, `name`, `surname`, `hashed_password`, `email`, `adress_street`, `adress_local`, `postal_code`, `adress_city`) VALUES
 (2, 'Karol', 'Kamil', '$2y$10$u2w3q9.yWVirbzN9WWD2jOBqi2EKxrrpnUQi69EQcy8kE/MM2fQuq', 'user@user.pl', 'Polna', '96', '96-200', 'Rawa'),
-(3, 'Cezary', 'Pazura', '$2y$10$O7nnRdhnuUdsdmWt7Q90Z.1imLvNgYAkgp0CiDBph6jtKRy1xjD5K', '', 'MaÅ‚a', '10b/56', '99-100', 'Warszawa');
+(3, 'Cezary', 'Pazura', '$2y$10$O7nnRdhnuUdsdmWt7Q90Z.1imLvNgYAkgp0CiDBph6jtKRy1xjD5K', '', 'MaÅ‚a', '10b/56', '99-100', 'Warszawa'),
+(4, 'Janusz', 'Handlarz', '$2y$10$tw74Uo0gqvuTnAFbK/G8P.px4hWMRhB7KOIVOgW00rxuiGgC9nrdK', 'user2@user.pl', 'Polska', '77', '89-547', 'IÅ‚k');
 
 --
 -- Constraints for dumped tables
