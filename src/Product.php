@@ -202,4 +202,24 @@ class Product {
         echo "</tr>";
     }
 
+             //Wyswietla produkt w wierszu tabeli
+    public function showProductInAdminTabRow($conn, $no) {
+        echo '<tr onclick="location.href=';
+        echo "'showProduct.php?productId=";
+        echo $this->getId();
+        echo "'" . '">';
+        echo "<td>" . $no . "</td>";
+        echo "<td><img src='../images/image_1.jpg' width='100'"
+        . " height='100'></td>";
+        echo "<td>" . $this->getName() . "</td>";
+        echo "<td>" . $this->getAvailability() . "</td>";
+        echo "<td>" . $this->getPrice() . " PLN</td>";
+        echo "<td><button type='button' class='btn btn-info'>Podgląd produktu</button></td>";
+        echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
+        echo "</tr>";
+    }
 }
+
+
+
+

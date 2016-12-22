@@ -4,7 +4,7 @@
  */
 require_once __DIR__ . '/../src/required.php';
 
-//jeśli user jest zalogowany to przekierowuję na główną
+//jeśli admin jest zalogowany to przekierowuję na główną
 if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");
 }

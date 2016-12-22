@@ -52,12 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //produkt i wracamy do listy produktów
     if (empty($errors)) {
         echo "Dane produktu są poprawne<br>";
-        var_dump($categoryId);
         $newProduct = new Product();
         $newProduct->setIdGroup($categoryId)->setName($name)->setDescription($description)
                 ->setAvailability($quantity)->setPrice($price)->saveToDB($conn);
-        var_dump($newProduct);
-        //header("Location: index.php");
+        header("Location: products.php");
     }
 }
 ?>
@@ -83,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-Tutaj wyświetlam błędy-->
                 <?php printErrors($errors); ?>
                 <div class="col-sm-12 text-left">
-
+                    <br>
                     <h3>Dodaj produkt</h3>
                 </div>
                 <div class="col-sm-6 text-left">

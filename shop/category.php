@@ -9,7 +9,7 @@ if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
 }
-// Jeżeli dostaliśmy poprawny productId w adresie
+// Jeżeli dostaliśmy poprawny categoryId w adresie
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['categoryId']) && is_numeric($_GET['categoryId'])) {
         $categoryId = $_GET['categoryId'];

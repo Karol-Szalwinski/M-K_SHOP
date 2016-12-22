@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2016 at 03:21 PM
+-- Generation Time: Dec 22, 2016 at 04:23 PM
 -- Server version: 5.5.50-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `availability` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_group` (`id_group`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `Product`
@@ -145,7 +145,9 @@ INSERT INTO `Product` (`id`, `id_group`, `name`, `price`, `description`, `availa
 (2, 12, 'AEC 17 cali', 550.68, 'Super monitor gamingowy. Wysoki kontrast i rozdzielczoÅ›Ä‡', 133),
 (3, 14, 'Komputer Acer', 341, 'Bardzo wydajny komputer z wieloma fajnymi podzespoÅ‚ami', 100),
 (4, 14, 'MSI GAMING COMPUTER ', 105.98, 'MSI to jeden z najwiÄ™kszych i najbardziej znanych na Å›wiecie producentÃ³w sprzÄ™tu dla graczy. W swojej ofercie posiada rozwiÄ…zania przeznaczone dla mniej zaawansowanych uÅ¼ytkownikÃ³w, jak rÃ³wnieÅ¼ sprzÄ™t dla prawdziwych profesjonalistÃ³w. Jako jeden z niewielu producentÃ³w na Å›wiecie, oprÃ³cz klasycznych komputerÃ³w stacjonarnych, MSI oferuje takÅ¼e zaprojektowane specjalnie dla graczy komputery All-in-One.', 100),
-(5, 14, 'MSI GAMING COMPUTER ', 10258.9, 'MSI to jeden z najwiÄ™kszych i najbardziej znanych na Å›wiecie producentÃ³w sprzÄ™tu dla graczy. W swojej ofercie posiada rozwiÄ…zania przeznaczone dla mniej zaawansowanych uÅ¼ytkownikÃ³w, jak rÃ³wnieÅ¼ sprzÄ™t dla prawdziwych profesjonalistÃ³w. Jako jeden z niewielu producentÃ³w na Å›wiecie, oprÃ³cz klasycznych komputerÃ³w stacjonarnych, MSI oferuje takÅ¼e zaprojektowane specjalnie dla graczy komputery All-in-One.', 189);
+(5, 14, 'MSI GAMING COMPUTER ', 10258.9, 'MSI to jeden z najwiÄ™kszych i najbardziej znanych na Å›wiecie producentÃ³w sprzÄ™tu dla graczy. W swojej ofercie posiada rozwiÄ…zania przeznaczone dla mniej zaawansowanych uÅ¼ytkownikÃ³w, jak rÃ³wnieÅ¼ sprzÄ™t dla prawdziwych profesjonalistÃ³w. Jako jeden z niewielu producentÃ³w na Å›wiecie, oprÃ³cz klasycznych komputerÃ³w stacjonarnych, MSI oferuje takÅ¼e zaprojektowane specjalnie dla graczy komputery All-in-One.', 189),
+(6, 14, 'Acer Predator i7 - 4', 5231.99, 'cer Predator 17 to zaawansowany technologicznie laptop dla wymagajÄ…cych graczy. Jego nieprzeciÄ™tna stylistyka inspirowana byÅ‚a, jak podaje producent, wyobraÅ¼eniem miÄ™dzygalaktycznych krÄ…Å¼ownikÃ³w - ostre linie i kÄ…ty, agresywne elementy i specjalnie zaprojektowany system chÅ‚odzenia wpÅ‚ywajÄ… na efektowny wyglÄ…d notebooka. \r\n\r\nAcer Predator 17 zostaÅ‚ wyposaÅ¼ony w bardzo mocne procesory Intel Core i7 oraz karty graficzne nVidia GeForce GTX, dziÄ™ki ktÃ³rym rozgrywka oraz oprawa wizualna zawsze stojÄ… na najwyÅ¼szym poziomie. DostÄ™pne sÄ… modele z ekranami Full HD, jak rÃ³wnieÅ¼ 4K. CaÅ‚oÅ›Ä‡ uzupeÅ‚nia oprogramowanie Predator, podÅ›wietlana klawiatura oraz obsÅ‚uga technologii nVidia G-Sync. CiekawostkÄ… jest takÅ¼e specjalny system Dust Defender czyszczÄ…cy co jakiÅ› czas przewody wentylacyjne laptopa z kurzu.', 13),
+(7, 12, 'Monitor Acer', 789, 'Podstawowe cechy:\r\nProporcje wymiarÃ³w matrycy: 16:9\r\nRozdzielczoÅ›Ä‡: 1920 x 1080\r\nWbudowane gÅ‚oÅ›niki: Nie\r\nPrzekÄ…tna ekranu [cal]: 21.5\r\nPodstawowe zÅ‚Ä…cza: Cyfrowe (DVI), Cyfrowe (HDMI), Analogowe (D-Sub)', 15);
 
 -- --------------------------------------------------------
 
