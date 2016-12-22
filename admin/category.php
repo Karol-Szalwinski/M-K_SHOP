@@ -11,8 +11,8 @@ if (!isLoggedAdmin($conn)) {
 $errors = [];
 
 //sprawdzam czy został przesłany e-mail i hasło
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['category']) && strlen(trim($_POST['category'])) > 4) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
+    if (strlen(trim($_POST['category'])) > 4) {
         $newCategory = $_POST['category'];
         $category = new Group();
         $category->setGroupName($newCategory);
@@ -23,6 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         $errors[] = "Podana kategoria jest za krotka";
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id'])) {
+    if ($_POST['category-id'] > 0 ) {
+        if(Group::deleteCategoryById($conn, $_POST['category-id'])) {
+            $errors[] = "Pomyślnie usunięto kategorię";
+        } 
+        
+    } else {
+        $errors[] = "Nie udało się usuwanie kategorii";
     }
 }
 ?>

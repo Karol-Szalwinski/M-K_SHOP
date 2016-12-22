@@ -92,8 +92,22 @@ class Group {
         echo"<td>$this->groupName</td>";
         echo"<td>10</td>";
         echo"<td><button type='button' class='btn btn-warning' onclick='location.href = 'product.php';'>Zmień</button></td>";
-        echo"<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
+        echo"<td><form method='POST'><input type='hidden' name='category-id' value='$this->id'>";
+        echo"<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
         echo"</tr>";
+    }
+    
+    static public function deleteCategoryById(mysqli $connection, $id) {
+
+        if ($id > 0) {
+            $sql = "DELETE FROM Groups WHERE id=$id";
+            $result = $connection->query($sql);
+            if ($result == true) {
+                return true;
+            }
+            return false;
+        }
+        return true;
     }
 
 }
