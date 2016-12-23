@@ -261,7 +261,7 @@ class Order {
     // wyświetlanie koszyka wg numeru zamówienia - order
     static public function loadAllProductsByOrderId(mysqli $connection, $idOrder) {
 
-        $sql = "SELECT * FROM product_orders WHERE id_orders=$idOrder ORDER BY name DESC";
+        $sql = "SELECT * FROM product_orders WHERE id_orders=$idOrder ORDER BY amount DESC";
         $ret = [];
 
         $result = $connection->query($sql);
