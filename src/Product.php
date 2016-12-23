@@ -212,7 +212,8 @@ class Product {
             $row = $result->fetch_assoc();
             //Powiększam dostępną ilosć i zapisuję do bazy
             $productToChangeAvailability = Product::loadProductById($conn, $row['id_product']);
-            $productToChangeAvailability->setAvailability($productToChangeAvailability->availability += $row['quantity'])->saveToDB($conn);
+            $productToChangeAvailability->setAvailability($productToChangeAvailability
+                    ->availability += $row['quantity'])->saveToDB($conn);
             $sql = "DELETE FROM Product_orders 
                 WHERE id=$productOrderId";
             $result = $conn->query($sql);
@@ -245,8 +246,8 @@ class Product {
                 echo "<td>{$row['quantity']}</td>";
                 echo "<td>{$row['real_price']} PLN</td>";
                 echo "<td><button type='button' class='btn btn-warning'>Zmień</button></td>";
-                echo"<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
-                echo"<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
+                echo "<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
+                echo "<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
                 echo "</tr>";
             }
 

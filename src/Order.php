@@ -15,6 +15,10 @@ class Order {
     private $creationDate;
     private $paymentMethod;
     private $amount;
+    private $adressStreet;
+    private $adressLocalNo;
+    private $postalCode;
+    private $adressCity;
 
     //private $idProduct;
     //private $quantity;
