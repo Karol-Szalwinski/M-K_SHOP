@@ -10,7 +10,7 @@ if (!isLoggedAdmin($conn)) {
 }
 $errors = [];
 
-//sprawdzam czy został przesłany e-mail i hasło
+//sprawdzam czy została przesłana odpowiednia kategoria do dodania
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
     if (strlen(trim($_POST['category'])) > 4) {
         $newCategory = $_POST['category'];
@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
         $errors[] = "Podana kategoria jest za krotka";
     }
 }
+//sprawdzam czy została przesłana odpowiednia kategoria do usunięcia
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id'])) {
     if ($_POST['category-id'] > 0 ) {
         if(Group::deleteCategoryById($conn, $_POST['category-id'])) {

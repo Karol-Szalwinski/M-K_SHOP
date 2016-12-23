@@ -36,6 +36,15 @@ if (!empty($errors)) {
     printErrors($errors);
     die();
 }
+//sprawdzam czy został przesłanay nowy status
+if (isset($_POST['status']) && $_POST['status'] > -1) {
+    //zmieniam status
+    if ($order->setStatus($_POST['status'])) {
+        $errors[] = "Pomyślnie zmieniono status";
+    } else {
+        $errors[] = "Nie udało się zmienić statusu";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +67,28 @@ if (!empty($errors)) {
                 <div class="col-sm-8 text-left"> 
 
                     <h3>Zamówienie nr <?php echo $orderId ?> z dnia <?php echo $orderDate ?></h3>
-                    <h4>Status: <?php echo $orderStatus ?></h4>
+                    
+                    <div class="col-sm-3 text-left">
+                        
+                    <form>
+                        <label>Status: <?php echo $orderStatus ?></label>
+                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#change"
+                                onclick="this.style.visibility = 'hidden';"
+                                >Zmień status  </button>
+                    </form>
+                    </div>
+                    <div id="change" class="col-sm-3 text-left collapse">
+                        <form method="POST">
+                        <select class="form-control"id="status" >
+                            <option value="-1">Wybierz status</option>
+                            <option value="0">niezłożone</option>
+                            <option value="1">złożone</option>
+                            <option value="2">opłacone</option>
+                            <option value="3">zrealizowane</option>
+                        </select>
+                        <button type="submit" class="btn btn-info">Zmień</button> 
+                        </form>
+                    </div>
                     <!-Tutaj wyświetlam błędy-->
                     <?php printErrors($errors); ?>
                     <table class="table table-hover">

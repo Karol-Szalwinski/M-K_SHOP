@@ -10,6 +10,8 @@ if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");
 }
 $errors = [];
+
+
 ?>
 <!DOCTYPE html>
 <html>
