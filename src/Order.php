@@ -15,6 +15,7 @@ class Order {
     private $creationDate;
     private $paymentMethod;
     private $amount;
+
     //private $idProduct;
     //private $quantity;
     //private $idOrders;
@@ -28,7 +29,7 @@ class Order {
         $this->amount = 0.00;
         //$this->idProduct = 0;
         //$this->quantity = 0;
-       //$this->idOrders = 0;
+        //$this->idOrders = 0;
     }
 
     public function getId() {
@@ -96,40 +97,42 @@ class Order {
         }
         return $this;
     }
-/*
-    public function getProductId() {
-        return $this->idProduct;
-    }
 
-    public function setProductId($newProductId) {
-        if (is_numeric($newProductId)) {
-            $this->idProduct = $newProductId;
-        }
-        return $this;
-    }
+    /*
+      public function getProductId() {
+      return $this->idProduct;
+      }
 
-    public function getQuantity() {
-        return $this->quantity;
-    }
+      public function setProductId($newProductId) {
+      if (is_numeric($newProductId)) {
+      $this->idProduct = $newProductId;
+      }
+      return $this;
+      }
 
-    public function setQuantity($newQuantity) {
-        if (is_numeric($newQuantity)) {
-            $this->quantity = $newQuantity;
-        }
-        return $this;
-    }
+      public function getQuantity() {
+      return $this->quantity;
+      }
 
-    public function getOrderId() {
-        return $this->idOrders;
-    }
+      public function setQuantity($newQuantity) {
+      if (is_numeric($newQuantity)) {
+      $this->quantity = $newQuantity;
+      }
+      return $this;
+      }
 
-    public function setOrderId($newOrderId) {
-        if (is_numeric($newOrderId)) {
-            $this->idOrders = $newOrderId;
-        }
-        return $this;
-    }
-*/
+      public function getOrderId() {
+      return $this->idOrders;
+      }
+
+      public function setOrderId($newOrderId) {
+      if (is_numeric($newOrderId)) {
+      $this->idOrders = $newOrderId;
+      }
+      return $this;
+      }
+     */
+
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
@@ -305,6 +308,24 @@ class Order {
             }
         }
         return false;
+    }
+
+    static public function getCartByUser(mysqli $connection, $userId) {
+        $sql = "SELECT * FROM Orders WHERE id_user=$userId AND status=0";
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $loadedOrder = new Order();
+            $loadedOrder->id = $row['id'];
+            $loadedOrder->idUser = $row['id_user'];
+            $loadedOrder->status = $row['status'];
+            $loadedOrder->creationDate = $row['creation_date'];
+            $loadedOrder->paymentMethod = $row['payment_method'];
+            $loadedOrder->amount = $row['amount'];
+            return $loadedOrder;
+        }
+
+        return null;
     }
 
 }

@@ -10,29 +10,43 @@ require_once __DIR__ . '/../src/required.php';
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
+    $myCart = Order::getCartByUser($conn, $loggedUserId);
+    $myCartId = $myCart->getId();
 }
 
 // Jeżeli dostaliśmy poprawny productId w adresie
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (isset($_GET['productId']) && is_numeric($_GET['productId'])) {
-        $productId = $_GET['productId'];
 
-        //Jeżeli produkt o tym productId jest w bazie
-        if ($product = Product::loadProductById($conn, $productId)) {
-            $productname = $product->getName();
-            $category = $product->getIdGroup();
-            $description = $product->getDescription();
-            $availability = $product->getAvailability();
-            $price = $product->getPrice();
-        } else {
-            $errors[] = 'Nie ma takiego towaru w bazie.';
-        }
+if (isset($_GET['productId']) && is_numeric($_GET['productId'])) {
+    $productId = intval($_GET['productId']);
+
+    //Jeżeli produkt o tym productId jest w bazie
+    if ($product = Product::loadProductById($conn, $productId)) {
+        $productname = $product->getName();
+        $category = $product->getIdGroup();
+        $description = $product->getDescription();
+        $availability = $product->getAvailability();
+        $price = $product->getPrice();
     } else {
-        $errors[] = 'Grrr... coś kombinujesz z adresem url... Nieładnie!';
+        $errors[] = 'Nie ma takiego towaru w bazie.';
     }
-    if (!empty($errors)) {
-        printErrors($errors);
-        die();
+} else {
+    $errors[] = 'Grrr... coś kombinujesz z adresem url... Nieładnie!';
+}
+if (!empty($errors)) {
+    printErrors($errors);
+    die();
+}
+//Sprawdzam czy została przesłana ilość
+if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quantity'] > 0) {
+    //Rzutuję na inta
+    $quantity = intval($_POST['quantity']);
+    //Jeżeli uda się dodawanie produktu
+    if ($product->addProductToCart($conn, $myCartId, $quantity)) {
+        //Wyświetlam komunikat i odświeżam dostępność
+        echo "<div class='alert alert-success'>Dodano produkt do koszyka</div>";
+        $availability = $product->getAvailability();
+    } else {
+        echo "<div class='alert alert-danger'>Nie udało się dodać produktu do koszyka</div>";
     }
 }
 ?>
@@ -55,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-            <?php require_once __DIR__ . '/header.php' ?>
+<?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -65,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <div class="row content">
 
                 <!—-----------Panel z kategoriami --------------->
-                <?php //require_once __DIR__ . '/sidebar.php' ?>
+<?php //require_once __DIR__ . '/sidebar.php'   ?>
 
                 <div class="col-sm-12 text-left"> 
 
@@ -119,14 +133,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             <h3> <?php echo $availability ?> Sztuk</h3>
                             <br><br>
                         </div> 
-                        <div class="text-center panel panel-default panel-body">   
-                            <label class="input-lg">
-                                Sztuk&nbsp;
-                                <input type="number" class="input-lg" name="Ilość" min="1" max="<?php echo $availability ?>" step="1" value="1">
-                            </label>
-                            <br><br>
-                            <input type="submit" class="btn btn-danger btn-lg" value="Dodaj do koszyka">
-                            <br> 
+                        <div class="text-center panel panel-default panel-body">
+                            <form method="POST">
+                                <label class="input-lg">
+                                    Sztuk&nbsp;
+                                    <input type="number" class="input-lg" name="quantity" min="1" max="<?php echo $availability ?>" step="1" value="1">
+                                </label>
+                                <br><br>
+                                <input type="submit" class="btn btn-danger btn-lg" value="Dodaj do koszyka">
+                                <br> 
+                            </form>
                         </div>
 
                     </div>
@@ -137,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     </div>
 
     <!—--------------Stopka------------------->
-    <?php //require_once __DIR__ . '/footer.php' ?>
+<?php //require_once __DIR__ . '/footer.php'   ?>
 
 </body>
 </html>

@@ -84,11 +84,11 @@ class Product {
         $this->availability = $newAvailability;
         return $this;
     }
-    
 
     public function getAvailability() {
         return $this->availability;
     }
+
 // wyświetlanie produktu wg id
     static public function loadProductById(mysqli $connection, $id) {
         $sql = "SELECT * FROM Product WHERE id=$id";
@@ -109,6 +109,7 @@ class Product {
 
         return null;
     }
+
 // wyświetlanie produktu wg nr grupy
     static public function loadAllProductsByGroupId(mysqli $connection, $idGroup) {
 
@@ -133,6 +134,7 @@ class Product {
         }
         return $ret;
     }
+
 // wyświetlanie wszytskich produktów w bazie
     static public function loadAllProducts(mysqli $connection) {
 
@@ -153,11 +155,11 @@ class Product {
                 $ret[] = $loadedProduct;
             }
             return $ret;
-            
         }
 
         return $ret;
     }
+
 // zapisywanie produktu do bazy danych
     public function saveToDB(mysqli $connection) {
 
@@ -187,7 +189,73 @@ class Product {
         return false;
     }
 
-        //Wyswietla produkt w wierszu tabeli
+    //Dodawanie produktu do koszyka/zamówienia
+    public function addProductToCart($conn, $orderId, $quantity) {
+        $sql = "INSERT INTO Product_orders(id_orders, id_product, quantity, real_price)
+                   VALUES ('$orderId', '$this->id', '$quantity', '$this->price')";
+        $result = $conn->query($sql);
+        if ($result == true) {
+            //Pomniejszam dostępną ilosć i zapisuję do bazy
+            $this->setAvailability($this->availability -= $quantity)->saveToDB($conn);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Usuwanie produktu z koszyka
+    static public function deleteProductFromCart($conn, $productOrderId) {
+        $sql = "SELECT * FROM Product_orders 
+                WHERE id=$productOrderId";
+        $result = $conn->query($sql);
+        if ($result == true && $result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            //Powiększam dostępną ilosć i zapisuję do bazy
+            $productToChangeAvailability = Product::loadProductById($conn, $row['id_product']);
+            $productToChangeAvailability->setAvailability($productToChangeAvailability->availability += $row['quantity'])->saveToDB($conn);
+            $sql = "DELETE FROM Product_orders 
+                WHERE id=$productOrderId";
+            $result = $conn->query($sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    //ładujemy wszystkie produkty z koszyka / zamówienia
+    static public function showAllProductsByOrderIdInTabRow(mysqli $connection, $orderId) {
+
+        $sql = "SELECT * FROM Product
+                INNER JOIN Product_orders ON Product_orders.id_product=Product.id
+                 WHERE id_orders=$orderId ";
+
+        $result = $connection->query($sql);
+        $no = 0;
+        $amount = 0;
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+                $amount += $row['real_price'] * $row['quantity'];
+                echo "<tr>";
+                echo "<td>" . ++$no . "</td>";
+                echo "<td>{$row['name']}</td>";
+                echo "<td>{$row['quantity']}</td>";
+                echo "<td>{$row['real_price']} PLN</td>";
+                echo "<td><button type='button' class='btn btn-warning'>Zmień</button></td>";
+                echo"<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
+                echo"<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
+                echo "</tr>";
+            }
+
+            return $amount;
+        }
+        return $amount;
+    }
+
+    //Wyswietla produkt w wierszu tabeli
     public function showProductInTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
         echo "'product.php?productId=";
@@ -202,7 +270,7 @@ class Product {
         echo "</tr>";
     }
 
-             //Wyswietla produkt w wierszu tabeli
+    //Wyswietla produkt w wierszu tabeli
     public function showProductInAdminTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
         echo "'showProduct.php?productId=";
@@ -218,8 +286,5 @@ class Product {
         echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
         echo "</tr>";
     }
+
 }
-
-
-
-

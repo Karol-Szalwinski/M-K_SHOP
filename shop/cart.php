@@ -9,10 +9,22 @@
  * - wyświetlenie łącznej kwoty zamówienia.
  */
 require_once __DIR__ . '/../src/required.php';
+$errors = [];
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
+    $myCart = Order::getCartByUser($conn, $loggedUserId);
+    $myCartId = $myCart->getId();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete-id'])) {
+        if ($_POST['delete-id'] > 0) {
+            if (Product::deleteProductFromCart($conn, $_POST['delete-id'])) {
+                $errors[] = "Pomyślnie usunięto produkt z koszyka";
+            }
+        } else {
+            $errors[] = "Nie udało się usuwanie produktu z koszyka";
+        }
+    }
 }
 ?>
 
@@ -39,10 +51,12 @@ if ($loggedUser = isLoggedUser($conn)) {
                 <?php require_once __DIR__ . '/sidebar.php' ?>
 
                 <div class="col-sm-8 text-left"> 
-                 
+
                     <h3>Twój koszyk</h3>
 
                     <table class="table table-hover">
+                        <!-Tutaj wyświetlam błędy-->
+                        <?php printErrors($errors); ?>
                         <thead>
                             <tr>
                                 <th>Lp</th>
@@ -55,43 +69,14 @@ if ($loggedUser = isLoggedUser($conn)) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Procesor I3-4160</td>
-                                <td>5</td>
-                                <td>590.50</td>
-                                <td><button type="button" class="btn btn-warning" onclick="location.href='product.php';">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                                
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Procesor I5-4460</td>
-                                <td>5</td>
-                                <td>750.99</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Dysk Toshiba 4 Tb SSD</td>
-                                <td>2</td>
-                                <td>1055.50</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Karta graficzna GTX 1050</td>
-                                <td>3</td>
-                                <td>789.00</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
+                            <?php
+                            $amount = Product::showAllProductsByOrderIdInTabRow($conn, $myCartId);
+                            ?>
+
                             <tr>
                                 <td colspan="2"></td>
                                 <td><strong>Łącznie</strong></td>
-                                <td><strong>2789.00</strong></td>
+                                <td><strong><?php echo $amount ?> PLN</strong></td>
                             </tr>
                         </tbody>
                     </table>
