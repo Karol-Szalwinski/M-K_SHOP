@@ -64,7 +64,6 @@ if ($loggedUser = isLoggedUser($conn)) {
                                 <th>Ilość</th>
                                 <th>Cena</th>
                                 <th></th>
-                                <th></th>
 
                             </tr>
                         </thead>
@@ -77,35 +76,36 @@ if ($loggedUser = isLoggedUser($conn)) {
                                 <td colspan="2"></td>
                                 <td><strong>Łącznie</strong></td>
                                 <td><strong><?php echo $amount ?> PLN</strong></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="col-sm-6 text-left">
+                
                     <form>
                         <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#adress"
+                                onclick="this.style.visibility= 'hidden';"
                                 >  Złóż zamówienie na postawie koszyka  </button>
                     </form>
 
                     <div id="adress" class="col-sm-8 text-left collapse">
 
                         <h4>Sprawdź dane do wysyłki i wybierz formę płatności:</h4>
-                        <form>
+                        <form method="POST">
                             <div class="form-group">
                                 <label for="street">Ulica:</label>
-                                <input type="text" class="form-control" id="street" value="Ogrodowa">
+                                <input type="text" class="form-control" id="street" value="<?php echo $loggedUser->getAdressStreet() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="no">Nr domu / lokalu:</label>
-                                <input type="text" class="form-control" id="no" value="998c">
+                                <input type="text" class="form-control" id="no" value="<?php echo $loggedUser->getAdressLocalNo() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="postcode">Kod pocztowy:</label>
-                                <input type="text" class="form-control" id="postcode" value="96-987">
+                                <input type="text" class="form-control" id="postcode" value="<?php echo $loggedUser->getPostalCode() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="city">Miejscowość:</label>
-                                <input type="text" class="form-control" id="city" value="Zadupie głębokie">
+                                <input type="text" class="form-control" id="city" value="<?php echo $loggedUser->getAdressCity() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="payment">Płatność</label>
@@ -116,7 +116,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                                     <option value="3">Payu</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-danger">Potwierdź zamówienie</button>   
+                            <button type="submit" class="btn btn-lg btn-danger">Potwierdź zamówienie</button>   
                         </form>
                         <hr>
                     </div>
@@ -124,7 +124,7 @@ if ($loggedUser = isLoggedUser($conn)) {
 
                 </div>
             </div>
-
+        </div>
             <!—--------------Stopka------------------->
             <?php //require_once __DIR__ . '/footer.php' ?>
 

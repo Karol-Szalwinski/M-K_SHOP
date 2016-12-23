@@ -36,7 +36,7 @@ if (!empty($errors)) {
     printErrors($errors);
     die();
 }
-//Sprawdzam czy została przesłana ilość
+//Sprawdzam czy została przesłana ilość do zamówienia
 if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quantity'] > 0) {
     //Rzutuję na inta
     $quantity = intval($_POST['quantity']);

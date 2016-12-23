@@ -262,7 +262,7 @@ class Product {
                 echo "<td>{$row['name']}</td>";
                 echo "<td>{$row['quantity']}</td>";
                 echo "<td>{$row['real_price']} PLN</td>";
-                echo "<td><button type='button' class='btn btn-warning'>Zmień</button></td>";
+                //echo "<td><button type='button' class='btn btn-warning'>Zmień</button></td>";
                 echo "<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
                 echo "<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
                 echo "</tr>";

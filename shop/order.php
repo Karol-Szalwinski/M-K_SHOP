@@ -11,10 +11,31 @@
  * informacje dotyczące płatności.
  */
 require_once __DIR__ . '/../src/required.php';
+$errors = [];
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
+}
+// Jeżeli dostaliśmy poprawny orderId w adresie
+
+if (isset($_GET['orderId']) && is_numeric($_GET['orderId'])) {
+    $orderId = intval($_GET['orderId']);
+
+    //Jeżeli zamówienie o tym orderId jest w bazie
+    if ($order = Order::loadOrderById($conn, $orderId)) {
+        $orderDate = $order->getCreationDate();
+        $orderStatus = $order->getStatus();
+        $orderPayment = $order->getPaymentMethod();
+    } else {
+        $errors[] = 'Nie ma takiego zamówienia';
+    }
+} else {
+    $errors[] = 'Grrr... coś kombinujesz z adresem url... Nieładnie!';
+}
+if (!empty($errors)) {
+    printErrors($errors);
+    die();
 }
 ?>
 
@@ -28,7 +49,7 @@ if ($loggedUser = isLoggedUser($conn)) {
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-<?php require_once __DIR__ . '/header.php' ?>
+            <?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -38,12 +59,14 @@ if ($loggedUser = isLoggedUser($conn)) {
             <div class="row content">
 
                 <!—-----------Panel z kategoriami --------------->
-<?php require_once __DIR__ . '/sidebar.php' ?>
+                <?php require_once __DIR__ . '/sidebar.php' ?>
 
                 <div class="col-sm-8 text-left"> 
 
-                    <h3>Zamówienie nr 1 z dnia 15.12.2016</h3>
-                    <h4>Status: Opłacone</h4>
+                    <h3>Zamówienie nr <?php echo $orderId ?> z dnia <?php echo $orderDate ?></h3>
+                    <h4>Status: <?php echo $orderStatus ?></h4>
+                    <!-Tutaj wyświetlam błędy-->
+                    <?php printErrors($errors); ?>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -52,48 +75,19 @@ if ($loggedUser = isLoggedUser($conn)) {
                                 <th>Ilość</th>
                                 <th>Cena</th>
                                 <th></th>
-                                <th></th>
-
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>Procesor I3-4160</td>
-                                <td>5</td>
-                                <td>590.50</td>
-                                <td><button type="button" class="btn btn-warning" onclick="location.href='product.php';">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Procesor I5-4460</td>
-                                <td>5</td>
-                                <td>750.99</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Dysk Toshiba 4 Tb SSD</td>
-                                <td>2</td>
-                                <td>1055.50</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Karta graficzna GTX 1050</td>
-                                <td>3</td>
-                                <td>789.00</td>
-                                <td><button type="button" class="btn btn-warning">Zmień</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
+                                <?php
+                                $amount = Product::showAllProductsByOrderIdInTabRow($conn, $orderId);
+                                ?>
                             </tr>
                             <tr>
                                 <td colspan="2"></td>
                                 <td><strong>Łącznie</strong></td>
-                                <td><strong>2789.00</strong></td>
+                                <td><strong><?php echo $amount ?> PLN</strong></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -104,19 +98,15 @@ if ($loggedUser = isLoggedUser($conn)) {
                         <p>99-999 Warszawa</p>
                         <hr>
                         <h4>Płatność</h4>
-                        <p>Przelew bankowy</p>
+                        <p><?php echo $orderPayment ?></p>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
-
+    
     <!—--------------Stopka------------------->
-<?php require_once __DIR__ . '/footer.php' ?>
+    <?php require_once __DIR__ . '/footer.php' ?>
 
 </body>
 </html>
-
-
-
