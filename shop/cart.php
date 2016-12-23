@@ -81,12 +81,52 @@ if ($loggedUser = isLoggedUser($conn)) {
                         </tbody>
                     </table>
                 </div>
+                <div class="col-sm-6 text-left">
+                    <form>
+                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#adress"
+                                >  Złóż zamówienie na postawie koszyka  </button>
+                    </form>
 
+                    <div id="adress" class="col-sm-8 text-left collapse">
+
+                        <h4>Sprawdź dane do wysyłki i wybierz formę płatności:</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="street">Ulica:</label>
+                                <input type="text" class="form-control" id="street" value="Ogrodowa">
+                            </div>
+                            <div class="form-group">
+                                <label for="no">Nr domu / lokalu:</label>
+                                <input type="text" class="form-control" id="no" value="998c">
+                            </div>
+                            <div class="form-group">
+                                <label for="postcode">Kod pocztowy:</label>
+                                <input type="text" class="form-control" id="postcode" value="96-987">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Miejscowość:</label>
+                                <input type="text" class="form-control" id="city" value="Zadupie głębokie">
+                            </div>
+                            <div class="form-group">
+                                <label for="payment">Płatność</label>
+                                <select class="form-control"id="payment" >
+                                    <option value="0">Wybierz metodę płatności</option>
+                                    <option value="1">Gotówka pzy odbiorze</option>
+                                    <option value="2">Przelew</option>
+                                    <option value="3">Payu</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Potwierdź zamówienie</button>   
+                        </form>
+                        <hr>
+                    </div>
+
+
+                </div>
             </div>
-        </div>
 
-        <!—--------------Stopka------------------->
-        <?php require_once __DIR__ . '/footer.php' ?>
+            <!—--------------Stopka------------------->
+            <?php //require_once __DIR__ . '/footer.php' ?>
 
     </body>
 </html>

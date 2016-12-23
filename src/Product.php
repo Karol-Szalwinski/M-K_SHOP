@@ -207,6 +207,7 @@ class Product {
     static public function deleteProductFromCart($conn, $productOrderId) {
         $sql = "SELECT * FROM Product_orders 
                 WHERE id=$productOrderId";
+        
         $result = $conn->query($sql);
         if ($result == true && $result->num_rows == 1) {
             $row = $result->fetch_assoc();
@@ -221,6 +222,22 @@ class Product {
                 return true;
             } else {
                 return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    //Usuwanie wszystkich produktów z koszyka -> nie testowane
+    static public function deleteAllProductFromCart($conn, $orderId) {
+        $sql = "SELECT * FROM Product_orders 
+                WHERE id_orders=$orderId";
+        $result = $conn->query($sql);
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+                $productOrderId = $row['id'];
+                Product::deleteProductFromCart($conn, $productOrderId);
+              
             }
         } else {
             return false;
