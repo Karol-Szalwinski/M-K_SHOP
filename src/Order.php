@@ -100,7 +100,49 @@ class Order {
         }
         return $this;
     }
+    public function getAdressStreet() {
+        return $this->adressStreet;
+    }
 
+    public function setAdressStreet($newAdressStreet) {
+        if (is_string($newAdressStreet)) {
+            $this->adressStreet = $newAdressStreet;
+        }
+        return $this;
+    }
+
+    public function getAdressLocalNo() {
+        return $this->adressLocalNo;
+    }
+
+    public function setAdressLocalNo($newAdressLocal) {
+        if (preg_match("/[^\s]*$/", $newAdressLocal)) {
+            $this->adressLocalNo = $newAdressLocal;
+        }
+        return $this;
+    }
+
+    public function getPostalCode() {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode($newPostalCode) {
+        if (preg_match("/[0-9][0-9]-[0-9][0-9][0-9]$/", $newPostalCode)) {
+            $this->postalCode = $newPostalCode;
+        }
+        return $this;
+    }
+
+    public function getAdressCity() {
+        return $this->adressCity;
+    }
+
+    public function setAdresscity($newAdressCity) {
+        if (is_string($newAdressCity)) {
+            $this->adressCity = $newAdressCity;
+        }
+        return $this;
+    }
 
 
     public function saveToDB(mysqli $connection) {
@@ -109,8 +151,10 @@ class Order {
 
             //zapisywanie zamówienia do bazy danych
 
-            $sql = "INSERT INTO Orders(id_user, status,  payment_method, amount)
-               VALUES ('$this->idUser','$this->status', '$this->paymentMethod', '$this->amount' )";
+            $sql = "INSERT INTO Orders(id_user, status,  payment_method, amount,
+                adress_street, adress_local, postal_code, adress_city)
+               VALUES ('$this->idUser','$this->status', '$this->paymentMethod', '$this->amount',
+                    '$this->adressStreet', '$this->adressLocalNo', '$this->postalCode', '$this->adressCity' )";
 
             $result = $connection->query($sql);
             if ($result == true) {
@@ -121,7 +165,8 @@ class Order {
                 return false;
             }
         } else {
-            $sql = "UPDATE Orders SET status='$this->status', payment_method='$this->paymentMethod', amount='$this->amount'
+            $sql = "UPDATE Orders SET status='$this->status', payment_method='$this->paymentMethod', amount='$this->amount',
+                '$this->adressStreet', '$this->adressLocalNo', '$this->postalCode', '$this->adressCity'
                  WHERE id=$this->id";
             $result = $connection->query($sql);
             if ($result == true) {
@@ -149,6 +194,10 @@ class Order {
             $loadedOrder->creationDate = $row['creation_date'];
             $loadedOrder->paymentMethod = $row['payment_method'];
             $loadedOrder->amount = $row['amount'];
+            $loadedOrder->adressStreet = $row['adress_street'];
+            $loadedOrder->adressLocalNo = $row['adress_local'];
+            $loadedOrder->postalCode = $row['postal_code'];
+            $loadedOrder->adressCity = $row['adress_city'];
 
             return $loadedOrder;
         }
@@ -172,6 +221,10 @@ class Order {
                 $loadedOrder->creationDate = $row['creation_date'];
                 $loadedOrder->paymentMethod = $row['payment_method'];
                 $loadedOrder->amount = $row['amount'];
+                $loadedOrder->adressStreet = $row['adress_street'];
+                $loadedOrder->adressLocalNo = $row['adress_local'];
+                $loadedOrder->postalCode = $row['postal_code'];
+                $loadedOrder->adressCity = $row['adress_city'];
                 $ret[] = $loadedOrder;
             }
 
@@ -197,6 +250,10 @@ class Order {
                 $loadedOrder->creationDate = $row['creation_date'];
                 $loadedOrder->paymentMethod = $row['payment_method'];
                 $loadedOrder->amount = $row['amount'];
+                $loadedOrder->adressStreet = $row['adress_street'];
+                $loadedOrder->adressLocalNo = $row['adress_local'];
+                $loadedOrder->postalCode = $row['postal_code'];
+                $loadedOrder->adressCity = $row['adress_city'];
 
                 $ret[] = $loadedOrder;
             }
@@ -205,80 +262,6 @@ class Order {
         return $ret;
     }
 
-// wyświetlanie koszyka wg numeru koszyka - pytanie czy potrzebujemy takiej metody ?
-    static public function loadCartById(mysqli $connection, $id) {
-
-        $sql = "SELECT * FROM product_orders WHERE id=$id";
-
-        $result = $connection->query($sql);
-
-        if ($result == true && $result->num_rows == 1) {
-
-            $row = $result->fetch_assoc();
-            $loadedCart = new Cart();
-            $loadedCart->id = $row['id'];
-            $loadedCart->idOrders = $row['id_orders'];
-            $loadedCart->idProduct = $row['id_product'];
-            $loadedCart->quantity = $row['quantity'];
-            $loadedCart->amount = $row['amount'];
-
-            return $loadedCart;
-        }
-
-        return null;
-    }
-
-    // wyświetlanie koszyka wg numeru zamówienia - order
-    static public function loadAllProductsByOrderId(mysqli $connection, $idOrder) {
-
-        $sql = "SELECT * FROM product_orders WHERE id_orders=$idOrder ORDER BY amount DESC";
-        $ret = [];
-
-        $result = $connection->query($sql);
-        if ($result == true && $result->num_rows != 0) {
-            foreach ($result as $row) {
-
-                $loadedCart = new Cart();
-                $loadedCart->id = $row['id'];
-                $loadedCart->idOrders = $row['id_orders'];
-                $loadedCart->idProduct = $row['id_product'];
-                $loadedCart->quantity = $row['quantity'];
-                $loadedCart->amount = $row['amount'];
-                $ret[] = $loadedCart;
-            }
-
-            return $ret;
-        }
-    }
-
-    public function saveToCart(mysqli $connection) {
-
-        if ($this->id == -1) {
-
-            //dodawanie produktu do koszyka i zapisywanie nowego koszyka do bazy danych, skąd weźmiemy zmienną id_orders i id_product ?
-
-            $sql = "INSERT INTO Product_orders(id_orders, id_product,  quantity, amount)
-               VALUES ('$this->idOrders','$this->idProduct', '$this->quantity', '$this->amount' )";
-
-            $result = $connection->query($sql);
-            if ($result == true) {
-                $this->id = $connection->insert_id;
-
-                return true;
-            } else {
-                return false;
-            }
-        } else { //aktualizacja koszyka
-            $sql = "UPDATE Product_orders SET id_orders='$this->idOrders', id_product='$this->idProduct', 
-                    quantity='$this->quantity', amount='$this->amount'
-                 WHERE id=$this->id";
-            $result = $connection->query($sql);
-            if ($result == true) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     static public function getCartByUser(mysqli $connection, $userId) {
         $sql = "SELECT * FROM Orders WHERE id_user=$userId AND status=0";
