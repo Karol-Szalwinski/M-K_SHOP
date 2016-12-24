@@ -20,9 +20,7 @@ class Order {
     private $postalCode;
     private $adressCity;
 
-    //private $idProduct;
-    //private $quantity;
-    //private $idOrders;
+
 
     public function __construct() {
         $this->id = -1;
@@ -31,9 +29,10 @@ class Order {
         $this->creationDate = "";
         $this->paymentMethod = "";
         $this->amount = 0.00;
-        //$this->idProduct = 0;
-        //$this->quantity = 0;
-        //$this->idOrders = 0;
+        $this->adressStreet = "";
+        $this->adressLocalNo = "";
+        $this->postalCode = "";
+        $this->adressCity = "";
     }
 
     public function getId() {
@@ -102,40 +101,7 @@ class Order {
         return $this;
     }
 
-    /*
-      public function getProductId() {
-      return $this->idProduct;
-      }
 
-      public function setProductId($newProductId) {
-      if (is_numeric($newProductId)) {
-      $this->idProduct = $newProductId;
-      }
-      return $this;
-      }
-
-      public function getQuantity() {
-      return $this->quantity;
-      }
-
-      public function setQuantity($newQuantity) {
-      if (is_numeric($newQuantity)) {
-      $this->quantity = $newQuantity;
-      }
-      return $this;
-      }
-
-      public function getOrderId() {
-      return $this->idOrders;
-      }
-
-      public function setOrderId($newOrderId) {
-      if (is_numeric($newOrderId)) {
-      $this->idOrders = $newOrderId;
-      }
-      return $this;
-      }
-     */
 
     public function saveToDB(mysqli $connection) {
 
