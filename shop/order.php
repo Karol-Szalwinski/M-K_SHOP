@@ -15,6 +15,7 @@ $errors = [];
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
+    $loggedUserSurname = $loggedUser->getSurname();
     $loggedUserId = $loggedUser->getId();
 }
 // Jeżeli dostaliśmy poprawny orderId w adresie
@@ -27,6 +28,10 @@ if (isset($_GET['orderId']) && is_numeric($_GET['orderId'])) {
         $orderDate = $order->getCreationDate();
         $orderStatus = $order->getStatus();
         $orderPayment = $order->getPaymentMethod();
+        $orderStreet = $order->getAdressStreet();
+        $ordersLocalNo = $order->getAdressLocalNo();
+        $ordersPostCode = $order->getPostalCode();
+        $orderCity = $order->getAdressCity();
     } else {
         $errors[] = 'Nie ma takiego zamówienia';
     }
@@ -93,9 +98,9 @@ if (!empty($errors)) {
                     </table>
                     <div class="col-sm-8 text-left"> 
                         <h4>Dane zamawiającego</h4>
-                        <p>Jan Kowalski</p>
-                        <p>Ogrodowa 5</p>
-                        <p>99-999 Warszawa</p>
+                        <p><?php echo $loggedUserName . " " . $loggedUserSurname ?></p>
+                        <p><?php echo  $orderStreet ." " . $ordersLocalNo ?></p>
+                        <p><?php echo  $ordersPostCode ." " . $orderCity ?></p>
                         <hr>
                         <h4>Płatność</h4>
                         <p><?php echo $orderPayment ?></p>

@@ -26,6 +26,13 @@ if (isset($_GET['orderId']) && is_numeric($_GET['orderId'])) {
         $orderDate = $order->getCreationDate();
         $orderStatus = $order->getStatus();
         $orderPayment = $order->getPaymentMethod();
+        $orderStreet = $order->getAdressStreet();
+        $ordersLocalNo = $order->getAdressLocalNo();
+        $ordersPostCode = $order->getPostalCode();
+        $orderCity = $order->getAdressCity();
+        $purchaser = User::loadUserById($conn, $order->getUserId());
+        $purchaserName = $purchaser->getName();
+        $purchaserSurname = $purchaser->getSurname();
     } else {
         $errors[] = 'Nie ma takiego zamówienia';
     }
@@ -117,9 +124,9 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
                     </table>
                     <div class="col-sm-8 text-left"> 
                         <h4>Dane zamawiającego</h4>
-                        <p>Jan Kowalski</p>
-                        <p>Ogrodowa 5</p>
-                        <p>99-999 Warszawa</p>
+                        <p><?php echo $purchaserName . " " . $purchaserSurname ?></p>
+                        <p><?php echo  $orderStreet ." " . $ordersLocalNo ?></p>
+                        <p><?php echo  $ordersPostCode ." " . $orderCity ?></p>
                         <hr>
                         <h4>Płatność</h4>
                         <p><?php echo $orderPayment ?></p>
