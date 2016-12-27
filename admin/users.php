@@ -41,58 +41,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>michal@bor.pl</td>
-                                <td>Michał</td>
-                                <td>Borowiecki</td>
-                                <td>Mazowiecka</td>
-                                <td>5</td>
-                                <td>00-090</td>
-                                <td>Warszawa</td>
-                                <td><button type="button" class="btn btn-info" onclick="location.href = 'showUser.php';">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>karol@killer.pl</td>
-                                <td>Karol</td>
-                                <td>Szałwiński</td>
-                                <td>Polesie</td>
-                                <td>789</td>
-                                <td>90-090</td>
-                                <td>Łowicz</td>
-                                <td><button type="button" class="btn btn-info" onclick="location.href = 'showUser.php';">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>kami@spo.pl</td>
-                                <td>Kamila</td>
-                                <td>Fajna</td>
-                                <td>Małą</td>
-                                <td>98</td>
-                                <td>00-090</td>
-                                <td>Warszawa</td>
-                                <td><button type="button" class="btn btn-info" onclick="location.href = 'showUser.php';">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>eliza@wp.pl</td>
-                                <td>Eliza</td>
-                                <td>Mała</td>
-                                <td>Piękna</td>
-                                <td>5</td>
-                                <td>70-090</td>
-                                <td>Poznań</td>
-                                <td><button type="button" class="btn btn-info" onclick="location.href = 'showUser.php';">Pokaż</button></td>
-                                <td><button type="button" class="btn btn-warning" onclick="location.href='sendMessage.php';">Wyślij wiadomość</button></td>
-                                <td><button type="button" class="btn btn-danger">Usuń</button></td>
-                            </tr>
+                            <?php
+                            //Wyświetlam wszystkie zamówienia
+                            $no = 0;
+                            $allUsers = User::loadAllUsers($conn);
+                            foreach ($allUsers as $user) {
+
+                                $no++;
+                                $user->showUserInAdminTabRow($no);
+                            }
+                            ?>>
+                            
                         </tbody>
                     </table>
                 </div>
