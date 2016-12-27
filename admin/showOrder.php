@@ -44,9 +44,11 @@ if (!empty($errors)) {
     die();
 }
 //sprawdzam czy został przesłanay nowy status
+
 if (isset($_POST['status']) && $_POST['status'] > -1) {
     //zmieniam status
-    if ($order->setStatus($_POST['status'])) {
+    if ($order->setStatus($_POST['status'])->saveToDB($conn)) {
+        $orderStatus = $_POST['status'];
         $errors[] = "Pomyślnie zmieniono status";
     } else {
         $errors[] = "Nie udało się zmienić statusu";
@@ -72,32 +74,34 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
         <div class="container-fluid text-center">
             <div class="row content">
                 <div class="col-sm-8 text-left"> 
-
-                    <h3>Zamówienie nr <?php echo $orderId ?> z dnia <?php echo $orderDate ?></h3>
-                    
-                    <div class="col-sm-3 text-left">
-                        
-                    <form>
-                        <label>Status: <?php echo $orderStatus ?></label>
-                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#change"
-                                onclick="this.style.visibility = 'hidden';"
-                                >Zmień status  </button>
-                    </form>
-                    </div>
-                    <div id="change" class="col-sm-3 text-left collapse">
-                        <form method="POST">
-                        <select class="form-control"id="status" >
-                            <option value="-1">Wybierz status</option>
-                            <option value="0">niezłożone</option>
-                            <option value="1">złożone</option>
-                            <option value="2">opłacone</option>
-                            <option value="3">zrealizowane</option>
-                        </select>
-                        <button type="submit" class="btn btn-info">Zmień</button> 
-                        </form>
-                    </div>
                     <!-Tutaj wyświetlam błędy-->
                     <?php printErrors($errors); ?>
+                    <h3>Zamówienie nr <?php echo $orderId ?> z dnia <?php echo $orderDate ?></h3>
+
+                    <div class="col-sm-2 text-left">
+                        <form>
+                            <label>Status: <?php echo $orderStatus ?></label>
+                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#change"
+                                    onclick="this.style.visibility = 'hidden';"
+                                    >Zmień status  </button>
+                        </form>
+                    </div>
+                    <div id="change" class="col-sm-5 text-left collapse">
+                        <div  class="col-sm-2">
+                            <form method="POST" class="form-inline">
+                                <select class="form-control"id="status" name="status">
+                                    <option value="-1">Wybierz status</option>
+                                    <option value="0">niezłożone</option>
+                                    <option value="1">złożone</option>
+                                    <option value="2">opłacone</option>
+                                    <option value="3">zrealizowane</option>
+                                </select>
+                                <button type="submit" class="btn btn-info form-control">Zmień</button> 
+                            </form>
+
+                        </div>
+                    </div>
+
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -125,8 +129,8 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
                     <div class="col-sm-8 text-left"> 
                         <h4>Dane zamawiającego</h4>
                         <p><?php echo $purchaserName . " " . $purchaserSurname ?></p>
-                        <p><?php echo  $orderStreet ." " . $ordersLocalNo ?></p>
-                        <p><?php echo  $ordersPostCode ." " . $orderCity ?></p>
+                        <p><?php echo $orderStreet . " " . $ordersLocalNo ?></p>
+                        <p><?php echo $ordersPostCode . " " . $orderCity ?></p>
                         <hr>
                         <h4>Płatność</h4>
                         <p><?php echo $orderPayment ?></p>
