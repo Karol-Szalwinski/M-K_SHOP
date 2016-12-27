@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 23, 2016 at 10:31 AM
--- Server version: 5.5.53-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.20
+-- Generation Time: Dec 27, 2016 at 03:51 PM
+-- Server version: 5.5.50-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -56,21 +56,21 @@ CREATE TABLE IF NOT EXISTS `Groups` (
   `group_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `Groups`
 --
 
 INSERT INTO `Groups` (`id`, `group_name`) VALUES
-(6, 'Pralki'),
 (8, 'PiÅ‚ki'),
 (10, 'Dyski SSD'),
 (11, 'Dyski FDSH'),
 (12, 'Monitory'),
 (13, 'PÅ‚yty gÅ‚Ã³wne'),
 (14, 'Komputery'),
-(16, 'Karty Graficzne');
+(16, 'Karty Graficzne'),
+(17, 'Telewizory');
 
 -- --------------------------------------------------------
 
@@ -102,20 +102,32 @@ CREATE TABLE IF NOT EXISTS `Orders` (
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `payment_method` varchar(100) NOT NULL,
   `amount` float NOT NULL,
+  `adress_street` varchar(100) NOT NULL,
+  `adress_local` varchar(100) NOT NULL,
+  `postal_code` varchar(100) NOT NULL,
+  `adress_city` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `Orders`
 --
 
-INSERT INTO `Orders` (`id`, `id_user`, `status`, `creation_date`, `payment_method`, `amount`) VALUES
-(1, 2, 0, '2016-12-22 22:26:16', 'Cash', 0),
-(2, 9, 0, '0000-00-00 00:00:00', 'Cash', 0),
-(3, 10, 0, '0000-00-00 00:00:00', 'Cash', 0),
-(4, 11, 0, '0000-00-00 00:00:00', 'Cash', 0);
+INSERT INTO `Orders` (`id`, `id_user`, `status`, `creation_date`, `payment_method`, `amount`, `adress_street`, `adress_local`, `postal_code`, `adress_city`) VALUES
+(1, 2, 0, '2016-12-27 09:36:50', 'Cash', 0, 'Polna', '99', '99-789', 'Poznań'),
+(2, 9, 2, '2016-12-27 12:35:11', 'Cash', 0, '', '', '', ''),
+(3, 10, 0, '0000-00-00 00:00:00', 'Cash', 0, '', '', '', ''),
+(4, 11, 0, '0000-00-00 00:00:00', 'Cash', 0, '', '', '', ''),
+(5, 12, 1, '2016-12-27 11:01:39', '3', 0, 'Bulwar st', '10', '00-888', 'New Jork'),
+(9, 12, 2, '2016-12-27 14:10:23', '2', 0, 'Bulwar st', '10', '00-888', 'New Jork'),
+(10, 12, 0, '2016-12-27 11:30:20', '', 0, '', '', '', ''),
+(11, 13, 1, '2016-12-27 13:34:31', '3', 0, 'Main St', '1067b', '00-876', 'New Jork'),
+(12, 13, 1, '2016-12-27 13:37:38', '3', 0, 'Main St', '1067b', '00-876', 'New Jork'),
+(13, 13, 1, '2016-12-27 14:08:41', '2', 0, 'Main St', '1067b', '00-876', 'New Jork'),
+(14, 13, 1, '2016-12-27 14:26:18', '2', 0, 'Main St', '1067b', '00-876', 'New Jork'),
+(15, 13, 0, '2016-12-27 14:26:18', '', 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -145,21 +157,22 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `availability` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_group` (`id_group`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `Product`
 --
 
 INSERT INTO `Product` (`id`, `id_group`, `name`, `price`, `description`, `availability`) VALUES
-(1, 10, 'PÅ‚yta MSI H81', 561.67, 'PÅ‚yta gÅ‚Ã³wna, Å›wietna i nowa i jest kosa.', 0),
+(1, 10, 'PÅ‚yta MSI H81', 561.67, 'PÅ‚yta gÅ‚Ã³wna, Å›wietna i nowa i jest kosa.', 2),
 (2, 12, 'AEC 17 cali', 550.68, 'Super monitor gamingowy. Wysoki kontrast i rozdzielczoÅ›Ä‡', 0),
-(3, 14, 'Komputer Acer', 341, 'Bardzo wydajny komputer z wieloma fajnymi podzespoÅ‚ami', 100),
+(3, 14, 'Komputer Acer', 341, 'Bardzo wydajny komputer z wieloma fajnymi podzespoÅ‚ami', 71),
 (4, 14, 'MSI GAMING COMPUTER ', 105.98, 'MSI to jeden z najwiÄ™kszych i najbardziej znanych na Å›wiecie producentÃ³w sprzÄ™tu dla graczy. W swojej ofercie posiada rozwiÄ…zania przeznaczone dla mniej zaawansowanych uÅ¼ytkownikÃ³w, jak rÃ³wnieÅ¼ sprzÄ™t dla prawdziwych profesjonalistÃ³w. Jako jeden z niewielu producentÃ³w na Å›wiecie, oprÃ³cz klasycznych komputerÃ³w stacjonarnych, MSI oferuje takÅ¼e zaprojektowane specjalnie dla graczy komputery All-in-One.', 100),
 (5, 14, 'MSI GAMING COMPUTER ', 10258.9, 'MSI to jeden z najwiÄ™kszych i najbardziej znanych na Å›wiecie producentÃ³w sprzÄ™tu dla graczy. W swojej ofercie posiada rozwiÄ…zania przeznaczone dla mniej zaawansowanych uÅ¼ytkownikÃ³w, jak rÃ³wnieÅ¼ sprzÄ™t dla prawdziwych profesjonalistÃ³w. Jako jeden z niewielu producentÃ³w na Å›wiecie, oprÃ³cz klasycznych komputerÃ³w stacjonarnych, MSI oferuje takÅ¼e zaprojektowane specjalnie dla graczy komputery All-in-One.', 0),
-(6, 14, 'Acer Predator i7 - 4', 5231.99, 'cer Predator 17 to zaawansowany technologicznie laptop dla wymagajÄ…cych graczy. Jego nieprzeciÄ™tna stylistyka inspirowana byÅ‚a, jak podaje producent, wyobraÅ¼eniem miÄ™dzygalaktycznych krÄ…Å¼ownikÃ³w - ostre linie i kÄ…ty, agresywne elementy i specjalnie zaprojektowany system chÅ‚odzenia wpÅ‚ywajÄ… na efektowny wyglÄ…d notebooka. \r\n\r\nAcer Predator 17 zostaÅ‚ wyposaÅ¼ony w bardzo mocne procesory Intel Core i7 oraz karty graficzne nVidia GeForce GTX, dziÄ™ki ktÃ³rym rozgrywka oraz oprawa wizualna zawsze stojÄ… na najwyÅ¼szym poziomie. DostÄ™pne sÄ… modele z ekranami Full HD, jak rÃ³wnieÅ¼ 4K. CaÅ‚oÅ›Ä‡ uzupeÅ‚nia oprogramowanie Predator, podÅ›wietlana klawiatura oraz obsÅ‚uga technologii nVidia G-Sync. CiekawostkÄ… jest takÅ¼e specjalny system Dust Defender czyszczÄ…cy co jakiÅ› czas przewody wentylacyjne laptopa z kurzu.', 13),
-(7, 12, 'Monitor Acer', 789, 'Podstawowe cechy:\r\nProporcje wymiarÃ³w matrycy: 16:9\r\nRozdzielczoÅ›Ä‡: 1920 x 1080\r\nWbudowane gÅ‚oÅ›niki: Nie\r\nPrzekÄ…tna ekranu [cal]: 21.5\r\nPodstawowe zÅ‚Ä…cza: Cyfrowe (DVI), Cyfrowe (HDMI), Analogowe (D-Sub)', 6),
-(8, 16, 'Palit gtx 1050', 678.78, 'hsffhsjkfhjksmgcsdc\r\nfgddfg\r\nsgdf\r\ngdf\r\n\r\ngdf\r\ngdfsg\r\nfd\r\ngdf\r\ndgf\r\nsgdf\r\ng\r\ng\r\n\r\nfg', 100);
+(6, 14, 'Acer Predator i7 - 4', 5231.99, 'cer Predator 17 to zaawansowany technologicznie laptop dla wymagajÄ…cych graczy. Jego nieprzeciÄ™tna stylistyka inspirowana byÅ‚a, jak podaje producent, wyobraÅ¼eniem miÄ™dzygalaktycznych krÄ…Å¼ownikÃ³w - ostre linie i kÄ…ty, agresywne elementy i specjalnie zaprojektowany system chÅ‚odzenia wpÅ‚ywajÄ… na efektowny wyglÄ…d notebooka. \r\n\r\nAcer Predator 17 zostaÅ‚ wyposaÅ¼ony w bardzo mocne procesory Intel Core i7 oraz karty graficzne nVidia GeForce GTX, dziÄ™ki ktÃ³rym rozgrywka oraz oprawa wizualna zawsze stojÄ… na najwyÅ¼szym poziomie. DostÄ™pne sÄ… modele z ekranami Full HD, jak rÃ³wnieÅ¼ 4K. CaÅ‚oÅ›Ä‡ uzupeÅ‚nia oprogramowanie Predator, podÅ›wietlana klawiatura oraz obsÅ‚uga technologii nVidia G-Sync. CiekawostkÄ… jest takÅ¼e specjalny system Dust Defender czyszczÄ…cy co jakiÅ› czas przewody wentylacyjne laptopa z kurzu.', 10),
+(7, 12, 'Monitor Acer', 789, 'Podstawowe cechy:\r\nProporcje wymiarÃ³w matrycy: 16:9\r\nRozdzielczoÅ›Ä‡: 1920 x 1080\r\nWbudowane gÅ‚oÅ›niki: Nie\r\nPrzekÄ…tna ekranu [cal]: 21.5\r\nPodstawowe zÅ‚Ä…cza: Cyfrowe (DVI), Cyfrowe (HDMI), Analogowe (D-Sub)', 5),
+(8, 16, 'Palit gtx 1050', 678.78, 'hsffhsjkfhjksmgcsdc\r\nfgddfg\r\nsgdf\r\ngdf\r\n\r\ngdf\r\ngdfsg\r\nfd\r\ngdf\r\ndgf\r\nsgdf\r\ng\r\ng\r\n\r\nfg', 66),
+(9, 12, 'Monitor LCD Eizo Col', 1005.99, 'Wbudowany czujnik do autokorekcji Do przeprowadzenia pierwszej kalibracji monitora konieczny jest zewnÄ™trzny kalibrator, natomiast wbudowany w ColorEdge CS230 czujnik wraz z dostÄ™pnym opcjonalnie oprogramowaniem ColorNavigator czuwa nad tym, aby wybrane ustawienia zachowywane byÅ‚y na tym samym poziomie. Czujnik ukryty jest w gÃ³rnej czÄ™Å›ci obudowy i wysuwa siÄ™ tylko wtedy, gdy zgodnie z harmonogramem sporzÄ…dzonym przez uÅ¼ytkownika, naleÅ¼y dokonaÄ‡ kontroli ustawieÅ„. Nawet jeÅ›li monitor jest wyÅ‚Ä…czony lub nie jest podÅ‚Ä…czony do komputera, czujnik wysunie siÄ™ samoczynnie o czasie i dokona samokontroli. Autorski ukÅ‚ad ASIC EIZO Wszystkie modele ColorEdge posiadajÄ… zaprojektowany przez EIZO ukÅ‚ad ASIC (application specific integrated circuit), dostosowany do potrzeb rynku graficznego. UkÅ‚ad korzysta z wÅ‚asnych algorytmÃ³w do bardzo dokÅ‚adnego przetwarzania kolorÃ³w, aby precyzyjnie reprodukowaÄ‡ poszczegÃ³lne odcienie. Kontrola rÃ³wnomiernoÅ›ci podÅ›wietlenia oraz koloru na caÅ‚ej powierzchni matrycy (DUE) Uzyskanie rÃ³wnomiernego podÅ›wietlenia oraz jednorodnego koloru na caÅ‚ej powierzchni matrycy byÅ‚o dotychczas niemal niemoÅ¼liwe w monitorach LCD. RozwiÄ…zaniem tego problemu jest kolejna wersja opracowanego przez inÅ¼ynierÃ³w EIZO ukÅ‚adu ASIC (Application Specific Integrated Circuit) dokonujÄ…ca w czasie rzeczywistym korekt wyÅ›wietlanego obrazu tak, aby w monitorach opuszczajÄ…cych fabrykÄ™ w Japonii, wspÃ³Å‚czynnik Delta-E opisujÄ…cy nierÃ³wnomiernoÅ›Ä‡, nie przekroczyÅ‚ wartoÅ›ci 3.   Krzywa gamma regulowana indywidualnie w fabryce   DokÅ‚adne odwzorowanie krzywej gamma kaÅ¼dej z barw podstawowych jest warunkiem poprawnego wyÅ›wietlania wszystkich kolorÃ³w. Monitory EIZO z serii ColorEdge juÅ¼ podczas procesu produkcji majÄ… precyzyjnie dobrane barwy skÅ‚adowe w caÅ‚ym zakresie od 0 do 255 odcienia. Dokonywane jest to poprzez pomiar wartoÅ›ci gamma dla kaÅ¼dego z kolorÃ³w podstawowych (Red, Green, Blue) oddzielnie, a nastÄ™pnie przy wykorzystaniu zaszytej w elektronice 16-bitowej tabeli barw Look-Up Table (LUT), wybÃ³r najbardziej pasujÄ…cych 256 odcieni. Jednoczesne wyÅ›wietlanie kolorÃ³w z palety 10-bitowej Przy podÅ‚Ä…czeniu poprzez DisplayPort przez zÅ‚Ä…cze sygnaÅ‚owe moÅ¼liwe jest dostarczanie do monitora 10-bitowej informacji o kolorze*. Monitor korzystajÄ…c z 16-bitowej tablicy LUT, przetwarza informacjÄ™ o kolorze z 16-bitowÄ… precyzjÄ…, co pozwala na uzyskanie bardziej pÅ‚ynnych przejÅ›Ä‡ tonalnych i zmniejszenia Delta-E pomiÄ™dzy poszczegÃ³lnymi punktami. To 64 razy wiÄ™ksza precyzja wiÄ™cej niÅ¼ w', 145);
 
 -- --------------------------------------------------------
 
@@ -176,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `Product_orders` (
   PRIMARY KEY (`id`),
   KEY `id_orders` (`id_orders`),
   KEY `id_product` (`id_product`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `Product_orders`
@@ -197,7 +210,22 @@ INSERT INTO `Product_orders` (`id`, `id_orders`, `id_product`, `quantity`, `real
 (13, 1, 5, 100, 10258.9),
 (14, 1, 5, 89, 10258.9),
 (27, 3, 2, 132, 550.68),
-(29, 4, 1, 10, 561.67);
+(31, 4, 8, 10, 678.78),
+(32, 4, 3, 14, 341),
+(33, 4, 8, 15, 678.78),
+(34, 4, 8, 3, 678.78),
+(35, 4, 8, 4, 678.78),
+(36, 5, 8, 1, 678.78),
+(37, 5, 3, 1, 341),
+(38, 5, 7, 1, 789),
+(39, 9, 3, 3, 341),
+(40, 11, 3, 2, 341),
+(41, 12, 8, 1, 678.78),
+(43, 13, 6, 3, 5231.99),
+(44, 13, 1, 1, 561.67),
+(45, 13, 3, 6, 341),
+(46, 14, 3, 3, 341),
+(47, 14, 1, 7, 561.67);
 
 -- --------------------------------------------------------
 
@@ -230,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `adress_city` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `Users`
@@ -246,7 +274,9 @@ INSERT INTO `Users` (`id`, `name`, `surname`, `hashed_password`, `email`, `adres
 (8, 'aaaaaa aaaaaa', 'aaaaaa', '$2y$10$6Hek6JvB2BXtSaiRP2Ngu.xvBSl1GcAoRB7aHeR9uyqLxeQiDI7IO', 'aa@aa.pl3', 'aaaaaa', '33', '11-111', 'aaaaaa'),
 (9, 'aaaaaa aaaaaa', 'aaaaaa', '$2y$10$M033CBpRei7QWEND.o0AU.l.iNvqYtdqsfYqabBbH887LcrB7.wh6', 'aa@aa.pl25', 'aaaaaa', '122', '11-111', 'aaaaaa'),
 (10, 'Ania', 'Alka', '$2y$10$Cj24JVHhv1ON9flDMR8KLe/CkVxKZDtPp9grWkV9kppm.TrKT3vVW', 'test1@te.pl', 'Polna', '1', '22-222', 'Polka'),
-(11, 'MichaÅ‚', 'Betaa', '$2y$10$xicx7GMLDZzF7Epb0wegtuHYAPu4bT6m3LEBGam8sfH16VYFfHbqm', 'michal@pl.pl', 'Polna', '87/67b', '99-521', 'Warszawa');
+(11, 'MichaÅ‚', 'Betaa', '$2y$10$xicx7GMLDZzF7Epb0wegtuHYAPu4bT6m3LEBGam8sfH16VYFfHbqm', 'michal@pl.pl', 'Polna', '87/67b', '99-521', 'Warszawa'),
+(12, 'Angelina', 'Joe', '$2y$10$Tr35l0Tjtf44qXSWvrfqRuFHm9Wo.vThvWZAwddwdnCz09OE6bXvG', 'angelina@wp.pl', 'Bulwar st', '10', '00-888', 'New Jork'),
+(13, 'Vera', 'Farminga', '$2y$10$agBjkkFL5xrOZ.ZC2kjlYO/iW0b/v47YW7eP/q1gvVZ4zXnieRFUm', 'vera@wp.pl', 'Main St', '1067b', '00-876', 'New Jork');
 
 --
 -- Constraints for dumped tables
