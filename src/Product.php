@@ -134,6 +134,25 @@ class Product {
         }
         return $ret;
     }
+    
+    
+         static public function getAllProductsByGroupId(mysqli $connection, $idGroup) {
+
+        $sql = "SELECT * FROM Product WHERE id_group=$idGroup";
+        $ret = [];
+
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+                $loadedProduct = new Product(); 
+                $loadedProduct->idGroup = $row['id_group'];
+                $ret[] = count($loadedProduct);
+            }
+
+            return $ret;
+        }
+        return $ret;
+    }
 
 // wyświetlanie wszytskich produktów w bazie
     static public function loadAllProducts(mysqli $connection) {

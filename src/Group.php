@@ -69,7 +69,7 @@ class Group {
             }
         }
     }
-
+        
     static public function loadAllGroups(mysqli $connection) {
 
         $sql = "SELECT * FROM Groups ORDER BY group_name ASC";

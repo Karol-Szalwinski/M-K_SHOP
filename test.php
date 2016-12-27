@@ -65,11 +65,11 @@ require_once 'src/Order.php';
 
   var_dump($admin);
  * 
- *
+ */
   $message3 = new Message();
 
-  $message3->setId(1);
-  $message3->setReceiverId(1);
+  //$message3->setId(1);
+  $message3->setReceiverId(5);
   $message3->setSenderId(1);
   $message3->setTextMessage('wiadomosc');
 
@@ -79,11 +79,9 @@ require_once 'src/Order.php';
   //$message3->saveToDB($conn);
   //var_dump($message3);
 
-  $message = Message::loadMessagesBySenderId($conn, 1);
+  $message = Message::loadMessagesByReceiverId($conn, 2);
   var_dump($message);
- * 
- * 
- */
+
 /**
   $group3 = new Group();
   //$group3->setId(2);
@@ -99,8 +97,8 @@ $Order5->setStatus(1);
 $Order5->setPaymentMethod('cash');
 $Order5->setAmount('200');
 **/
-
-$order1 = Order::loadAllOrdersByUserId($conn, 3);
-var_dump($order1);
-
+/**
+$product = Product::getAllProductsByGroupId($conn, 12);
+var_dump($product);
+**/
 

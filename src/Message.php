@@ -1,4 +1,5 @@
 <?php
+
 /**
  * klasa wiadomosci:
  * - możliwość przesyłania wiadomosci do użytkownika
@@ -6,8 +7,6 @@
  * - możliwość wyświetlania wysłanych wiadomości u administratora
  * coś jeszcze ?
  */
-
-
 class Message {
 
     private $id;
@@ -73,6 +72,7 @@ class Message {
     public function getCreationDate() {
         return $this->creationDate;
     }
+
 // wysyłanie - zpaisywanie nowej wiadomosci do bazy
     public function saveToDB(mysqli $connection) {
 
@@ -93,51 +93,56 @@ class Message {
             }
         }
     }
+
 //wyświetlanie wiadomości wg id odbiorcy (użytkownika) - odebrane
     static public function loadMessagesByReceiverId(mysqli $connection, $idReceiver) {
 
-        $sql = "SELECT * FROM Messages WHERE id_receiver=$idReceiver";
-
+        $sql = "SELECT * FROM Messages WHERE id_receiver=$idReceiver ORDER BY 
+               creation_date DESC";
+        $ret = [];
         $result = $connection->query($sql);
 
-        if ($result == true && $result->num_rows == 1) {
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
 
-            $row = $result->fetch_assoc();
-            $loadedMessage = new Message();
-            $loadedMessage->id = $row['id'];
-            $loadedMessage->idReceiver = $row['id_receiver'];
-            $loadedMessage->idSender = $row['id_sender'];
-            $loadedMessage->textMessage = $row['text_message'];
-            $loadedMessage->creationDate = $row['creation_date'];
+                $loadedMessage = new Message();
+                $loadedMessage->id = $row['id'];
+                $loadedMessage->idReceiver = $row['id_receiver'];
+                $loadedMessage->idSender = $row['id_sender'];
+                $loadedMessage->textMessage = $row['text_message'];
+                $loadedMessage->creationDate = $row['creation_date'];
 
 
-            return $loadedMessage;
+                $ret[] = $loadedMessage;
+            }
         }
 
-        return null;
+        return $ret;
     }
+
 //wyświetlanie wiadomosci wg id wysyłającego (admina) - wiadomości wysłane
     static public function loadMessagesBySenderId(mysqli $connection, $idSender) {
 
-        $sql = "SELECT * FROM Messages WHERE id_sender=$idSender";
-
+        $sql = "SELECT * FROM Messages WHERE id_sender=$idSender ORDER BY 
+               creation_date DESC";
+        $ret = [];
         $result = $connection->query($sql);
 
-        if ($result == true && $result->num_rows == 1) {
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
 
-            $row = $result->fetch_assoc();
-            $loadedMessage = new Message();
-            $loadedMessage->id = $row['id'];
-            $loadedMessage->idReceiver = $row['id_receiver'];
-            $loadedMessage->idSender = $row['id_sender'];
-            $loadedMessage->textMessage = $row['text_message'];
-            $loadedMessage->creationDate = $row['creation_date'];
+                $loadedMessage = new Message();
+                $loadedMessage->id = $row['id'];
+                $loadedMessage->idReceiver = $row['id_receiver'];
+                $loadedMessage->idSender = $row['id_sender'];
+                $loadedMessage->textMessage = $row['text_message'];
+                $loadedMessage->creationDate = $row['creation_date'];
 
 
-            return $loadedMessage;
+                $ret[] = $loadedMessage;
+            }
         }
-
-        return null;
+        return $ret;
     }
 
 }
