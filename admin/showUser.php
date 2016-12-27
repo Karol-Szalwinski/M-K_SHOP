@@ -3,8 +3,39 @@
 /*
  * Panel użytkownika
  * Strona ta ma mieć informacje o użytkowniku, pokazywać wszystkie poprzednie zakupy tego użytkownika.
- 
+
  */
+require_once __DIR__ . '/../src/required.php';
+
+//jeśli admin nie jest zalogowany to przekierowuję do logowania
+if (!isLoggedAdmin($conn)) {
+    header("Location: loginAdmin.php");
+}
+$errors = [];
+// Jeżeli dostaliśmy poprawny userId w adresie
+
+if (isset($_GET['userId']) && is_numeric($_GET['userId'])) {
+    $userId = intval($_GET['userId']);
+
+    //Jeżeli użytkownik o tym userId jest w bazie
+    if ($loadedUser = User::loadUserById($conn, $userId)) {
+        $userName = $loadedUser->getName();
+        $userSurname = $loadedUser->getSurname();
+        $userEmail = $loadedUser->getEmail();
+        $userStreet = $loadedUser->getAdressStreet();
+        $userNo = $loadedUser->getAdressLocalNo();
+        $userPostcode = $loadedUser->getPostalCode();
+        $userCity = $loadedUser->getAdressCity();
+    } else {
+        $errors[] = 'Nie ma takiego użytkownika';
+    }
+} else {
+    $errors[] = 'Grrr... coś kombinujesz z adresem url... Nieładnie!';
+}
+if (!empty($errors)) {
+    printErrors($errors);
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,15 +57,15 @@
 
             <div class="row content">
 
-                <div class="col-sm-8 text-left"> 
+                <div class="col-sm-12 text-left"> 
 
-                    <h3>Jan Kowalski - Profil użytkownika</h3>
+                    <h3><?php echo $userName . " " . $userSurname ?> - Profil użytkownika</h3>
                     <hr>
-                    <p>Id: 102</p>
-                    <p>E-mail: kowalski@wal.pl</p>
-                    <h4>Adress</h4>
-                    <p>Kwiatowa 10</p>
-                    <p>99-458 Krakow</p>
+                    <p>Id: <?php echo $userId ?></p>
+                    <p>E-mail: <?php echo $userEmail ?></p>
+                    <h4>Adres:</h4>
+                    <p><?php echo $userStreet . " " . $userNo ?></p>
+                    <p><?php echo $userPostcode . " " . $userCity ?></p>
                     <hr>
                     <h4>Zamówienia użytkownika</h4>
                     <table class="table table-hover">
@@ -49,14 +80,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Zamówienie nr 1</td>
-                                <td>01 grudzień 2018</td>
-                                <td>1590.50</td>
-                                <td>Opłacone</td>
-                                <td><button type="button" class="btn btn-danger" onclick="location.href = 'showOrder.php';">Pokaż</button></td>
-                            </tr>
+                            <?php
+                            //Wyświetlam wszystkie zamówienia użytkownika
+                            $no = 0;
+                            $allUserOrders = Order::loadAllOrdersByUserId($conn, $userId);
+                            foreach ($allUserOrders as $order) {
+
+                                $no++;
+                                $order->showOrderInAdminTabRow($no);
+                            }
+                            ?>
 
                             <tr>
                                 <td colspan="2"></td>
