@@ -71,6 +71,7 @@ require_once 'src/Order.php';
   //$message3->setId(1);
   $message3->setReceiverId(5);
   $message3->setSenderId(1);
+  $message3->setTitle('nowa');
   $message3->setTextMessage('wiadomosc');
 
 
@@ -79,7 +80,7 @@ require_once 'src/Order.php';
   //$message3->saveToDB($conn);
   //var_dump($message3);
 
-  $message = Message::loadMessagesByReceiverId($conn, 2);
+  $message = Message::loadMessagesBySenderId($conn, 1);
   var_dump($message);
 
 /**

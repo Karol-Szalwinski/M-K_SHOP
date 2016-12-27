@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 27, 2016 at 03:51 PM
--- Server version: 5.5.50-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.17
+-- Generation Time: Dec 27, 2016 at 07:53 PM
+-- Server version: 5.5.53-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -82,12 +82,23 @@ CREATE TABLE IF NOT EXISTS `Messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_receiver` int(11) NOT NULL,
   `id_sender` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `text_message` text NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `id_sender` (`id_sender`),
   KEY `id_receiver` (`id_receiver`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `Messages`
+--
+
+INSERT INTO `Messages` (`id`, `id_receiver`, `id_sender`, `title`, `text_message`, `creation_date`) VALUES
+(5, 7, 1, 'nowa', 'wiadomosc', '2016-12-27 18:49:10'),
+(6, 7, 1, 'nowa', 'wiadomosc testowa', '2016-12-27 18:49:41'),
+(7, 5, 1, 'nowa', 'wiadomosc testowa', '2016-12-27 18:49:53'),
+(8, 5, 1, 'nowa', 'wiadomosc', '2016-12-27 18:50:03');
 
 -- --------------------------------------------------------
 
