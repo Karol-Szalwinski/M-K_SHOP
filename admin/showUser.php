@@ -67,7 +67,7 @@ if (!empty($errors)) {
                     <p><?php echo $userStreet . " " . $userNo ?></p>
                     <p><?php echo $userPostcode . " " . $userCity ?></p>
                     <hr>
-                    <h4>Zamówienia użytkownika</h4>
+                    <h3>Zamówienia użytkownika</h3>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -84,10 +84,15 @@ if (!empty($errors)) {
                             //Wyświetlam wszystkie zamówienia użytkownika
                             $no = 0;
                             $allUserOrders = Order::loadAllOrdersByUserId($conn, $userId);
-                            foreach ($allUserOrders as $order) {
+                            if (!empty($allUserOrders)) {
+                                foreach ($allUserOrders as $order) {
 
-                                $no++;
-                                $order->showOrderInAdminTabRow($no);
+                                    $no++;
+                                    $order->showOrderInAdminTabRow($no);
+                                }
+                            } else {
+                                echo "<h4>Użytkownik nie ma żadnych zamówień</h4>";
+                                die();
                             }
                             ?>
 
