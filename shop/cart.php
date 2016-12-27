@@ -72,6 +72,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                         ->setAmount(0.00)->saveToDB($conn);
 
                 //Przekierowywujemy na stronę zamówienia
+                header("Location: order.php?orderId=$myCartId");
             } else {
                 echo "Błąd zapisu koszyka do bazy";
             }

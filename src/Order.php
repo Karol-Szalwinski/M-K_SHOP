@@ -286,7 +286,7 @@ class Order {
  
     
         //Wyswietla zamówienia w wierszu tabeli admina
-    public function showProductInAdminTabRow($no) {
+    public function showOrderInAdminTabRow($no) {
         echo '<tr onclick="location.href=';
         echo "'showOrder.php?orderId=";
         echo $this->getId();

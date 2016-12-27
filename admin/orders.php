@@ -59,7 +59,7 @@ $errors = [];
                             foreach ($allOrders as $order) {
 
                                 $no++;
-                                $order->showProductInAdminTabRow($no);
+                                $order->showOrderInAdminTabRow($no);
                             }
                             ?>>
                         </tbody>
