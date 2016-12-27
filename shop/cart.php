@@ -13,9 +13,10 @@ $errors = [];
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
-    $loggedUserId = $loggedUser->getId();
+    $loggedUserId = intval($loggedUser->getId());
     $myCart = Order::getCartByUser($conn, $loggedUserId);
     $myCartId = $myCart->getId();
+    //Jeżeli ktoś usuwa produkt z koszyka
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete-id'])) {
         if ($_POST['delete-id'] > 0) {
             if (Product::deleteProductFromCart($conn, $_POST['delete-id'])) {
@@ -23,6 +24,57 @@ if ($loggedUser = isLoggedUser($conn)) {
             }
         } else {
             $errors[] = "Nie udało się usuwanie produktu z koszyka";
+        }
+    }
+    //Jeżeli ktoś zatwierdza koszyk
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['delete-id'])) {
+        //sprawdzam przesłaną ulicę i trimuję
+        if (isset($_POST['street']) && strlen(trim($_POST['street'])) > 0) {
+            $userStreet = substr(trim($_POST['street']), 0, 20);
+        } else {
+            $errors[] = 'Podałeś nieprawidłową ulicę';
+        }
+        //sprawdzam przesłany numer domu/lokalu i trimuję
+        if (isset($_POST['user-local-no']) && strlen(trim($_POST['user-local-no'])) > 0) {
+            $userLocalNo = trim($_POST['user-local-no']);
+        } else {
+            $errors[] = 'Podałeś nieprawidłowy numer domu/lokalu';
+        }
+        //sprawdzam przesłany kod pocztowy i trimuję
+        if (isset($_POST['postcode']) && strlen(trim($_POST['postcode'])) > 0) {
+            $userPostcode = substr(trim($_POST['postcode']), 0, 6);
+        } else {
+            $errors[] = 'Podałeś nieprawidłowy kod pocztowy';
+        }
+        //sprawdzam przesłaną miejscowość i trimuję
+        if (isset($_POST['city']) && strlen(trim($_POST['city'])) > 0) {
+            $userCity = substr(trim($_POST['city']), 0, 30);
+        } else {
+            $errors[] = 'Podałeś nieprawidłowy miasto';
+        }"Nie udało się usuwanie produktu z koszyka";
+        if (isset($_POST['payment']) && $_POST['payment'] > 0) {
+            $paymentMethod = $_POST['payment'];
+        } else {
+            $errors[] = 'Nie wybrałeś płatności';
+        }
+
+        //Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy zamówienie
+        if (empty($errors)) {
+            $myCart->setAdressStreet($userStreet)->setAdressLocalNo($userLocalNo)
+                    ->setPostalCode($userPostcode)->setAdresscity($userCity)
+                    ->setPaymentMethod($paymentMethod)->setStatus(1);
+            if ($myCart->saveToDB($conn)) {
+                //Tworzymy też pusty koszyk
+                $newCart = new Order();
+                $newCart->setUserId($loggedUserId)
+                        ->setStatus(0)
+                        ->setPaymentMethod(0)
+                        ->setAmount(0.00)->saveToDB($conn);
+
+                //Przekierowywujemy na stronę zamówienia
+            } else {
+                echo "Błąd zapisu koszyka do bazy";
+            }
         }
     }
 }
@@ -80,10 +132,10 @@ if ($loggedUser = isLoggedUser($conn)) {
                             </tr>
                         </tbody>
                     </table>
-                
+
                     <form>
                         <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#adress"
-                                onclick="this.style.visibility= 'hidden';"
+                                onclick="this.style.visibility = 'hidden';"
                                 >  Złóż zamówienie na postawie koszyka  </button>
                     </form>
 
@@ -93,23 +145,23 @@ if ($loggedUser = isLoggedUser($conn)) {
                         <form method="POST">
                             <div class="form-group">
                                 <label for="street">Ulica:</label>
-                                <input type="text" class="form-control" id="street" value="<?php echo $loggedUser->getAdressStreet() ?>">
+                                <input type="text" class="form-control" id="street" name="street" value="<?php echo $loggedUser->getAdressStreet() ?>">
                             </div>
                             <div class="form-group">
-                                <label for="no">Nr domu / lokalu:</label>
-                                <input type="text" class="form-control" id="no" value="<?php echo $loggedUser->getAdressLocalNo() ?>">
+                                <label for="user-local-no">Nr domu / lokalu:</label>
+                                <input type="text" class="form-control" id="user-local-no" name="user-local-no" value="<?php echo $loggedUser->getAdressLocalNo() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="postcode">Kod pocztowy:</label>
-                                <input type="text" class="form-control" id="postcode" value="<?php echo $loggedUser->getPostalCode() ?>">
+                                <input type="text" class="form-control" id="postcode" name="postcode" value="<?php echo $loggedUser->getPostalCode() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="city">Miejscowość:</label>
-                                <input type="text" class="form-control" id="city" value="<?php echo $loggedUser->getAdressCity() ?>">
+                                <input type="text" class="form-control" id="city" name="city" value="<?php echo $loggedUser->getAdressCity() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="payment">Płatność</label>
-                                <select class="form-control"id="payment" >
+                                <select class="form-control" id="payment" name="payment" >
                                     <option value="0">Wybierz metodę płatności</option>
                                     <option value="1">Gotówka pzy odbiorze</option>
                                     <option value="2">Przelew</option>
@@ -125,8 +177,8 @@ if ($loggedUser = isLoggedUser($conn)) {
                 </div>
             </div>
         </div>
-            <!—--------------Stopka------------------->
-            <?php //require_once __DIR__ . '/footer.php' ?>
+        <!—--------------Stopka------------------->
+        <?php //require_once __DIR__ . '/footer.php'   ?>
 
     </body>
 </html>

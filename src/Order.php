@@ -165,9 +165,12 @@ class Order {
                 return false;
             }
         } else {
-            $sql = "UPDATE Orders SET status='$this->status', payment_method='$this->paymentMethod', amount='$this->amount',
-                '$this->adressStreet', '$this->adressLocalNo', '$this->postalCode', '$this->adressCity'
-                 WHERE id=$this->id";
+            $sql = "UPDATE Orders SET
+                    status='$this->status', payment_method='$this->paymentMethod',
+                    amount='$this->amount', adress_street='$this->adressStreet',
+                    adress_local='$this->adressLocalNo', postal_code='$this->postalCode',
+                    adress_city='$this->adressCity'
+                    WHERE id=$this->id";
             $result = $connection->query($sql);
             if ($result == true) {
                 return true;
