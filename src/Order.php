@@ -286,7 +286,7 @@ class Order {
  
     
         //Wyswietla zamówienia w wierszu tabeli admina
-    public function showOrderInAdminTabRow($no) {
+    public function showOrderInAdminTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
         echo "'showOrder.php?orderId=";
         echo $this->getId();
@@ -296,7 +296,7 @@ class Order {
         echo "<td>" . $this->getCreationDate() . "</td>";
         echo "<td>" . $this->getUserId() . "</td>";
         echo "<td>" . $this->getAmount() . " PLN</td>";
-        echo "<td>" . $this->getStatus() . "</td>";
+        echo "<td>" . Status::loadStatusById($conn, $this->getStatus())->getStatusName() . "</td>";
         echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
         echo "<td><button type='button' class='btn btn-warning'>Wyślij wiadomość</button></td>";
         echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";

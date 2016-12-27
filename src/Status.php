@@ -4,7 +4,6 @@
  * zmiana nazwy statusu dla zamówienia
  */
 
-
 class Status {
 
     private $id;
@@ -34,6 +33,7 @@ class Status {
     public function getStatusName() {
         return $this->statusName;
     }
+
     //zapisywanie statusu do bazy danych i jego aktualizacja
     public function saveToDB(mysqli $connection) {
 
@@ -57,15 +57,16 @@ class Status {
                     WHERE id=$this->id";
 
             $result = $connection->query($sql);
-            if($result == true) {
+            if ($result == true) {
                 return true;
             } else {
                 return false;
             }
         }
     }
- // wyświetlanie wszystkich statusów   
-        static public function loadAllStatuses(mysqli $connection) {
+
+    // wyświetlanie wszystkich statusów   
+    static public function loadAllStatuses(mysqli $connection) {
 
         $sql = "SELECT * FROM Statuses ORDER BY status_name DESC";
         $ret = [];
@@ -77,7 +78,7 @@ class Status {
                 $loadedStatus = new Status();
                 $loadedStatus->id = $row['id'];
                 $loadedStatus->statusName = $row['status_name'];
-                
+
 
                 $ret[] = $loadedStatus;
             }
@@ -86,6 +87,24 @@ class Status {
         return $ret;
     }
 
-    
-}
+    static public function loadStatusById(mysqli $connection, $id) {
 
+        $sql = "SELECT * FROM Statuses WHERE id=$id";
+
+        $result = $connection->query($sql);
+
+        if ($result == true && $result->num_rows == 1) {
+
+            $row = $result->fetch_assoc();
+            $loadedStatus = new Status();
+            $loadedStatus->id = $row['id'];
+            $loadedStatus->statusName = $row['status_name'];
+
+
+            return $loadedStatus;
+        }
+
+        return null;
+    }
+
+}
