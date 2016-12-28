@@ -5,6 +5,12 @@
  */
 
 //require_once __DIR__ . '/../src/required.php';
+if(isset($_SESSION['loggedUser'])) {
+    $productsInCart = "(" .Order::getCartByUser($conn, $_SESSION['loggedUser'])
+            ->countProductsInCart($conn) . ")";
+} else {
+     $productsInCart = "";
+}
 ?>
 <script>
     $(document).ready(function () {
@@ -19,7 +25,7 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Główna</a></li>
             <li><a href="user.php"><span class="glyphicon glyphicon-hand-right"></span> Moje konto</a></li>
-            <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Mój koszyk (0)</a></li>
+            <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Mój koszyk <?php echo $productsInCart; ?></a></li>
             <li><a href="myMessages.php"><span class="glyphicon glyphicon-envelope"></span> Wiadomości (3)</a></li>
             <li><a href="aboutUs.php"><span class="glyphicon glyphicon-globe"></span> O nas</a></li>
             <li><a href="contact.php"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>

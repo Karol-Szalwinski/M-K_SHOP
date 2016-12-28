@@ -316,5 +316,13 @@ class Order {
         echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
         echo "</tr>";
     }
+    
+        //Metoda zlicza produkty w koszyku
+        public function countProductsInCart(mysqli $connection) {
+        $orderId = $this->id;
+        $sql = "SELECT * FROM Product_orders WHERE id_orders=$orderId ";
+        $result = $connection->query($sql);
+        return $result->num_rows;
+    }
 }
 

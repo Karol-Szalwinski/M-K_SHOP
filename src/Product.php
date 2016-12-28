@@ -295,12 +295,7 @@ class Product {
         return $amount;
     }
 
-    //Metoda zlicza produkty w koszyku
-    static public function countProductsInCart(mysqli $connection, $orderId) {
-        $sql = "SELECT count(*) FROM Product_orders WHERE id_orders=$orderId ";
-        $result = $connection->query($sql);
-        echo mysql_result($result, 0);
-    }
+
 
     //Wyswietla produkt w wierszu tabeli
     public function showProductInTabRow($conn, $no) {
