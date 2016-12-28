@@ -35,7 +35,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                 <!—-----------Panel z kategoriami --------------->
                 <?php require_once __DIR__ . '/sidebar.php' ?>
 
-                <div class="col-sm-8 text-left"> 
+                <div class="col-sm-7 text-left"> 
 
                     <h3>Jan Kowalski - Mój profil</h3>
                     <hr>
@@ -95,7 +95,8 @@ if ($loggedUser = isLoggedUser($conn)) {
                         <button type="submit" class="btn btn-info">Zmień hasło</button>
                     </form>
                     <hr>
-
+                </div>
+                <div class="col-sm-12 text-left">
                     <h4>Moje dotychczasowe zamówienia</h4>
                     <table class="table table-hover">
                         <thead>
@@ -110,15 +111,21 @@ if ($loggedUser = isLoggedUser($conn)) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Zamówienie nr 1</td>
-                                <td>01 grudzień 2018</td>
-                                <td>1590.50</td>
-                                <td>Opłacone</td>
-                                <td><button type="button" class="btn btn-danger" onclick="location.href = 'order.php';">Pokaż</button></td>
+                            <?php
+                            //Wyświetlam wszystkie zamówienia użytkownika
+                            $no = 0;
+                            $allUserOrders = Order::loadAllOrdersByUserId($conn, $loggedUserId);
+                            if (!empty($allUserOrders)) {
+                                foreach ($allUserOrders as $order) {
 
-                            </tr>
+                                    $no++;
+                                    $order->showOrderInUserTabRow($conn, $no);
+                                }
+                            } else {
+                                echo "<h4>Użytkownik nie ma żadnych zamówień</h4>";
+                                die();
+                            }
+                            ?>
 
                             <tr>
                                 <td colspan="2"></td>

@@ -216,6 +216,11 @@ class Product {
         if ($result == true) {
             //Pomniejszam dostępną ilosć i zapisuję do bazy
             $this->setAvailability($this->availability -= $quantity)->saveToDB($conn);
+            //Podnoszę wartość koszyka
+            $order = Order::loadOrderById($conn, $orderId);
+            $amount = $order->getAmount() + $quantity * $this->price;
+            
+            $order->setAmount($amount)->saveToDB($conn);
             return true;
         } else {
             return false;

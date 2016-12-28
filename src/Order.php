@@ -285,7 +285,7 @@ class Order {
     }
  
     
-        //Wyswietla zamówienia w wierszu tabeli admina
+    //Wyswietla zamówienia w wierszu tabeli admina
     public function showOrderInAdminTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
         echo "'showOrder.php?orderId=";
@@ -300,6 +300,21 @@ class Order {
         echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
         echo "<td><button type='button' class='btn btn-warning'>Wyślij wiadomość</button></td>";
         echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
+        echo "</tr>";
+    }
+    
+    //Wyswietla zamówienia w wierszu tabeli usera
+    public function showOrderInUserTabRow($conn, $no) {
+        echo '<tr onclick="location.href=';
+        echo "'showOrder.php?orderId=";
+        echo $this->getId();
+        echo "'" . '">';
+        echo "<td>" . $no . "</td>";
+        echo "<td>Zamówienie nr " . $this->getId() . "</td>";
+        echo "<td>" . $this->getCreationDate() . "</td>";
+        echo "<td>" . $this->getAmount() . " PLN</td>";
+        echo "<td>" . Status::loadStatusById($conn, $this->getStatus())->getStatusName() . "</td>";
+        echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
         echo "</tr>";
     }
 }

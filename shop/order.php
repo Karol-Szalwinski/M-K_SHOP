@@ -69,7 +69,7 @@ if (!empty($errors)) {
                 <div class="col-sm-8 text-left"> 
 
                     <h3>Zamówienie nr <?php echo $orderId ?> z dnia <?php echo $orderDate ?></h3>
-                    <h4>Status: <?php echo $orderStatus ?></h4>
+                    <h4>Status: <?php echo Status::loadStatusById($conn, $orderStatus )->getStatusName()?></h4>
                     <!-Tutaj wyświetlam błędy-->
                     <?php printErrors($errors); ?>
                     <table class="table table-hover">
