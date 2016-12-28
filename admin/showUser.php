@@ -88,7 +88,7 @@ if (!empty($errors)) {
                                 foreach ($allUserOrders as $order) {
 
                                     $no++;
-                                    $order->showOrderInAdminTabRow($no);
+                                    $order->showOrderInAdminTabRow($conn, $no);
                                 }
                             } else {
                                 echo "<h4>Użytkownik nie ma żadnych zamówień</h4>";

@@ -80,7 +80,7 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
 
                     <div class="col-sm-2 text-left">
                         <form>
-                            <label>Status: <?php echo $orderStatus ?></label>
+                            <label>Status: <?php echo Status::loadStatusById($conn, $orderStatus )->getStatusName()?></label>
                             <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#change"
                                     onclick="this.style.visibility = 'hidden';"
                                     >Zmień status  </button>
