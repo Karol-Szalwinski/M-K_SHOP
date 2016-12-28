@@ -211,7 +211,7 @@ class Order {
 // wyświetlanie wszystkich zamówień wg id użytkownika
     static public function loadAllOrdersByUserId(mysqli $connection, $userId) {
 
-        $sql = "SELECT * FROM Orders WHERE id_user=$userId ORDER BY status DESC";
+        $sql = "SELECT * FROM Orders WHERE id_user=$userId AND status<>0 ORDER BY status DESC";
         $ret = [];
 
         $result = $connection->query($sql);
@@ -283,8 +283,7 @@ class Order {
 
         return null;
     }
- 
-    
+
     //Wyswietla zamówienia w wierszu tabeli admina
     public function showOrderInAdminTabRow($conn, $no) {
         echo '<tr onclick="location.href=';

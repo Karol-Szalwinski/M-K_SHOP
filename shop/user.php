@@ -73,10 +73,12 @@ if ($loggedUser = isLoggedUser($conn)) {
                                         <?php
                                         //Wyświetlam wszystkie zamówienia użytkownika
                                         $no = 0;
+                                        $amount = 0;
                                         $allUserOrders = Order::loadAllOrdersByUserId($conn, $loggedUserId);
                                         if (!empty($allUserOrders)) {
+                                            
                                             foreach ($allUserOrders as $order) {
-
+                                                $amount += $order->getAmount();
                                                 $no++;
                                                 $order->showOrderInUserTabRow($conn, $no);
                                             }
@@ -88,7 +90,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                                         <tr>
                                             <td colspan="2"></td>
                                             <td><strong>Łączna kwota zamówień</strong></td>
-                                            <td><strong>2789.00</strong></td>
+                                            <td><strong><?php echo $amount ?></strong></td>
                                         </tr>
                                     </tbody>
                                 </table>

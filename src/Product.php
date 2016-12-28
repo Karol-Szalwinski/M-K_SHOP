@@ -134,9 +134,8 @@ class Product {
         }
         return $ret;
     }
-    
-    
-         static public function getAllProductsByGroupId(mysqli $connection, $idGroup) {
+
+    static public function getAllProductsByGroupId(mysqli $connection, $idGroup) {
 
         $sql = "SELECT * FROM Product WHERE id_group=$idGroup";
         $ret = [];
@@ -144,7 +143,7 @@ class Product {
         $result = $connection->query($sql);
         if ($result == true && $result->num_rows != 0) {
             foreach ($result as $row) {
-                $loadedProduct = new Product(); 
+                $loadedProduct = new Product();
                 $loadedProduct->idGroup = $row['id_group'];
                 $ret[] = count($loadedProduct);
             }
@@ -219,7 +218,7 @@ class Product {
             //Podnoszę wartość koszyka
             $order = Order::loadOrderById($conn, $orderId);
             $amount = $order->getAmount() + $quantity * $this->price;
-            
+
             $order->setAmount($amount)->saveToDB($conn);
             return true;
         } else {
@@ -231,7 +230,7 @@ class Product {
     static public function deleteProductFromCart($conn, $productOrderId) {
         $sql = "SELECT * FROM Product_orders 
                 WHERE id=$productOrderId";
-        
+
         $result = $conn->query($sql);
         if ($result == true && $result->num_rows == 1) {
             $row = $result->fetch_assoc();
@@ -261,7 +260,6 @@ class Product {
             foreach ($result as $row) {
                 $productOrderId = $row['id'];
                 Product::deleteProductFromCart($conn, $productOrderId);
-              
             }
         } else {
             return false;
@@ -295,6 +293,13 @@ class Product {
             return $amount;
         }
         return $amount;
+    }
+
+    //Metoda zlicza produkty w koszyku
+    static public function countProductsInCart(mysqli $connection, $orderId) {
+        $sql = "SELECT count(*) FROM Product_orders WHERE id_orders=$orderId ";
+        $result = $connection->query($sql);
+        echo mysql_result($result, 0);
     }
 
     //Wyswietla produkt w wierszu tabeli
