@@ -78,6 +78,8 @@ if ($loggedUser = isLoggedUser($conn)) {
             }
         }
     }
+} else {
+    header("location: index.php");
 }
 ?>
 

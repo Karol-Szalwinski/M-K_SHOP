@@ -16,6 +16,8 @@ if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserNo = $loggedUser->getAdressLocalNo();
     $loggedUserPostcode = $loggedUser->getPostalCode();
     $loggedUserCity = $loggedUser->getAdressCity();
+} else {
+    header("location: index.php");
 }
 ?>
 
@@ -47,12 +49,54 @@ if ($loggedUser = isLoggedUser($conn)) {
                     <hr>
                     <!-- Zakładki -->
                     <ul class="nav nav-tabs nav-justified" role="tablist">
-                        <li class="active"><a href="#1kartajust" role="tab" data-toggle="tab">Moje dane</a></li>
-                        <li><a href="#2kartajust" role="tab" data-toggle="tab">Moje zamówienia</a></li>
+                        <li class="active"><a href="#1kartajust" role="tab" data-toggle="tab"><h4>Moje zamówienia</h4></a></li>
+                        <li><a href="#2kartajust" role="tab" data-toggle="tab"><h4>Moje dane</h4></a></li>
                     </ul>
                     <!-- Zawartość zakładek -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="1kartajust">
+                            <div class="col-sm-12 text-left">
+                                <h4>Moje dotychczasowe zamówienia</h4>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Lp</th>
+                                            <th>Nr Zamówienia</th>
+                                            <th>Data</th>
+                                            <th>Wartosc</th>
+                                            <th>Status</th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        //Wyświetlam wszystkie zamówienia użytkownika
+                                        $no = 0;
+                                        $allUserOrders = Order::loadAllOrdersByUserId($conn, $loggedUserId);
+                                        if (!empty($allUserOrders)) {
+                                            foreach ($allUserOrders as $order) {
+
+                                                $no++;
+                                                $order->showOrderInUserTabRow($conn, $no);
+                                            }
+                                        } else {
+                                            echo "<h4>Użytkownik nie ma żadnych zamówień</h4>";
+                                            die();
+                                        }
+                                        ?>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><strong>Łączna kwota zamówień</strong></td>
+                                            <td><strong>2789.00</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="2kartajust">
                             <h4>Moje dane</h4>
                             <form>
                                 <div class="form-group">
@@ -110,58 +154,16 @@ if ($loggedUser = isLoggedUser($conn)) {
                             </form>
                             <hr>
                         </div>
-                    
-                    <div class="tab-pane" id="2kartajust">
-                        <div class="col-sm-12 text-left">
-                            <h4>Moje dotychczasowe zamówienia</h4>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Lp</th>
-                                        <th>Nr Zamówienia</th>
-                                        <th>Data</th>
-                                        <th>Wartosc</th>
-                                        <th>Status</th>
-                                        <th></th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    //Wyświetlam wszystkie zamówienia użytkownika
-                                    $no = 0;
-                                    $allUserOrders = Order::loadAllOrdersByUserId($conn, $loggedUserId);
-                                    if (!empty($allUserOrders)) {
-                                        foreach ($allUserOrders as $order) {
-
-                                            $no++;
-                                            $order->showOrderInUserTabRow($conn, $no);
-                                        }
-                                    } else {
-                                        echo "<h4>Użytkownik nie ma żadnych zamówień</h4>";
-                                        die();
-                                    }
-                                    ?>
-
-                                    <tr>
-                                        <td colspan="2"></td>
-                                        <td><strong>Łączna kwota zamówień</strong></td>
-                                        <td><strong>2789.00</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!—--------------Stopka------------------->
-    <?php require_once __DIR__ . '/footer.php' ?>
+        <!—--------------Stopka------------------->
+        <?php require_once __DIR__ . '/footer.php' ?>
 
-</body>
+    </body>
 </html>
 
 
