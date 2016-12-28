@@ -43,7 +43,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                 <!—-----------Panel z kategoriami --------------->
                 <?php require_once __DIR__ . '/sidebar.php' ?>
 
-                <div class="col-sm-7 text-left"> 
+                <div class="col-sm-10 text-left"> 
 
                     <h3><?php echo $loggedUserName . " " . $loggedUserSurname ?>  - Mój profil</h3>
                     <hr>
@@ -103,15 +103,15 @@ if ($loggedUser = isLoggedUser($conn)) {
                             <form>
                                 <div class="form-group">
                                     <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email" value="jan@kowalski.pl">
+                                    <input type="email" class="form-control" id="email" value="<?php echo $loggedUserEmail ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Imię:</label>
-                                    <input type="text" class="form-control" id="name" value="Jan">
+                                    <input type="text" class="form-control" id="name" value="<?php echo $loggedUserName ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="surname">Nazwisko:</label>
-                                    <input type="text" class="form-control" id="surname" value="Kowalski">
+                                    <input type="text" class="form-control" id="surname" value="<?php echo $loggedUserSurname ?>">
                                 </div>
                                 <button type="submit" class="btn btn-info">Popraw dane</button>
                             </form>
@@ -120,19 +120,19 @@ if ($loggedUser = isLoggedUser($conn)) {
                             <form>
                                 <div class="form-group">
                                     <label for="street">Ulica:</label>
-                                    <input type="text" class="form-control" id="street" value="Ogrodowa">
+                                    <input type="text" class="form-control" id="street" value="<?php echo $loggedUserStreet ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="no">Nr domu / lokalu:</label>
-                                    <input type="text" class="form-control" id="no" value="998c">
+                                    <input type="text" class="form-control" id="no" value="<?php echo $loggedUserNo ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="postcode">Kod pocztowy:</label>
-                                    <input type="text" class="form-control" id="postcode" value="96-987">
+                                    <input type="text" class="form-control" id="postcode" value="<?php echo $loggedUserPostcode ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="city">Miejscowość:</label>
-                                    <input type="text" class="form-control" id="city" value="Zadupie głębokie">
+                                    <input type="text" class="form-control" id="city" value="<?php echo $loggedUserCity ?>">
                                 </div>
                                 <button type="submit" class="btn btn-info">Popraw dane adresowe</button>   
                             </form>

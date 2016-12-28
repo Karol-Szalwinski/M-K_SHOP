@@ -28,7 +28,7 @@ if(isset($_SESSION['loggedUser'])) {
             <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Mój koszyk <?php echo $productsInCart; ?></a></li>
             <li><a href="myMessages.php"><span class="glyphicon glyphicon-envelope"></span> Wiadomości (3)</a></li>
             <li><a href="aboutUs.php"><span class="glyphicon glyphicon-globe"></span> O nas</a></li>
-            <li><a href="contact.php"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>
+            <!--li><a href="contact.php"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li-->
         </ul>
         <!--Mechanizm wyswietlajacy inne menu w zależności czy jestesmy zalogowani-->
         <ul class="nav navbar-nav navbar-right">
