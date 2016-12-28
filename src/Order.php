@@ -306,7 +306,7 @@ class Order {
     //Wyswietla zamówienia w wierszu tabeli usera
     public function showOrderInUserTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
-        echo "'showOrder.php?orderId=";
+        echo "'order.php?orderId=";
         echo $this->getId();
         echo "'" . '">';
         echo "<td>" . $no . "</td>";
