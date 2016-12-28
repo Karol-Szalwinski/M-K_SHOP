@@ -47,6 +47,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $errors[] = 'Cena musi być większa od 0';
     }
+    //sprawdzam zdjęcie
+    if ($_FILES['fileToUpload']['size'] > 0) {
+        $uploadDir = __DIR__.'/images/'.date('Y-m-d');
+        mkdir($uploadDir);
+        
+        $uploadFile = $uploadDir .'/'. basename($_FILES['fileToUpload']['name']);
+         if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
+
+        } else {
+            $errors[]= "błąd w ładowaniu pliku";
+        }
+        
+        
+    }
 
 //Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy nowy
 //produkt i wracamy do listy produktów
@@ -55,6 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newProduct = new Product();
         $newProduct->setIdGroup($categoryId)->setName($name)->setDescription($description)
                 ->setAvailability($quantity)->setPrice($price)->saveToDB($conn);
+        $newProductId = $newProduct->getId();
+        $newPhoto = new Photo();
+        $newPhoto->setProductId($newProductId);
+        $newPhoto->setPath($uploadFile);
+        
         header("Location: products.php");
     }
 }
