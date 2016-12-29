@@ -163,7 +163,8 @@ class Message {
         }
         return $ret;
     }
-
+    
+    //Wyświetlamy wiadomość w wierszu tabeli
     public function showMessageInUserTabRow($no) {
         echo "<tr>";
         echo "<td>$no</td>";
@@ -172,5 +173,7 @@ class Message {
         echo "<td>" . $this->getTextMessage() . "</td>";
         echo "</tr>";
     }
+    
+
 
 }

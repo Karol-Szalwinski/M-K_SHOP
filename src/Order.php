@@ -20,8 +20,6 @@ class Order {
     private $postalCode;
     private $adressCity;
 
-
-
     public function __construct() {
         $this->id = -1;
         $this->idUser = 0;
@@ -100,6 +98,7 @@ class Order {
         }
         return $this;
     }
+
     public function getAdressStreet() {
         return $this->adressStreet;
     }
@@ -143,7 +142,6 @@ class Order {
         }
         return $this;
     }
-
 
     public function saveToDB(mysqli $connection) {
 
@@ -265,7 +263,6 @@ class Order {
         return $ret;
     }
 
-
     static public function getCartByUser(mysqli $connection, $userId) {
         $sql = "SELECT * FROM Orders WHERE id_user=$userId AND status=0";
         $result = $connection->query($sql);
@@ -286,21 +283,21 @@ class Order {
 
     //Wyswietla zamówienia w wierszu tabeli admina
     public function showOrderInAdminTabRow($conn, $no) {
-        
+
         echo "<td>" . $no . "</td>";
         echo "<td>Zamówienie nr " . $this->getId() . "</td>";
         echo "<td>" . $this->getCreationDate() . "</td>";
         echo "<td>" . $this->getUserId() . "</td>";
         echo "<td>" . $this->getAmount() . " PLN</td>";
         echo "<td>" . Status::loadStatusById($conn, $this->getStatus())->getStatusName() . "</td>";
-        
-        
+
+
         echo '<td onclick="location.href=';
         echo "'showOrder.php?orderId=";
         echo $this->getId();
         echo "'" . '">';
         echo "<button type='button' class='btn btn-info'>Pokaż</button></td>";
-        
+
         echo '<td onclick="location.href=';
         echo "'sendMessage.php?orderId=";
         echo $this->getId();
@@ -309,7 +306,7 @@ class Order {
         echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
         echo "</tr>";
     }
-    
+
     //Wyswietla zamówienia w wierszu tabeli usera
     public function showOrderInUserTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
@@ -324,13 +321,13 @@ class Order {
         echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
         echo "</tr>";
     }
-    
-        //Metoda zlicza produkty w koszyku
-        public function countProductsInCart(mysqli $connection) {
+
+    //Metoda zlicza produkty w koszyku
+    public function countProductsInCart(mysqli $connection) {
         $orderId = $this->id;
         $sql = "SELECT * FROM Product_orders WHERE id_orders=$orderId ";
         $result = $connection->query($sql);
         return $result->num_rows;
     }
-}
 
+}
