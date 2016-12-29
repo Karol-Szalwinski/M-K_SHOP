@@ -75,10 +75,10 @@ require_once 'src/Order.php';
   $message3->setTextMessage('wiadomosc');
 
 
-  //var_dump($message3);
+  var_dump($message3);
 
-  //$message3->saveToDB($conn);
-  //var_dump($message3);
+  $message3->saveToDB($conn);
+  var_dump($message3);
 
   $message = Message::loadMessagesBySenderId($conn, 1);
   var_dump($message);
