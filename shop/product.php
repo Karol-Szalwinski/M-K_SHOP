@@ -6,12 +6,15 @@
  * zalogowanego użytkownika.
  */
 require_once __DIR__ . '/../src/required.php';
+$hideAddToCart = "hidden";
+
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
     $myCart = Order::getCartByUser($conn, $loggedUserId);
     $myCartId = $myCart->getId();
+    $hideAddToCart = "";
 }
 
 // Jeżeli dostaliśmy poprawny productId w adresie
@@ -128,12 +131,12 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                             <br>
                             <h3> Cena</h3>
                             <h3> <?php echo $price ?> PLN</h3>
-                            <br><br>
+                            <br>
                             <h3> Dostępnych</h3>
                             <h3> <?php echo $availability ?> Sztuk</h3>
-                            <br><br>
+                            <br>
                         </div> 
-                        <div class="text-center panel panel-default panel-body">
+                        <div class="text-center panel panel-default panel-body <?php echo $hideAddToCart ?>">
                             <form method="POST">
                                 <label class="input-lg">
                                     Sztuk&nbsp;

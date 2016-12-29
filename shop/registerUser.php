@@ -90,10 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ->setStatus(0)
                 ->setPaymentMethod("Cash")
                 ->setAmount(0.00)->saveToDB($conn);
-        var_dump($newUser, $newCart);
         //loguję użytkownika i przekiwrowuję
         $_SESSION['loggedUser'] = $newUser->getId();
-        //header("Location: index.php");
+        header("Location: index.php");
     }
 }
 ?>

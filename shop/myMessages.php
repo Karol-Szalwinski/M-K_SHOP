@@ -9,6 +9,8 @@ require_once __DIR__ . '/../src/required.php';
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
+} else {
+    header("location: index.php");
 }
 ?>
 

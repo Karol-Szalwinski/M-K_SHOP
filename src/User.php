@@ -307,7 +307,6 @@ class User {
         echo "<td>" . $this->getPostalCode() . "</td>";
         echo "<td>" . $this->getAdressCity() . "</td>";
         echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
-        echo "<td><button type='button' class='btn btn-warning'>Wyślij wiadomość</button></td>";
         echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
         echo "</tr>";
     }

@@ -102,8 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['street'])) {
         $loggedUserNo = $loggedUser->getAdressLocalNo();
         $loggedUserPostcode = $loggedUser->getPostalCode();
         $loggedUserCity = $loggedUser->getAdressCity();
-
-        var_dump($loggedUser);
     }
 }
 
