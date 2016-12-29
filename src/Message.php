@@ -68,6 +68,7 @@ class Message {
     public function getTextMessage() {
         return $this->textMessage;
     }
+
     public function setTitle($newTitle) {
         if (is_string($newTitle) && strlen($newTitle) > 0) {
             $this->title = $newTitle;
@@ -78,6 +79,7 @@ class Message {
     public function getTitle() {
         return $this->title;
     }
+
     public function setCreationDate($newCreationDate) {
         if (is_integer($newCreationDate)) {
             $this->creationDate = $newCreationDate;
@@ -160,6 +162,15 @@ class Message {
             }
         }
         return $ret;
+    }
+
+    public function showMessageInUserTabRow($no) {
+        echo "<tr>";
+        echo "<td>$no</td>";
+        echo "<td>" . $this->getCreationDate() . "</td>";
+        echo "<td>" . $this->getTitle() . "</td>";
+        echo "<td>" . $this->getTextMessage() . "</td>";
+        echo "</tr>";
     }
 
 }

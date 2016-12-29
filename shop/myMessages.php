@@ -1,6 +1,5 @@
 <?php
-
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -36,43 +35,34 @@ if ($loggedUser = isLoggedUser($conn)) {
                 <?php require_once __DIR__ . '/sidebar.php' ?>
 
                 <div class="col-sm-10 text-left"> 
-                 
+
                     <h3>Otrzymane wiadomości</h3>
 
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Lp</th>
-                                <th>Data</th>
+                                <th>Data i godzina</th>
                                 <th>Tytuł</th>
                                 <th>Treść</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>05 styczen 2017</td>
-                                <td>Zamówienie nr 3</td>
-                                <td>Paczka została spakowana</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>06 styczen 2017</td>
-                                <td>Zamówienie nr 3</td>
-                                <td>Paczka została wysłana</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>07 styczen 2017</td>
-                                <td>Zamówienie nr 5</td>
-                                <td>Zamówienie zostało przyjęte</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>08 styczen 2017</td>
-                                <td>Zamówienie nr 5</td>
-                                <td>Wpłyneła należność</td>
-                            </tr>
+                            <?php
+                            //Wyświetlam wszystkie wiadomości
+                            $no = 0;
+                            $allMessages = Message::loadMessagesByReceiverId($conn, $loggedUserId);
+                            if (!empty($allMessages)) {
+
+                                foreach ($allMessages as $message) {
+                                    $no++;
+                                    $message->showMessageInUserTabRow($no);
+                                }
+                            } else {
+                                echo "<h4>Użytkownik nie ma żadnych wiadomości/h4>";
+                                die();
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
