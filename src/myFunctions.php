@@ -28,3 +28,9 @@ function printErrors($errorsArray) {
     }
     return true;
 }
+
+//Zamienia wartość ułamkową na cenę w formacie PLN
+function showPrice($value) {
+    return number_format($value, 2, ","," ") . " PLN";
+    
+}

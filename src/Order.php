@@ -288,7 +288,7 @@ class Order {
         echo "<td>Zamówienie nr " . $this->getId() . "</td>";
         echo "<td>" . $this->getCreationDate() . "</td>";
         echo "<td>" . $this->getUserId() . "</td>";
-        echo "<td>" . $this->getAmount() . " PLN</td>";
+        echo "<td>" . showPrice($this->getAmount()) . "</td>";
         echo "<td>" . Status::loadStatusById($conn, $this->getStatus())->getStatusName() . "</td>";
 
 
@@ -316,7 +316,7 @@ class Order {
         echo "<td>" . $no . "</td>";
         echo "<td>Zamówienie nr " . $this->getId() . "</td>";
         echo "<td>" . $this->getCreationDate() . "</td>";
-        echo "<td>" . $this->getAmount() . " PLN</td>";
+        echo "<td>" . showPrice($this->getAmount()) . "</td>";
         echo "<td>" . Status::loadStatusById($conn, $this->getStatus())->getStatusName() . "</td>";
         echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
         echo "</tr>";

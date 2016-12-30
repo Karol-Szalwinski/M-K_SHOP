@@ -283,7 +283,7 @@ class Product {
                 echo "<td>" . ++$no . "</td>";
                 echo "<td>{$row['name']}</td>";
                 echo "<td>{$row['quantity']}</td>";
-                echo "<td>{$row['real_price']} PLN</td>";
+                echo "<td>" . showPrice($row['real_price']) . "</td>";
                 //echo "<td><button type='button' class='btn btn-warning'>Zmień</button></td>";
                 echo "<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
                 echo "<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
@@ -308,7 +308,7 @@ class Product {
         . " height='100'></td>";
         echo "<td>" . $this->getName() . "</td>";
         echo "<td>" . $this->getAvailability() . "</td>";
-        echo "<td>" . $this->getPrice() . " PLN</td>";
+        echo "<td>" . showPrice($this->getPrice()) . "</td>";
         echo "</tr>";
     }
 
@@ -323,7 +323,7 @@ class Product {
         . " height='100'></td>";
         echo "<td>" . $this->getName() . "</td>";
         echo "<td>" . $this->getAvailability() . "</td>";
-        echo "<td>" . $this->getPrice() . " PLN</td>";
+        echo "<td>" . showPrice($this->getPrice())  . "</td>";
         echo "<td><button type='button' class='btn btn-info'>Podgląd produktu</button></td>";
         echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
         echo "</tr>";

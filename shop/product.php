@@ -87,7 +87,7 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                 <div class="col-sm-12 text-left"> 
 
                     <h3><?php echo $productname ?></h3>
-                    <h4>Kategoria :<?php echo $category ?></h4>
+                    <h4>Kategoria: <?php echo Group::loadCategoryById($conn, $category)->getGroupName() ?></h4>
                     <hr>
                     <div class="col-sm-6 text-left"> 
 
@@ -130,7 +130,7 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                         <div class="text-right panel panel-default panel-body">
                             <br>
                             <h3> Cena</h3>
-                            <h3> <?php echo $price ?> PLN</h3>
+                            <h3> <?php echo showPrice($price) ?></h3>
                             <br>
                             <h3> Dostępnych</h3>
                             <h3> <?php echo $availability ?> Sztuk</h3>

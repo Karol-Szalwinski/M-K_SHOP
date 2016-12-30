@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password1'])) {
                                         <tr>
                                             <td colspan="2"></td>
                                             <td><strong>Łączna kwota zamówień</strong></td>
-                                            <td><strong><?php echo $amount ?></strong></td>
+                                            <td><strong><?php echo showPrice($amount) ?></strong></td>
                                         </tr>
                                     </tbody>
                                 </table>

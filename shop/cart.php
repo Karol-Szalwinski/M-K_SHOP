@@ -133,7 +133,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                             <tr>
                                 <td colspan="2"></td>
                                 <td><strong>Łącznie</strong></td>
-                                <td><strong><?php echo $amount ?> PLN</strong></td>
+                                <td><strong><?php echo showPrice($amount) ?></strong></td>
                                 <td></td>
                             </tr>
                         </tbody>
