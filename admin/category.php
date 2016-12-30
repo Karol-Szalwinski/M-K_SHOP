@@ -4,6 +4,9 @@
  */
 require_once __DIR__ . '/../src/required.php';
 
+//Ustalam aktywną zakładkę w menu
+$_SESSION['active-button-admin-menu'] = 1;
+
 //jeśli admin jest zalogowany to przekierowuję na główną
 if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");

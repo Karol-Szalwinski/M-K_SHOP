@@ -4,6 +4,9 @@
  * Strona opisująca właściciela sklepu
  */
 require_once __DIR__ . '/../src/required.php';
+
+//Ustalamy aktywną zakładkę
+$_SESSION['active-button'] = 4;
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();

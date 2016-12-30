@@ -6,6 +6,10 @@
  * Użytkownik może zobaczyć tylko swój panel.
  */
 require_once __DIR__ . '/../src/required.php';
+
+//Ustalamy aktywną zakładkę
+$_SESSION['active-button'] = 1;
+
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();

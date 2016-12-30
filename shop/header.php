@@ -5,13 +5,19 @@
  */
 
 //require_once __DIR__ . '/../src/required.php';
-if(isset($_SESSION['loggedUser'])) {
-    $productsInCart = "(" .Order::getCartByUser($conn, $_SESSION['loggedUser'])
-            ->countProductsInCart($conn) . ")";
+if (isset($_SESSION['loggedUser'])) {
+    $productsInCart = "(" . Order::getCartByUser($conn, $_SESSION['loggedUser'])
+                    ->countProductsInCart($conn) . ")";
     $messagesCount = "(" . User::loadUserById($conn, $_SESSION['loggedUser'])
-            ->countRecipientMessages($conn) . ")";
+                    ->countRecipientMessages($conn) . ")";
 } else {
-     $productsInCart = $messagesCount = "";
+    $productsInCart = $messagesCount = "";
+}
+$active = ["", "", "", "", ""];
+
+//sprawdzamy zmienną globalną przechowującą nr aktywnej zakładki menu
+if (isset($_SESSION['active-button'])) {
+    $active[$_SESSION['active-button']] = "class='active'";
 }
 ?>
 <script>
@@ -25,11 +31,11 @@ if(isset($_SESSION['loggedUser'])) {
             <a class="navbar-brand" href="#">M&K SHOP</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Główna</a></li>
-            <li><a href="user.php"><span class="glyphicon glyphicon-hand-right"></span> Moje konto</a></li>
-            <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Mój koszyk <?php echo $productsInCart; ?></a></li>
-            <li><a href="myMessages.php"><span class="glyphicon glyphicon-envelope"></span> Wiadomości <?php echo $messagesCount; ?></a></li>
-            <li><a href="aboutUs.php"><span class="glyphicon glyphicon-globe"></span> O nas</a></li>
+            <li <?php echo $active[0] ?> ><a href="index.php"><span class="glyphicon glyphicon-home"></span> Główna</a></li>
+            <li <?php echo $active[1] ?> ><a href="user.php"><span class="glyphicon glyphicon-hand-right"></span> Moje konto</a></li>
+            <li <?php echo $active[2] ?> ><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Mój koszyk <?php echo $productsInCart; ?></a></li>
+            <li <?php echo $active[3] ?> ><a href="myMessages.php"><span class="glyphicon glyphicon-envelope"></span> Wiadomości <?php echo $messagesCount; ?></a></li>
+            <li <?php echo $active[4] ?> ><a href="aboutUs.php"><span class="glyphicon glyphicon-globe"></span> O nas</a></li>
             <!--li><a href="contact.php"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li-->
         </ul>
         <!--Mechanizm wyswietlajacy inne menu w zależności czy jestesmy zalogowani-->

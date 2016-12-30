@@ -10,6 +10,9 @@ if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
     $loggedUserId = $loggedUser->getId();
 }
+
+//Ustalamy aktywną zakładkę
+$_SESSION['active-button'] = 0;
 ?>
 
 

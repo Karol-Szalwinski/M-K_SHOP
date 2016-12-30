@@ -3,6 +3,10 @@
  * Strona rejestracji nowego admina
  */
 require_once __DIR__ . '/../src/required.php';
+
+//Ustalam aktywną zakładkę w menu
+$_SESSION['active-button-admin-menu'] = 5;
+
 //Ustalamy id i name zalogowanego admina
 if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");

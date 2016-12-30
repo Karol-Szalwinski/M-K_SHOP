@@ -9,6 +9,9 @@
  * - wyświetlenie łącznej kwoty zamówienia.
  */
 require_once __DIR__ . '/../src/required.php';
+//Ustalamy aktywną zakładkę
+$_SESSION['active-button'] = 2;
+
 $errors = [];
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {

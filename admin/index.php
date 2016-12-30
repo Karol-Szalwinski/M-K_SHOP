@@ -5,6 +5,10 @@
  * 
  */
 require_once __DIR__ . '/../src/required.php';
+
+//Ustalam aktywną zakładkę w menu
+$_SESSION['active-button-admin-menu'] = 0;
+
 //Ustalamy id i name zalogowanego admina
 if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");
