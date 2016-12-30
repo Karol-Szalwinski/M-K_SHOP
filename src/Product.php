@@ -238,6 +238,11 @@ class Product {
             $productToChangeAvailability = Product::loadProductById($conn, $row['id_product']);
             $productToChangeAvailability->setAvailability($productToChangeAvailability
                     ->availability += $row['quantity'])->saveToDB($conn);
+            //Obniżam wartość koszyka
+            $order = Order::loadOrderById($conn, $row['id_orders']);
+            $amount = $order->getAmount() - $row['quantity'] * $row['real_price'];
+            $order->setAmount($amount)->saveToDB($conn);
+            //Usuwam z bazy wpis
             $sql = "DELETE FROM Product_orders 
                 WHERE id=$productOrderId";
             $result = $conn->query($sql);
@@ -267,6 +272,35 @@ class Product {
     }
 
     //ładujemy wszystkie produkty z koszyka / zamówienia
+    static public function showAllProductsByCartIdInTabRow(mysqli $connection, $orderId) {
+
+        $sql = "SELECT * FROM Product
+                INNER JOIN Product_orders ON Product_orders.id_product=Product.id
+                 WHERE id_orders=$orderId ";
+
+        $result = $connection->query($sql);
+        $no = 0;
+        $amount = 0;
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+                $amount += $row['real_price'] * $row['quantity'];
+                echo "<tr>";
+                echo "<td>" . ++$no . "</td>";
+                echo "<td>{$row['name']}</td>";
+                echo "<td>{$row['quantity']}</td>";
+                echo "<td>" . showPrice($row['real_price']) . "</td>";
+                echo "<td>" . showPrice($row['quantity'] * $row['real_price']) . "</td>";
+                echo "<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
+                echo "<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
+                echo "</tr>";
+            }
+
+            return $amount;
+        }
+        return $amount;
+    }
+
+    //ładujemy wszystkie produkty z koszyka / zamówienia
     static public function showAllProductsByOrderIdInTabRow(mysqli $connection, $orderId) {
 
         $sql = "SELECT * FROM Product
@@ -284,9 +318,7 @@ class Product {
                 echo "<td>{$row['name']}</td>";
                 echo "<td>{$row['quantity']}</td>";
                 echo "<td>" . showPrice($row['real_price']) . "</td>";
-                //echo "<td><button type='button' class='btn btn-warning'>Zmień</button></td>";
-                echo "<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
-                echo "<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
+                echo "<td>" . showPrice($row['quantity'] * $row['real_price']) . "</td>";
                 echo "</tr>";
             }
 
@@ -294,8 +326,6 @@ class Product {
         }
         return $amount;
     }
-
-
 
     //Wyswietla produkt w wierszu tabeli
     public function showProductInTabRow($conn, $no) {
@@ -323,7 +353,7 @@ class Product {
         . " height='100'></td>";
         echo "<td>" . $this->getName() . "</td>";
         echo "<td>" . $this->getAvailability() . "</td>";
-        echo "<td>" . showPrice($this->getPrice())  . "</td>";
+        echo "<td>" . showPrice($this->getPrice()) . "</td>";
         echo "<td><button type='button' class='btn btn-info'>Podgląd produktu</button></td>";
         echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
         echo "</tr>";

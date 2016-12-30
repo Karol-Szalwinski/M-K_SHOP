@@ -168,8 +168,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password1'])) {
                     <hr>
                     <!-- Zakładki -->
                     <ul class="nav nav-tabs nav-justified" role="tablist">
-                        <li><a href="#1kartajust" role="tab" data-toggle="tab"><h4>Moje zamówienia</h4></a></li>
                         <li class="active"><a href="#2kartajust" role="tab" data-toggle="tab"><h4>Moje dane</h4></a></li>
+                        <li><a href="#1kartajust" role="tab" data-toggle="tab"><h4>Moje zamówienia</h4></a></li>
                     </ul>
                     <!-- Zawartość zakładek -->
                     <div class="tab-content">
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password1'])) {
                             </div>
                         </div>
 
-                        <div class="tab-pane active" id="2kartajust">
+                        <div class="tab-pane active col-sm-6" id="2kartajust">
                             <h4>Moje dane osobowe</h4>
                             <!-Tutaj wyświetlam błędy związane z tym formularzem-->
                             <?php printErrors($errors1); ?>

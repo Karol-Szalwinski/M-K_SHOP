@@ -54,11 +54,16 @@ if ($loggedUser = isLoggedUser($conn)) {
             $userCity = substr(trim($_POST['city']), 0, 30);
         } else {
             $errors[] = 'Podałeś nieprawidłowy miasto';
-        }"Nie udało się usuwanie produktu z koszyka";
+        }
+        //sprawdzam czy wybrał płatność
         if (isset($_POST['payment']) && $_POST['payment'] > 0) {
             $paymentMethod = $_POST['payment'];
         } else {
             $errors[] = 'Nie wybrałeś płatności';
+        }
+        //sprawdzam czy jest coś w koszyku
+        if ($myCart->countProductsInCart($conn) == 0) {
+            $errors[] = 'Nie można zrobić zamówienia z pustego koszyka';
         }
 
         //Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy zamówienie
@@ -121,17 +126,18 @@ if ($loggedUser = isLoggedUser($conn)) {
                                 <th>Nazwa towaru</th>
                                 <th>Ilość</th>
                                 <th>Cena</th>
+                                <th>Wartość</th>
                                 <th></th>
 
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $amount = Product::showAllProductsByOrderIdInTabRow($conn, $myCartId);
+                            $amount = Product::showAllProductsByCartIdInTabRow($conn, $myCartId);
                             ?>
 
                             <tr>
-                                <td colspan="2"></td>
+                                <td colspan="3"></td>
                                 <td><strong>Łącznie</strong></td>
                                 <td><strong><?php echo showPrice($amount) ?></strong></td>
                                 <td></td>
