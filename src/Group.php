@@ -69,7 +69,7 @@ class Group {
             }
         }
     }
-        
+
     static public function loadAllGroups(mysqli $connection) {
 
         $sql = "SELECT * FROM Groups ORDER BY group_name ASC";
@@ -87,6 +87,24 @@ class Group {
 
         return $ret;
     }
+
+    // wyświetlanie kategorii wg id
+    static public function loadCategoryById(mysqli $connection, $id) {
+        $sql = "SELECT * FROM Groups WHERE id=$id";
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows == 1) {
+
+            $row = $result->fetch_assoc();
+            $loadedGroup = new Group();
+            $loadedGroup->id = $row['id'];
+            $loadedGroup->groupName = $row['group_name'];
+
+            return $loadedGroup;
+        }
+
+        return null;
+    }
+
     //Wyswietla kategorię w wierszu tabeli
     public function showCategoryInTabRow($conn, $no) {
         echo "<tr>";
@@ -98,13 +116,15 @@ class Group {
         echo"<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
         echo"</tr>";
     }
+
     //wyswietla kategorię jako przycisk sidebara
     public function showCategoryInSidebar() {
         echo "<li>";
         echo "<a href='category.php?categoryId=$this->id'>";
         echo $this->groupName;
-        echo"</a></li>";      
+        echo"</a></li>";
     }
+
     //Usuwa kategorię po id
     static public function deleteCategoryById(mysqli $connection, $id) {
 
@@ -119,6 +139,4 @@ class Group {
         return true;
     }
 
-    
-    
 }
