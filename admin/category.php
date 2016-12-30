@@ -29,14 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
     }
 }
 //sprawdzam czy została przesłana odpowiednia kategoria do usunięcia
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id'])) {
-    if ($_POST['category-id'] > 0 ) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id']) &&
+        $_POST['category-id'] > 0 ) {
+    if (Group::loadCategoryById($conn, $_POST['category-id'])->countProductsInCategory($conn) == 0) {
         if(Group::deleteCategoryById($conn, $_POST['category-id'])) {
             $errors[] = "Pomyślnie usunięto kategorię";
         } 
         
     } else {
-        $errors[] = "Nie udało się usuwanie kategorii";
+        $errors[] = "Nie można usunąć kategorii ponieważ istnieją produkty z nią powiązane";
     }
 }
 ?>
@@ -81,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id'])) {
                                 <th>Lp</th>
                                 <th>Nazwa kategorii</th>
                                 <th>Ilość towarów</th>
-                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>

@@ -110,8 +110,7 @@ class Group {
         echo "<tr>";
         echo"<td>$no</td>";
         echo"<td>$this->groupName</td>";
-        echo"<td>10</td>";
-        echo"<td><button type='button' class='btn btn-warning' onclick='location.href = 'product.php';'>Zmień</button></td>";
+        echo"<td>" . $this->countProductsInCategory($conn) . "</td>";
         echo"<td><form method='POST'><input type='hidden' name='category-id' value='$this->id'>";
         echo"<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
         echo"</tr>";
@@ -138,5 +137,13 @@ class Group {
         }
         return true;
     }
+    
+        //Metoda zlicza produkty w kategorii
+    public function countProductsInCategory(mysqli $connection) {
+        $sql = "SELECT * FROM Product WHERE id_group=$this->id";
+        $result = $connection->query($sql);
+        return $result->num_rows;
+    }
+
 
 }
