@@ -12,6 +12,28 @@ if (!isLoggedAdmin($conn)) {
 }
 $errors = [];
 
+//sprawdzam zdjęcie
+$errors9 = [];
+$_SESSION['photo'] = [];
+If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
+    if ($_FILES['fileToUpload']['size'] > 0) {
+
+        $uploadFile = '../images/' . basename($_FILES['fileToUpload']['name']);
+        echo "$uploadFile";
+    } else {
+        $errors9[] = "brak załadowanego zdjęcia";
+    }
+    if (empty($errors9)) {
+        echo "Załadowano zdjęcie<br>";
+        if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
+            // Zapis do tablicy sesyjnej
+            $_SESSION['photo'] += [$uploadFile];
+            var_dump($_SESSION['photo']);
+        }
+    }
+}
+
+
 //sprawdzam czy zostały przesłane odpowiednie dane
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //sprawdzam przesłane id kategorii
@@ -47,20 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $errors[] = 'Cena musi być większa od 0';
     }
-    //sprawdzam zdjęcie
-    if ($_FILES['fileToUpload']['size'] > 0) {
-        $uploadDir = __DIR__.'/images/'.date('Y-m-d');
-        mkdir($uploadDir);
-        
-        $uploadFile = $uploadDir .'/'. basename($_FILES['fileToUpload']['name']);
-         if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
 
-        } else {
-            $errors[]= "błąd w ładowaniu pliku";
-        }
-        
-        
-    }
 
 //Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy nowy
 //produkt i wracamy do listy produktów
@@ -69,12 +78,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newProduct = new Product();
         $newProduct->setIdGroup($categoryId)->setName($name)->setDescription($description)
                 ->setAvailability($quantity)->setPrice($price)->saveToDB($conn);
-        $newProductId = $newProduct->getId();
-        $newPhoto = new Photo();
-        $newPhoto->setProductId($newProductId);
-        $newPhoto->setPath($uploadFile);
-        
-        header("Location: products.php");
+// sprawdzić jak ma działać
+        //$newProductId = $newProduct->insert_id;
+        $last_id = $conn->insert_id;
+
+        //var_dump($newProductId);
+        //foreach tablica w sesji
+        foreach ($_SESSION['photo'] as $value) {
+            $newPhoto = new Photo();
+            $newPhoto->setProductId($last_id);
+            $newPhoto->setPath($value);
+            $newPhoto->saveToDB($conn);
+            var_dump($newPhoto);
+        }
+        //header("Location: products.php");
     }
 }
 ?>
@@ -89,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-            <?php require_once __DIR__ . '/header.php' ?>
+<?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -98,7 +115,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="row content">            
                 <!-Tutaj wyświetlam błędy-->
-                <?php printErrors($errors); ?>
+<?php printErrors($errors);
+printErrors($errors9)
+?>
                 <div class="col-sm-12 text-left">
                     <br>
                     <h3>Dodaj produkt</h3>
@@ -139,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
                 </div>
                 <div class="col-sm-6 text-left">
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <form action="#" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="fileToUpload">Dodaj zdjęcie</label>
                             <input class="form-control" type="file" name="fileToUpload" id="fileToUpload"><br>

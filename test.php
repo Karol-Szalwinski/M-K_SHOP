@@ -7,6 +7,7 @@ require_once 'src/Admin.php';
 require_once 'src/Message.php';
 require_once 'src/Group.php';
 require_once 'src/Order.php';
+require_once 'src/Photo.php';
 
 /**
   $produkt1 = new Product();
@@ -66,6 +67,7 @@ require_once 'src/Order.php';
   var_dump($admin);
  * 
  */
+/**
   $message3 = new Message();
 
   //$message3->setId(1);
@@ -82,7 +84,7 @@ require_once 'src/Order.php';
 
   $message = Message::loadMessagesBySenderId($conn, 1);
   var_dump($message);
-
+**/
 /**
   $group3 = new Group();
   //$group3->setId(2);
@@ -103,3 +105,10 @@ $product = Product::getAllProductsByGroupId($conn, 12);
 var_dump($product);
 **/
 
+        $newPhoto = new Photo();
+        //$newPhoto->setId(-1);
+        $newPhoto->setProductId(19);
+        $newPhoto->setPath('../images/Zrzut ekranu z 2016-09-25 11:47:14.png');
+        $newPhoto->saveToDB($conn);
+        
+        var_dump($newPhoto);
