@@ -13,6 +13,16 @@ if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");
 }
 $errors = [];
+
+//sprawdzam czy został przesłany odpowiedni id zamówienia do usunięcia
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order-id']) &&
+        $_POST['order-id'] > 0) {
+
+    if ($orderToDel = Order::loadOrderById($conn, $_POST['order-id'])) {
+        $orderToDel->delete($conn);
+        $errors[] = "Pomyślnie usunięto zamówienie";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +42,8 @@ $errors = [];
         <div class="container-fluid text-center">
 
             <div class="row content">    
-
+                <!-Tutaj wyświetlam błędy-->
+                <?php printErrors($errors); ?>
                 <div class="col-sm-12 text-left">
                     <br>
                     <h3>Lista zamówień</h3>
@@ -70,7 +81,8 @@ $errors = [];
                                             $no++;
                                             $order->showOrderInAdminTabRow($conn, $no);
                                         }
-                                    } else printErrors(["Brak zamówień z tym statusem"]);
+                                    } else
+                                        printErrors(["Brak zamówień z tym statusem"]);
                                     ?>
                                 </tbody>
                             </table>
@@ -101,7 +113,8 @@ $errors = [];
                                             $no++;
                                             $order->showOrderInAdminTabRow($conn, $no);
                                         }
-                                    } else printErrors(["Brak zamówień z tym statusem"]);
+                                    } else
+                                        printErrors(["Brak zamówień z tym statusem"]);
                                     ?>
                                 </tbody>
                             </table>   
@@ -132,7 +145,8 @@ $errors = [];
                                             $no++;
                                             $order->showOrderInAdminTabRow($conn, $no);
                                         }
-                                    } else printErrors(["Brak zamówień z tym statusem"]);
+                                    } else
+                                        printErrors(["Brak zamówień z tym statusem"]);
                                     ?>
                                 </tbody>
                             </table> 

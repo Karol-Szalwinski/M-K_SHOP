@@ -178,6 +178,22 @@ class Order {
         return false;
     }
 
+    //Usuwa zamówienie z bazy
+    public function delete(mysqli $connection) {
+
+        if ($this->id != -1) {
+            $sql = "DELETE FROM Orders WHERE id=$this->id";
+            $result = $connection->query($sql);
+            if ($result == true) {
+
+                $this->id = -1;
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+
 // wyświetlanie zamówień wg id zamówienia
     static public function loadOrderById(mysqli $connection, $id) {
 
@@ -233,7 +249,7 @@ class Order {
             return $ret;
         }
     }
-  
+
     // wyświetlanie wszystkich zamówień wg statusu
     static public function loadAllOrdersByStatus(mysqli $connection, $status) {
 
@@ -261,7 +277,6 @@ class Order {
             return $ret;
         }
     }
-    
 
 // wyświetlanie wszystkich zamówień w bazie
     static public function loadAllOrders(mysqli $connection) {
@@ -333,7 +348,8 @@ class Order {
         echo $this->getId();
         echo "'" . '">';
         echo "<button type='button' class='btn btn-warning'>Wyślij wiadomość</button></td>";
-        echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
+        echo"<td><form method='POST'><input type='hidden' name='order-id' value='$this->id'>";
+        echo"<button type='submit' class='btn btn-danger'>Usuń</button></form></td>";
         echo "</tr>";
     }
 
