@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2017 at 03:12 PM
+-- Generation Time: Jan 02, 2017 at 03:53 PM
 -- Server version: 5.5.50-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
@@ -127,20 +127,14 @@ CREATE TABLE IF NOT EXISTS `Orders` (
 --
 
 INSERT INTO `Orders` (`id`, `id_user`, `status`, `creation_date`, `payment_method`, `amount`, `adress_street`, `adress_local`, `postal_code`, `adress_city`) VALUES
-(1, 2, 2, '2016-12-28 09:57:51', 'Cash', 0, 'Polna', '99', '99-789', 'Pozna?'),
 (3, 10, 0, '0000-00-00 00:00:00', 'Cash', 0, '', '', '', ''),
 (4, 11, 0, '0000-00-00 00:00:00', 'Cash', 0, '', '', '', ''),
-(5, 12, 1, '2016-12-27 11:01:39', '3', 0, 'Bulwar st', '10', '00-888', 'New Jork'),
 (9, 12, 3, '2017-01-02 11:44:02', '2', 0, 'Bulwar st', '10', '00-888', 'New Jork'),
 (10, 12, 0, '2016-12-27 11:30:20', '', 0, '', '', '', ''),
-(11, 13, 1, '2016-12-27 13:34:31', '3', 0, 'Main St', '1067b', '00-876', 'New Jork'),
-(12, 13, 1, '2016-12-27 13:37:38', '3', 0, 'Main St', '1067b', '00-876', 'New Jork'),
-(13, 13, 1, '2016-12-27 14:08:41', '2', 0, 'Main St', '1067b', '00-876', 'New Jork'),
 (14, 13, 1, '2016-12-27 14:26:18', '2', 0, 'Main St', '1067b', '00-876', 'New Jork'),
 (15, 13, 2, '2016-12-28 10:21:29', '2', 678.78, 'Main St', '1067b', '00-876', 'New Jork'),
 (16, 14, 0, '2016-12-28 07:36:04', 'Cash', 0, '', '', '', ''),
 (17, 13, 1, '2016-12-28 17:46:03', '2', 5185.45, 'Main Street', '1067b', '00-876', 'New Jork'),
-(18, 15, 2, '2016-12-30 07:44:52', '2', 1471, 'Fawn Lane', '10', '60-451', 'New Lenox 2'),
 (19, 15, 1, '2016-12-28 13:03:49', '2', 4670.1, 'Fawn Lane', '10', '60-451', 'New Lenox'),
 (20, 15, 0, '2016-12-28 13:11:29', '', 1023, '', '', '', ''),
 (21, 13, 1, '2016-12-28 18:22:03', '2', 16727.9, 'Main St', '1067b', '00-876', 'New Jork'),
@@ -221,39 +215,16 @@ CREATE TABLE IF NOT EXISTS `Product_orders` (
 --
 
 INSERT INTO `Product_orders` (`id`, `id_orders`, `id_product`, `quantity`, `real_price`) VALUES
-(2, 1, 2, 3, 35),
-(3, 1, 6, 6, 5),
-(4, 1, 4, 45, 45),
-(5, 1, 1, 0, 561.67),
-(6, 1, 1, 0, 561.67),
-(7, 1, 1, 0, 561.67),
-(8, 1, 1, 1, 561.67),
-(9, 1, 7, 7, 789),
-(10, 1, 7, 1, 789),
-(11, 1, 7, 1, 789),
-(12, 1, 2, 1, 550.68),
-(13, 1, 5, 100, 10258.9),
-(14, 1, 5, 89, 10258.9),
 (27, 3, 2, 132, 550.68),
 (31, 4, 8, 10, 678.78),
 (32, 4, 3, 14, 341),
 (33, 4, 8, 15, 678.78),
 (34, 4, 8, 3, 678.78),
 (35, 4, 8, 4, 678.78),
-(36, 5, 8, 1, 678.78),
-(37, 5, 3, 1, 341),
-(38, 5, 7, 1, 789),
 (39, 9, 3, 3, 341),
-(40, 11, 3, 2, 341),
-(41, 12, 8, 1, 678.78),
-(43, 13, 6, 3, 5231.99),
-(44, 13, 1, 1, 561.67),
-(45, 13, 3, 6, 341),
 (46, 14, 3, 3, 341),
 (47, 14, 1, 7, 561.67),
 (49, 15, 8, 1, 678.78),
-(50, 18, 7, 1, 789),
-(51, 18, 3, 2, 341),
 (52, 19, 10, 10, 467.01),
 (53, 20, 3, 3, 341),
 (56, 17, 8, 1, 678.78),
@@ -322,7 +293,6 @@ CREATE TABLE IF NOT EXISTS `Users` (
 
 INSERT INTO `Users` (`id`, `name`, `surname`, `hashed_password`, `email`, `adress_street`, `adress_local`, `postal_code`, `adress_city`) VALUES
 (2, 'Karol', 'Kamil', '$2y$10$u2w3q9.yWVirbzN9WWD2jOBqi2EKxrrpnUQi69EQcy8kE/MM2fQuq', 'user@user.pl', 'Polna', '96', '96-200', 'Rawa'),
-(3, 'Cezary', 'Pazura', '$2y$10$O7nnRdhnuUdsdmWt7Q90Z.1imLvNgYAkgp0CiDBph6jtKRy1xjD5K', '', 'MaÅ‚a', '10b/56', '99-100', 'Warszawa'),
 (4, 'Janusz', 'Handlarz', '$2y$10$tw74Uo0gqvuTnAFbK/G8P.px4hWMRhB7KOIVOgW00rxuiGgC9nrdK', 'user2@user.pl', 'Polska', '77', '89-547', 'IÅ‚k'),
 (10, 'Ania', 'Alka', '$2y$10$Cj24JVHhv1ON9flDMR8KLe/CkVxKZDtPp9grWkV9kppm.TrKT3vVW', 'test1@te.pl', 'Polna', '1', '22-222', 'Polka'),
 (11, 'MichaÅ‚', 'Betaa', '$2y$10$xicx7GMLDZzF7Epb0wegtuHYAPu4bT6m3LEBGam8sfH16VYFfHbqm', 'michal@pl.pl', 'Polna', '87/67b', '99-521', 'Warszawa'),
@@ -348,6 +318,7 @@ ALTER TABLE `Messages`
 -- Constraints for table `Orders`
 --
 ALTER TABLE `Orders`
+  ADD CONSTRAINT `Orders_ibfk_2` FOREIGN KEY (`status`) REFERENCES `Statuses` (`id`),
   ADD CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
