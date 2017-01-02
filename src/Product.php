@@ -299,9 +299,12 @@ class Product {
                 $amount += $row['real_price'] * $row['quantity'];
                 echo "<tr>";
                 echo "<td>" . ++$no . "</td>";
-                echo "<td>{$row['name']}</td>";
-                echo "<td>{$row['quantity']}</td>";
+                echo "<td>{$row['name']}</td><td>";
+                // echo "<td>{$row['quantity']}</td>";
+                Product::makeFormToChangeQuantity($row['quantity'], 20);
+                echo "</td>";
                 echo "<td>" . showPrice($row['real_price']) . "</td>";
+
                 echo "<td>" . showPrice($row['quantity'] * $row['real_price']) . "</td>";
                 echo "<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
                 echo "<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
@@ -311,6 +314,14 @@ class Product {
             return $amount;
         }
         return $amount;
+    }
+
+    //Tworzy formularz w komórce do zmiany ilości
+    static public function makeFormToChangeQuantity($setQuantity, $maxQuantity) {
+        echo "<form method='POST'>";
+        echo "<input type='number' class='input-sm' name='quantity' min='1' max='$maxQuantity' step='1' value='$setQuantity'>";
+        echo "<input type='submit' class='btn btn-danger btn-sm' value='Zmień'>";
+        echo "</form>";
     }
 
     //ładujemy wszystkie produkty z koszyka / zamówienia

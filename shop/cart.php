@@ -195,5 +195,27 @@ if ($loggedUser = isLoggedUser($conn)) {
     </body>
 </html>
 
-
+<div class="m-dropdown m-dropdown-sc">
+<input type="hidden" name="dropdown_count_749699" value="1" class="dropdown-input">
+<button data-id="749699" class="btn btn-dropdown btn-block btn-sm btn-offer dropdown-button" type="button">
+<span class="default">1</span>
+<span class="icon-select"></span>
+</button>
+<div class="dropdown-content" style="display: none;">
+<div class="list">
+<ul>
+<li class="dropdown-active" data-value="1">1</li>
+<li data-value="2">2</li>
+<li data-value="3">3</li>
+<li data-value="4">4</li>
+<li data-value="5">5</li>
+<li data-value="6">6</li>
+<li data-value="7">7</li>
+<li data-value="8">8</li>
+<li data-value="9">9</li>
+<li data-value="+10" class="show-input">+10</li>
+</ul>
+</div>
+</div>
+</div>
 
