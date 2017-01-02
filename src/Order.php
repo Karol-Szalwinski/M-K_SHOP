@@ -218,6 +218,7 @@ class Order {
 
                 $loadedOrder = new Order();
                 $loadedOrder->id = $row['id'];
+                $loadedOrder->idUser = $row['id_user'];
                 $loadedOrder->status = $row['status'];
                 $loadedOrder->creationDate = $row['creation_date'];
                 $loadedOrder->paymentMethod = $row['payment_method'];
@@ -232,6 +233,35 @@ class Order {
             return $ret;
         }
     }
+  
+    // wyświetlanie wszystkich zamówień wg statusu
+    static public function loadAllOrdersByStatus(mysqli $connection, $status) {
+
+        $sql = "SELECT * FROM Orders WHERE status=$status ORDER BY id ASC";
+        $ret = [];
+
+        $result = $connection->query($sql);
+        if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+
+                $loadedOrder = new Order();
+                $loadedOrder->id = $row['id'];
+                $loadedOrder->idUser = $row['id_user'];
+                $loadedOrder->status = $row['status'];
+                $loadedOrder->creationDate = $row['creation_date'];
+                $loadedOrder->paymentMethod = $row['payment_method'];
+                $loadedOrder->amount = $row['amount'];
+                $loadedOrder->adressStreet = $row['adress_street'];
+                $loadedOrder->adressLocalNo = $row['adress_local'];
+                $loadedOrder->postalCode = $row['postal_code'];
+                $loadedOrder->adressCity = $row['adress_city'];
+                $ret[] = $loadedOrder;
+            }
+
+            return $ret;
+        }
+    }
+    
 
 // wyświetlanie wszystkich zamówień w bazie
     static public function loadAllOrders(mysqli $connection) {
