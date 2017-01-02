@@ -15,6 +15,7 @@ class Product {
     private $price;
     private $description;
     private $availability;
+    private $deleted;
 
     public function __construct() {
 
@@ -24,6 +25,7 @@ class Product {
         $this->price = 0;
         $this->description = "";
         $this->availability = 0;
+        $this->deleted = 0;
     }
 
     public function setId($newId) {
@@ -89,6 +91,15 @@ class Product {
         return $this->availability;
     }
 
+    public function setDeleted() {
+        $this->deleted = 1;
+        return $this;
+    }
+
+    public function getDeleted() {
+        return $this->deleted;
+    }
+
 // wyświetlanie produktu wg id
     static public function loadProductById(mysqli $connection, $id) {
         $sql = "SELECT * FROM Product WHERE id=$id";
@@ -103,7 +114,7 @@ class Product {
             $loadedProduct->price = $row['price'];
             $loadedProduct->description = $row['description'];
             $loadedProduct->availability = $row['availability'];
-
+            $loadedProduct->deleted = $row['deleted'];
             return $loadedProduct;
         }
 
@@ -113,7 +124,7 @@ class Product {
 // wyświetlanie produktu wg nr grupy
     static public function loadAllProductsByGroupId(mysqli $connection, $idGroup) {
 
-        $sql = "SELECT * FROM Product WHERE id_group=$idGroup ORDER BY name DESC";
+        $sql = "SELECT * FROM Product WHERE id_group=$idGroup AND deleted=0 ORDER BY name DESC";
         $ret = [];
 
         $result = $connection->query($sql);
@@ -127,6 +138,7 @@ class Product {
                 $loadedProduct->price = $row['price'];
                 $loadedProduct->description = $row['description'];
                 $loadedProduct->availability = $row['availability'];
+                $loadedProduct->deleted = $row['deleted'];
                 $ret[] = $loadedProduct;
             }
 
@@ -156,7 +168,7 @@ class Product {
 // wyświetlanie wszytskich produktów w bazie
     static public function loadAllProducts(mysqli $connection) {
 
-        $sql = "SELECT * FROM Product ORDER BY name DESC";
+        $sql = "SELECT * FROM Product WHERE deleted=0 ORDER BY name DESC";
         $ret = [];
 
         $result = $connection->query($sql);
@@ -170,6 +182,7 @@ class Product {
                 $loadedProduct->price = $row['price'];
                 $loadedProduct->description = $row['description'];
                 $loadedProduct->availability = $row['availability'];
+                $loadedProduct->deleted = $row['deleted'];
                 $ret[] = $loadedProduct;
             }
             return $ret;
@@ -184,8 +197,8 @@ class Product {
         if ($this->id == -1) {
 
 
-            $sql = "INSERT INTO Product(id_group, name, price, description, availability)
-               VALUES ('$this->idGroup','$this->name', '$this->price', '$this->description', '$this->availability' )";
+            $sql = "INSERT INTO Product(id_group, name, price, description, availability, deleted)
+               VALUES ('$this->idGroup','$this->name', '$this->price', '$this->description', '$this->availability', '$this->deleted' )";
 
             $result = $connection->query($sql);
             if ($result == true) {
@@ -197,7 +210,7 @@ class Product {
             }
         } else {
             $sql = "UPDATE Product SET id_group='$this->idGroup', name='$this->name', price='$this->price',
-               description='$this->description',availability='$this->availability'  WHERE id=$this->id";
+               description='$this->description',availability='$this->availability', deleted='$this->deleted'  WHERE id=$this->id";
             $result = $connection->query($sql);
             if ($result == true) {
                 return true;
@@ -355,7 +368,8 @@ class Product {
         echo "<td>" . $this->getAvailability() . "</td>";
         echo "<td>" . showPrice($this->getPrice()) . "</td>";
         echo "<td><button type='button' class='btn btn-info'>Podgląd produktu</button></td>";
-        echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
+        echo"<td><form method='POST'><input type='hidden' name='product-id' value='$this->id'>";
+        echo"<button type='submit' class='btn btn-danger'>Usuń</button></form></td>";
         echo "</tr>";
     }
 
