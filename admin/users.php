@@ -7,12 +7,22 @@ require_once __DIR__ . '/../src/required.php';
 
 //Ustalam aktywną zakładkę w menu
 $_SESSION['active-button-admin-menu'] = 3;
+$errors = [];
 
 //jeśli admin jest zalogowany to przekierowuję na główną
 if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");
 }
 
+//sprawdzam czy została przesłany odpowiednie id usera do usunięcia
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-id']) &&
+        $_POST['user-id'] > 0) {
+
+    if ($userToDel = User::loadUserById($conn, $_POST['user-id'])) {
+        $userToDel->delete($conn);
+        $errors[] = "Pomyślnie usunięto użytkownika wraz z zamówieniami i z wiadomościami";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,13 +35,15 @@ if (!isLoggedAdmin($conn)) {
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-            <?php require_once __DIR__ . '/header.php' ?>
+<?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
 
         <div class="container-fluid text-center">
-            <div class="row content">            
+            <div class="row content"> 
+                <!-Tutaj wyświetlam błędy-->
+                <?php printErrors($errors); ?>
                 <div class="col-sm-12 text-left">
                     <h3>Lista użytkowników</h3>
                     <table class="table table-hover">
@@ -51,17 +63,17 @@ if (!isLoggedAdmin($conn)) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            //Wyświetlam wszystkie zamówienia
-                            $no = 0;
-                            $allUsers = User::loadAllUsers($conn);
-                            foreach ($allUsers as $user) {
+<?php
+//Wyświetlam wszystkie zamówienia
+$no = 0;
+$allUsers = User::loadAllUsers($conn);
+foreach ($allUsers as $user) {
 
-                                $no++;
-                                $user->showUserInAdminTabRow($no);
-                            }
-                            ?>>
-                            
+    $no++;
+    $user->showUserInAdminTabRow($no);
+}
+?>
+
                         </tbody>
                     </table>
                 </div>

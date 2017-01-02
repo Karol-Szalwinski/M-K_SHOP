@@ -17,6 +17,7 @@ class User {
     private $adressLocalNo;
     private $postalCode;
     private $adressCity;
+    private $deleted;
 
     public function __construct() {
 
@@ -29,6 +30,7 @@ class User {
         $this->adressLocalNo = "";
         $this->postalCode = "";
         $this->adressCity = "";
+        $this->deleted = 0;
     }
 
     public function getId() {
@@ -132,6 +134,8 @@ class User {
         }
         return $this;
     }
+    
+ 
 
     public function saveToDB(mysqli $connection) {
 
@@ -157,7 +161,8 @@ class User {
             $sql = "UPDATE Users SET name='$this->name', surname='$this->surname',
                     hashed_password='$this->hashedPassword',email='$this->email',
                     adress_street='$this->adressStreet', adress_local='$this->adressLocalNo', 
-                    postal_code='$this->postalCode', adress_city='$this->adressCity'    
+                    postal_code='$this->postalCode', adress_city='$this->adressCity'
+                  
                     WHERE id=$this->id";
 
             $result = $connection->query($sql);
@@ -189,7 +194,7 @@ class User {
             $loadedUser->adressLocalNo = $row['adress_local'];
             $loadedUser->postalCode = $row['postal_code'];
             $loadedUser->adressCity = $row['adress_city'];
-
+ 
             return $loadedUser;
         }
 
@@ -215,7 +220,7 @@ class User {
                 $loadedUser->adressLocalNo = $row['adress_local'];
                 $loadedUser->postalCode = $row['postal_code'];
                 $loadedUser->adressCity = $row['adress_city'];
-
+ 
                 $ret[] = $loadedUser;
             }
         }
@@ -307,7 +312,8 @@ class User {
         echo "<td>" . $this->getPostalCode() . "</td>";
         echo "<td>" . $this->getAdressCity() . "</td>";
         echo "<td><button type='button' class='btn btn-info'>Pokaż</button></td>";
-        echo "<td><button type='button' class='btn btn-danger'>Usuń</button></td>";
+        echo"<td><form method='POST'><input type='hidden' name='user-id' value='$this->id'>";
+        echo"<button type='submit' class='btn btn-danger'>Usuń</button></form></td>";
         echo "</tr>";
     }
 
