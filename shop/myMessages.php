@@ -64,8 +64,8 @@ if ($loggedUser = isLoggedUser($conn)) {
                                     $message->showMessageInUserTabRow($no);
                                 }
                             } else {
-                                echo "<h4>Użytkownik nie ma żadnych wiadomości/h4>";
-                                die();
+                                echo "<h4>Użytkownik nie ma żadnych wiadomości</h4>";
+                                
                             }
                             ?>
                         </tbody>

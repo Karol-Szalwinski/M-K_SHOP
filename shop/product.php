@@ -7,6 +7,7 @@
  */
 require_once __DIR__ . '/../src/required.php';
 $hideAddToCart = "hidden";
+$errors = [];
 
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
@@ -46,10 +47,10 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
     //Jeżeli uda się dodawanie produktu
     if ($product->addProductToCart($conn, $myCartId, $quantity)) {
         //Wyświetlam komunikat i odświeżam dostępność
-        echo "<div class='alert alert-success'>Dodano produkt do koszyka</div>";
+        $errors[] ="Dodano produkt do koszyka";
         $availability = $product->getAvailability();
     } else {
-        echo "<div class='alert alert-danger'>Nie udało się dodać produktu do koszyka</div>";
+        $errors[] = "Nie udało się dodać produktu do koszyka";
     }
 }
 ?>
@@ -72,7 +73,7 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-<?php require_once __DIR__ . '/header.php' ?>
+            <?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -82,9 +83,11 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
             <div class="row content">
 
                 <!—-----------Panel z kategoriami --------------->
-<?php //require_once __DIR__ . '/sidebar.php'   ?>
+                <?php //require_once __DIR__ . '/sidebar.php'   ?>
 
                 <div class="col-sm-12 text-left"> 
+                    <!-Tutaj wyświetlam błędy-->
+                    <?php printErrors($errors); ?>
 
                     <h3><?php echo $productname ?></h3>
                     <h4>Kategoria: <?php echo Group::loadCategoryById($conn, $category)->getGroupName() ?></h4>
@@ -156,7 +159,7 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
     </div>
 
     <!—--------------Stopka------------------->
-<?php //require_once __DIR__ . '/footer.php'   ?>
+    <?php //require_once __DIR__ . '/footer.php'   ?>
 
 </body>
 </html>

@@ -201,10 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password1'])) {
                                                 $no++;
                                                 $order->showOrderInUserTabRow($conn, $no);
                                             }
-                                        } else {
-                                            echo "<h4>Użytkownik nie ma żadnych zamówień</h4>";
-                                            die();
-                                        }
+                                        } 
                                         ?>
                                         <tr>
                                             <td colspan="2"></td>

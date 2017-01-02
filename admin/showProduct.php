@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 <div class="col-sm-12 text-left"> 
 
                     <h3><?php echo $productname ?></h3>
-                    <h4>Kategoria :<?php echo $category ?></h4>
+                    <h4>Kategoria: <?php echo Group::loadCategoryById($conn, $category)->getGroupName() ?></h4>
                     <hr>
                     <div class="col-sm-6 text-left"> 
 
