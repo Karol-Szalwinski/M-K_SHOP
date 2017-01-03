@@ -12,7 +12,7 @@ if (!isLoggedAdmin($conn)) {
 $errors = [];
 //sprawdzam zdjęcie
 $errors9 = [];
-$_SESSION['photo'] = [];
+
 If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
     if ($_FILES['fileToUpload']['size'] > 0) {
         $uploadFile = '../images/' . basename($_FILES['fileToUpload']['name']);
@@ -24,7 +24,7 @@ If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
         echo "Załadowano zdjęcie<br>";
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
             // Zapis do tablicy sesyjnej
-            $_SESSION['photo'] += [$uploadFile];
+            $_SESSION['photo'][] = [$uploadFile];
             var_dump($_SESSION['photo']);
         }
     }
