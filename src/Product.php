@@ -329,9 +329,9 @@ class Product {
             foreach ($result as $row) {
                 $amount += $row['real_price'] * $row['quantity'];
                 echo "<tr>";
-                echo "<td>" . $row['id'] . "</td>";
-                echo "<td>{$row['name']}</td><td>";
-                // echo "<td>{$row['quantity']}</td>";
+                echo "<td>" . ++$no . "</td>";
+                echo "<td>{$row['name']}</td>";
+                echo "<td><div class='default'>{$row['quantity']}</div>";
                 Product::makeFormToChangeQuantity($row['quantity'], 20, $row['id']);
                 echo "</td>";
                 echo "<td>" . showPrice($row['real_price']) . "</td>";
@@ -349,11 +349,11 @@ class Product {
 
     //Tworzy formularz w komórce do zmiany ilości
     static public function makeFormToChangeQuantity($setQuantity, $maxQuantity, $idOrderProduct) {
-        echo "<form method='POST'>";
+        echo "<div style='display: none' class='edit'><form method='POST'>";
         echo "<input type='number' class='input-sm' name='quantity' min='1' max='$maxQuantity' step='1' value='$setQuantity'>";
         echo "<input type='hidden' name='change-id' value='$idOrderProduct'>";
         echo "<input type='submit' class='btn btn-danger btn-sm' value='Zmień'>";
-        echo "</form>";
+        echo "</form></div>";
     }
 
     //ładujemy wszystkie produkty z koszyka / zamówienia

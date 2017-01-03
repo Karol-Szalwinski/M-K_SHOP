@@ -35,7 +35,7 @@ if ($loggedUser = isLoggedUser($conn)) {
         Product::changeQuantityProductInCart($conn, $_POST['change-id'], $_POST['quantity']);
         $errors[] = "Pomyślnie zmieniono ilość produktów w koszyku";
     }
-    
+
     //Jeżeli ktoś zatwierdza koszyk
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['street'])) {
         //sprawdzam przesłaną ulicę i trimuję
@@ -104,6 +104,14 @@ if ($loggedUser = isLoggedUser($conn)) {
         <title>M&K Shop - Cart</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/style.css" type="text/css" />
+        <script>
+            $(document).ready(function () {
+                $(".default").click(function () {
+                    $(".edit").show();
+                    $(".default").hide();
+                });
+            });
+        </script>
     </head>
     <body>
         <!-----------Nagłówek z menu-------------->
@@ -187,7 +195,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                                     <option value="3">Payu</option>
                                 </select>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-lg btn-danger">Potwierdź zamówienie</button>   
                         </form>
                         <hr>
