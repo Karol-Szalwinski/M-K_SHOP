@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../src/required.php';
 //jeśli user jest zalogowany to przekierowuję na główną
 if (!isLoggedAdmin($conn)) {
@@ -20,9 +19,11 @@ If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
         echo "Załadowano zdjęcie<br>";
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
             // Zapis do tablicy sesyjnej
-            $_SESSION['photo'][] = [$uploadFile];
+            $_SESSION['photo'][] = $uploadFile;
             var_dump($_SESSION['photo']);
-            echo '<img src="'.$uploadFile.'" width="200px" height="150px" />';
+            foreach ($_SESSION['photo'] as $picture) {
+                echo '<img src="' . $picture . '" width="200px" height="150px" />';
+            }
         }
     }
 }
@@ -104,7 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="row content">            
                 <!-Tutaj wyświetlam błędy-->
-<?php printErrors($errors);
+<?php
+printErrors($errors);
 printErrors($errors9)
 ?>
                 <div class="col-sm-12 text-left">
