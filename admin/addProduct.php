@@ -1,9 +1,4 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 require_once __DIR__ . '/../src/required.php';
 //jeśli user jest zalogowany to przekierowuję na główną
 if (!isLoggedAdmin($conn)) {
@@ -24,8 +19,11 @@ If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
         echo "Załadowano zdjęcie<br>";
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
             // Zapis do tablicy sesyjnej
-            $_SESSION['photo'][] = [$uploadFile];
+            $_SESSION['photo'][] = $uploadFile;
             var_dump($_SESSION['photo']);
+            foreach ($_SESSION['photo'] as $picture) {
+                echo '<img src="' . $picture . '" width="200px" height="150px" />';
+            }
         }
     }
 }
@@ -107,10 +105,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="row content">            
                 <!-Tutaj wyświetlam błędy-->
-                <?php
-                printErrors($errors);
-                printErrors($errors9)
-                ?>
+<?php
+printErrors($errors);
+printErrors($errors9)
+?>
+
                 <div class="col-sm-12 text-left">
                     <br>
                     <h3>Dodaj produkt</h3>
