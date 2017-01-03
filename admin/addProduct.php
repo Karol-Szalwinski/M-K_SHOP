@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-<?php require_once __DIR__ . '/header.php' ?>
+            <?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -107,9 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="row content">            
                 <!-Tutaj wyświetlam błędy-->
-<?php printErrors($errors);
-printErrors($errors9)
-?>
+                <?php
+                printErrors($errors);
+                printErrors($errors9)
+                ?>
                 <div class="col-sm-12 text-left">
                     <br>
                     <h3>Dodaj produkt</h3>
