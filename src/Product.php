@@ -239,6 +239,37 @@ class Product {
         }
     }
 
+    //Zmiana ilości w koszyku
+    static public function changeQuantityProductInCart($conn, $productOrderId, $newQuantity) {
+        //Pobieram poprzednią ilosć z bazy
+        $sql = "SELECT * FROM Product_orders WHERE id=$productOrderId";
+        $result = $conn->query($sql);
+        
+        if ($result == true) {
+            $row = $result->fetch_assoc();
+            $oldQuantity = $row['quantity'];
+            //ustawiam nową ilość
+            $sql = "UPDATE Product_orders SET quantity='$newQuantity'  
+                    WHERE id=$productOrderId";
+            $result = $conn->query($sql);
+            if ($result == true) {
+                //Pobieram produkt z bazy
+                $product = Product::loadProductById($conn, $row['id_product']);
+                //Uaktualniam dostępną ilosć i zapisuję do bazy
+                $actualAvailability = $product->getAvailability();
+                $product->setAvailability($actualAvailability -= $newQuantity - $oldQuantity)->saveToDB($conn);
+                //Podnoszę wartość koszyka
+                $order = Order::loadOrderById($conn, $row['id_orders']);
+                $amount = $order->getAmount() + ($newQuantity - $oldQuantity) * $row['real_price'] ;
+
+                $order->setAmount($amount)->saveToDB($conn);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     //Usuwanie produktu z koszyka
     static public function deleteProductFromCart($conn, $productOrderId) {
         $sql = "SELECT * FROM Product_orders 
@@ -299,9 +330,9 @@ class Product {
                 $amount += $row['real_price'] * $row['quantity'];
                 echo "<tr>";
                 echo "<td>" . ++$no . "</td>";
-                echo "<td>{$row['name']}</td><td>";
-                // echo "<td>{$row['quantity']}</td>";
-                Product::makeFormToChangeQuantity($row['quantity'], 20);
+                echo "<td>{$row['name']}</td>";
+                echo "<td><div class='default'>{$row['quantity']}</div>";
+                Product::makeFormToChangeQuantity($row['quantity'], 20, $row['id']);
                 echo "</td>";
                 echo "<td>" . showPrice($row['real_price']) . "</td>";
 
@@ -317,11 +348,12 @@ class Product {
     }
 
     //Tworzy formularz w komórce do zmiany ilości
-    static public function makeFormToChangeQuantity($setQuantity, $maxQuantity) {
-        echo "<form method='POST'>";
+    static public function makeFormToChangeQuantity($setQuantity, $maxQuantity, $idOrderProduct) {
+        echo "<div style='display: none' class='edit'><form method='POST'>";
         echo "<input type='number' class='input-sm' name='quantity' min='1' max='$maxQuantity' step='1' value='$setQuantity'>";
+        echo "<input type='hidden' name='change-id' value='$idOrderProduct'>";
         echo "<input type='submit' class='btn btn-danger btn-sm' value='Zmień'>";
-        echo "</form>";
+        echo "</form></div>";
     }
 
     //ładujemy wszystkie produkty z koszyka / zamówienia
