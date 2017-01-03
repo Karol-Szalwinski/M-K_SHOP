@@ -11,24 +11,18 @@ $errors9 = [];
 If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
     if ($_FILES['fileToUpload']['size'] > 0) {
         $uploadFile = '../images/' . basename($_FILES['fileToUpload']['name']);
-        echo "$uploadFile";
     } else {
         $errors9[] = "brak załadowanego zdjęcia";
     }
     if (empty($errors9)) {
-        echo "Załadowano zdjęcie<br>";
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
             // Zapis do tablicy sesyjnej
             $_SESSION['photo'][] = $uploadFile;
-            var_dump($_SESSION['photo']);
-            foreach ($_SESSION['photo'] as $picture) {
-                echo '<img src="' . $picture . '" width="200px" height="150px" />';
-            }
         }
     }
 }
-//sprawdzam czy zostały przesłane odpowiednie dane
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//sprawdzam czy zostały przesłane odpowiednie dane 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
     //sprawdzam przesłane id kategorii
     if (isset($_POST['category']) && is_numeric($_POST['category']) &&
             $_POST['category'] > 0) {
@@ -69,19 +63,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newProduct = new Product();
         $newProduct->setIdGroup($categoryId)->setName($name)->setDescription($description)
                 ->setAvailability($quantity)->setPrice($price)->saveToDB($conn);
-// sprawdzić jak ma działać
-        //$newProductId = $newProduct->insert_id;
+
         $last_id = $conn->insert_id;
-        //var_dump($newProductId);
-        //foreach tablica w sesji
+        
         foreach ($_SESSION['photo'] as $value) {
             $newPhoto = new Photo();
             $newPhoto->setProductId($last_id);
             $newPhoto->setPath($value);
             $newPhoto->saveToDB($conn);
-            var_dump($newPhoto);
+
         }
-        //header("Location: products.php");
+        header("Location: products.php");
     }
 }
 ?>
@@ -96,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-<?php require_once __DIR__ . '/header.php' ?>
+            <?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -105,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="row content">            
                 <!-Tutaj wyświetlam błędy-->
-<?php
-printErrors($errors);
-printErrors($errors9)
-?>
+                <?php
+                printErrors($errors);
+                printErrors($errors9)
+                ?>
                 <div class="col-sm-12 text-left">
                     <br>
                     <h3>Dodaj produkt</h3>
@@ -156,6 +148,15 @@ printErrors($errors9)
                             <input class="btn btn-info" type="submit" value="Wgraj zdjęcie" name="submit">
                         </div>
                     </form>
+                </div>
+                <div class="col-sm-6 text-left">
+                    <?php
+                    if (!empty($_SESSION['photo'])) {
+                        foreach ($_SESSION['photo'] as $picture) {
+                            echo '<img src="' . $picture . '" width="200px" height="150px" />';
+                        }
+                    }
+                    ?>
                 </div>
 
             </div>
