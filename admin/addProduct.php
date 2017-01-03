@@ -5,19 +5,16 @@
  * and open the template in the editor.
  */
 require_once __DIR__ . '/../src/required.php';
-
 //jeśli user jest zalogowany to przekierowuję na główną
 if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");
 }
 $errors = [];
-
 //sprawdzam zdjęcie
 $errors9 = [];
 $_SESSION['photo'] = [];
 If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
     if ($_FILES['fileToUpload']['size'] > 0) {
-
         $uploadFile = '../images/' . basename($_FILES['fileToUpload']['name']);
         echo "$uploadFile";
     } else {
@@ -32,8 +29,6 @@ If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
         }
     }
 }
-
-
 //sprawdzam czy zostały przesłane odpowiednie dane
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //sprawdzam przesłane id kategorii
@@ -69,8 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $errors[] = 'Cena musi być większa od 0';
     }
-
-
 //Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy nowy
 //produkt i wracamy do listy produktów
     if (empty($errors)) {
@@ -81,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // sprawdzić jak ma działać
         //$newProductId = $newProduct->insert_id;
         $last_id = $conn->insert_id;
-
         //var_dump($newProductId);
         //foreach tablica w sesji
         foreach ($_SESSION['photo'] as $value) {
