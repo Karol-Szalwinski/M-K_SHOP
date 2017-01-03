@@ -29,8 +29,15 @@ if ($loggedUser = isLoggedUser($conn)) {
             $errors[] = "Nie udało się usuwanie produktu z koszyka";
         }
     }
+    //Jeżeli ktoś zmienia ilość w koszyku
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change-id'])) {
+        echo "Teraz mogę zmienić ilość " . $_POST['change-id'];
+        Product::changeQuantityProductInCart($conn, $_POST['change-id'], $_POST['quantity']);
+        $errors[] = "Pomyślnie zmieniono ilość produktów w koszyku";
+    }
+    
     //Jeżeli ktoś zatwierdza koszyk
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['delete-id'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['street'])) {
         //sprawdzam przesłaną ulicę i trimuję
         if (isset($_POST['street']) && strlen(trim($_POST['street'])) > 0) {
             $userStreet = substr(trim($_POST['street']), 0, 20);
@@ -180,6 +187,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                                     <option value="3">Payu</option>
                                 </select>
                             </div>
+                            
                             <button type="submit" class="btn btn-lg btn-danger">Potwierdź zamówienie</button>   
                         </form>
                         <hr>
@@ -195,27 +203,4 @@ if ($loggedUser = isLoggedUser($conn)) {
     </body>
 </html>
 
-<div class="m-dropdown m-dropdown-sc">
-<input type="hidden" name="dropdown_count_749699" value="1" class="dropdown-input">
-<button data-id="749699" class="btn btn-dropdown btn-block btn-sm btn-offer dropdown-button" type="button">
-<span class="default">1</span>
-<span class="icon-select"></span>
-</button>
-<div class="dropdown-content" style="display: none;">
-<div class="list">
-<ul>
-<li class="dropdown-active" data-value="1">1</li>
-<li data-value="2">2</li>
-<li data-value="3">3</li>
-<li data-value="4">4</li>
-<li data-value="5">5</li>
-<li data-value="6">6</li>
-<li data-value="7">7</li>
-<li data-value="8">8</li>
-<li data-value="9">9</li>
-<li data-value="+10" class="show-input">+10</li>
-</ul>
-</div>
-</div>
-</div>
 
