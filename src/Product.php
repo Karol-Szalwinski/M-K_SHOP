@@ -328,10 +328,10 @@ class Product {
         if ($result == true && $result->num_rows != 0) {
             foreach ($result as $row) {
                 $amount += $row['real_price'] * $row['quantity'];
-                echo "<tr>";
+                echo "<tr  data-toggle='tooltip' title='Kliknij, żeby zmienić ilość'>";
                 echo "<td>" . ++$no . "</td>";
                 echo "<td>{$row['name']}</td>";
-                echo "<td><div class='default'>{$row['quantity']}</div>";
+                echo "<td><div class='default' >{$row['quantity']}</div>";
                 Product::makeFormToChangeQuantity($row['quantity'], 20, $row['id']);
                 echo "</td>";
                 echo "<td>" . showPrice($row['real_price']) . "</td>";
