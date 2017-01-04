@@ -41,9 +41,9 @@ $_SESSION['active-button'] = 0;
 
                 <div class="col-sm-8 text-left"> 
                     <h1>Witamy w M&K SHOP</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>Sklep M&K powstał z potrzeby dostarczenia wysokiej jakości produktów naszym wymagającym klientom w całej Polsce. Jako profesjonaliści w branży E-Commerce dostarczamy nowoczesne i innowacyjne produkty, których na próżno szukać u naszej konkurencji. W trosce o wysoki komfort procesu zakupowego zapewniamy profesjonalną pomoc na każdym etapie składania zamówienia, jak również przykładamy ogromną wagę do utrzymania długofalowej relacji z naszymi klientami. Dziękujemy że jesteście z nami !</p>
                     <hr>
-                    <h3>Test</h3>
+                    <h3>Zobacz nasze Produkty</h3>
                     <p>Tutaj Karuzela z produktami</p>
                 </div>
                 <div class="col-sm-2 sidenav">
