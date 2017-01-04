@@ -104,7 +104,7 @@ $Order5->setAmount('200');
 $product = Product::getAllProductsByGroupId($conn, 12);
 var_dump($product);
 **/
-
+/*
         $newPhoto = new Photo();
         //$newPhoto->setId(-1);
         $newPhoto->setProductId(19);
@@ -112,3 +112,6 @@ var_dump($product);
         $newPhoto->saveToDB($conn);
         
         var_dump($newPhoto);
+      */  
+        $sciezka = Photo::loadOnePhotoByProductID($conn, 31);
+        var_dump($sciezka);

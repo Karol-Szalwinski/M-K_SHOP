@@ -13,7 +13,7 @@ class Photo {
     private $idProduct;
     private $path;
 
-    public function __consruct() {
+    public function __construct() {
         $this->id = -1;
         $this->idProduct = 0;
         $this->path = "";
@@ -121,6 +121,27 @@ class Photo {
             return $ret;
         }
     }
+    //wyświetlanie zdjęć danego produktu wg id tego produktu  - do    
+        static public function loadOnePhotoByProductID(mysqli $connection, $productId) {
+
+        $sql = "SELECT * FROM Photos WHERE id_product=$productId LIMIT 1";
+
+        $result = $connection->query($sql);
+
+        if ($result == true && $result->num_rows == 1) {
+
+            $row = $result->fetch_assoc();
+            
+            $loadedPath = $row['path'];
+
+
+            return $loadedPath;
+        }
+
+        return null;
+    }
+    
+    
  //wyświetlanie zdjęć wszystkich produktów   
         static public function loadAllPhotos(mysqli $connection) {
 

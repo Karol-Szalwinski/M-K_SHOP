@@ -394,10 +394,13 @@ class Product {
         echo "<td>" . $no . "</td>";
         echo "<td><img src='../images/image_1.jpg' width='100'"
         . " height='100'></td>";
+        //echo "<td><img src='" . $mojaSciezka . "' width='100'"
+        //. " height='100'></td>";
         echo "<td>" . $this->getName() . "</td>";
         echo "<td>" . $this->getAvailability() . "</td>";
         echo "<td>" . showPrice($this->getPrice()) . "</td>";
         echo "</tr>";
+        //$mojaSciezka = Photo::loadAllPhotosByProductId($conn, $this->getId());
     }
 
     //Wyswietla produkt w wierszu tabeli

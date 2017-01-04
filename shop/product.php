@@ -99,7 +99,10 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <?php
+                                echo "<li data-target='#myCarousel' data-slide-to='1'></li>";
+                                echo "<li data-target='#myCarousel' data-slide-to='2'></li>";
+                                 ?>
 
                             </ol>
 
@@ -111,6 +114,10 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
 
                                 <div class="item">
                                     <img src="../images/image_2.jpg"  alt="Procesor2" width="460" height="245">
+                                </div>
+                                
+                                <div class="item">
+                                    <img src="../images/image_3.jpg"  alt="Procesor2" width="460" height="245">
                                 </div>
                             </div>
 

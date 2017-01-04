@@ -71,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
             $newPhoto->setProductId($last_id);
             $newPhoto->setPath($value);
             $newPhoto->saveToDB($conn);
-
         }
+        $_SESSION['photo']=[];
         header("Location: products.php");
     }
 }
