@@ -106,10 +106,15 @@ if ($loggedUser = isLoggedUser($conn)) {
         <link rel="stylesheet" href="../css/style.css" type="text/css" />
         <script>
             $(document).ready(function () {
-                $(".default").click(function () {
-                    $(".edit").show();
-                    $(".default").hide();
+                $("tr").click(function () {
+                    $(".default").show();
+                    $(this).find(".default").hide();
+                    $(".edit").hide();
+                    $(this).find(".edit").show();
                 });
+                //Podpowiedzi w dymku
+                $('[data-toggle="tooltip"]').tooltip();
+
             });
         </script>
     </head>

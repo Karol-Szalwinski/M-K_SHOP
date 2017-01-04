@@ -39,7 +39,7 @@ if (!isLoggedAdmin($conn)) {
                     
                 </div>
                 
-                <div class="col-sm-8 text-left"> 
+                <div class="col-sm-10 text-left"> 
                     <h2>Witamy w panelu administracyjnym M&K SHOP</h2>
                     <p> Możesz zarządzać z tego miejsca kategoriami, produktami, użytkownikami i zamówieniami</p>
                     <hr>
