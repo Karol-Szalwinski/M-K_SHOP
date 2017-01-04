@@ -148,7 +148,6 @@ if ($loggedUser = isLoggedUser($conn)) {
                                 <th>Cena</th>
                                 <th>Wartość</th>
                                 <th></th>
-
                             </tr>
                         </thead>
                         <tbody>

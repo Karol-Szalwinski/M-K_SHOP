@@ -25,7 +25,6 @@ if (isset($_GET['orderId']) && is_numeric($_GET['orderId'])) {
     if ($order = Order::loadOrderById($conn, $orderId)) {
         $orderDate = $order->getCreationDate();
         $orderStatus = $order->getStatus();
-        $orderPayment = $order->getPaymentMethod();
         $orderStreet = $order->getAdressStreet();
         $ordersLocalNo = $order->getAdressLocalNo();
         $ordersPostCode = $order->getPostalCode();
@@ -45,7 +44,7 @@ if (!empty($errors)) {
 }
 //sprawdzam czy został przesłanay nowy status
 
-if (isset($_POST['status']) && $_POST['status'] > -1) {
+if (isset($_POST['status']) && $_POST['status'] >= 1 && $_POST['status'] <= 3) {
     //zmieniam status
     if ($order->setStatus($_POST['status'])->saveToDB($conn)) {
         $orderStatus = $_POST['status'];
@@ -62,6 +61,31 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
         <title>M&K Shop - Admin Panel - Order</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/style.css" type="text/css" />
+        <script>
+            $(document).ready(function () {
+
+               $('#default').click(function() {
+                    
+                    $('#edit').toggle('fast');
+                    $(this).toggle('fast');
+                    return false;
+                }); 
+                $('#edit form').click(function() {
+                    
+                    this.submit();
+                    return false
+                });
+                
+                $(document).click(function() {
+                    
+                    $('#edit').hide();
+                    $('#default').show();
+                }); 
+                //Podpowiedzi w dymku
+                $('[data-toggle="tooltip"]').tooltip();
+
+            });
+        </script>
     </head>
     <body>
         <!-----------Nagłówek z menu-------------->
@@ -70,62 +94,56 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
         </header>
 
         <!—-----------Główna treść --------------->
-
         <div class="container-fluid text-center">
             <div class="row content">
-                <div class="col-sm-8 text-left"> 
+                <div class="col-sm-8 text-left">
+
                     <!-Tutaj wyświetlam błędy-->
                     <?php printErrors($errors); ?>
                     <h3>Zamówienie nr <?php echo $orderId ?> z dnia <?php echo $orderDate ?></h3>
-
-                    <div class="col-sm-2 text-left">
-                        <form>
-                            <label>Status: <?php echo Status::loadStatusById($conn, $orderStatus )->getStatusName()?></label>
-                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#change"
-                                    onclick="this.style.visibility = 'hidden';"
-                                    >Zmień status  </button>
+                    <div class="col-sm-3 text-center">
+                        <h4>Status zamówienia: </h4>
+                    </div>
+                    <div id="default" class="col-sm-2 text-center" data-toggle='tooltip' title='Kliknij, żeby zmienić status'>
+                        <h4> <?php echo Status::loadStatusById($conn, $orderStatus)->getStatusName() ?> </h4>
+                    </div>
+                    <div id="edit" style='display: none' class="col-sm-5 text-center">
+                        <form method="POST" class="form-inline">
+                            <select class="form-control"id="status" name="status">
+                                <option value="0">Wybierz nowy status</option>
+                                <option value="1">złożone</option>
+                                <option value="2">opłacone</option>
+                                <option value="3">zrealizowane</option>
+                            </select>
+                            <input type="submit" class="btn btn-warning form-control hidden" value="Zmień"> 
                         </form>
                     </div>
-                    <div id="change" class="col-sm-5 text-left collapse">
-                        <div  class="col-sm-2">
-                            <form method="POST" class="form-inline">
-                                <select class="form-control"id="status" name="status">
-                                    <option value="-1">Wybierz status</option>
-                                    <option value="0">niezłożone</option>
-                                    <option value="1">złożone</option>
-                                    <option value="2">opłacone</option>
-                                    <option value="3">zrealizowane</option>
-                                </select>
-                                <button type="submit" class="btn btn-info form-control">Zmień</button> 
-                            </form>
-
-                        </div>
+                    <div>    
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Lp</th>
+                                    <th>Nazwa towaru</th>
+                                    <th>Ilość</th>
+                                    <th>Cena</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <?php
+                                    $amount = Product::showAllProductsByOrderIdInTabRow($conn, $orderId);
+                                    ?>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td><strong>Łącznie</strong></td>
+                                    <td><strong><?php echo $amount ?> PLN</strong></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Lp</th>
-                                <th>Nazwa towaru</th>
-                                <th>Ilość</th>
-                                <th>Cena</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <?php
-                                $amount = Product::showAllProductsByOrderIdInTabRow($conn, $orderId);
-                                ?>
-                            </tr>
-                            <tr>
-                                <td colspan="2"></td>
-                                <td><strong>Łącznie</strong></td>
-                                <td><strong><?php echo $amount ?> PLN</strong></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
                     <div class="col-sm-8 text-left"> 
                         <h4>Dane zamawiającego</h4>
                         <p><?php echo $purchaserName . " " . $purchaserSurname ?></p>
@@ -133,14 +151,11 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
                         <p><?php echo $ordersPostCode . " " . $orderCity ?></p>
                         <hr>
                         <h4>Płatność</h4>
-                        <p><?php echo $orderPayment ?></p>
+                        <p><?php $order->printPaymentMethod() ?></p>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </body>
 </html>
 
