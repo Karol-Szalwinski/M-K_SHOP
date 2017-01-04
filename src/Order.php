@@ -351,7 +351,6 @@ class Order {
         echo "<td>" . $no . "</td>";
         echo "<td>Zamówienie nr " . $this->getId() . "</td>";
         echo "<td>" . $this->getCreationDate() . "</td>";
-        echo "<td>" . $this->getUserId() . "</td>";
         echo "<td>" . showPrice($this->getAmount()) . "</td>";
         echo "<td>" . Status::loadStatusById($conn, $this->getStatus())->getStatusName() . "</td>";
 
