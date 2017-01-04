@@ -332,7 +332,9 @@ class Product {
                 echo "<td>" . ++$no . "</td>";
                 echo "<td>{$row['name']}</td>";
                 echo "<td><div class='default' >{$row['quantity']}</div>";
-                Product::makeFormToChangeQuantity($row['quantity'], 20, $row['id']);
+                //Ustalam maksymalną dozwoloną ilość do zamówienia
+                $availability = Product::loadProductById($connection, $row['id_product'])->getAvailability() + $row['quantity'];
+                Product::makeFormToChangeQuantity($row['quantity'], $availability, $row['id']);
                 echo "</td>";
                 echo "<td>" . showPrice($row['real_price']) . "</td>";
 
