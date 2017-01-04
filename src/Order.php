@@ -143,11 +143,30 @@ class Order {
         return $this;
     }
 
+    public function printPaymentMethod() {
+        switch ($this->paymentMethod) {
+            case 0:
+                echo "Nie wybrano metody";
+                break;
+            case 1:
+                echo "Gotówka przy odbiorze";
+                break;
+            case 2:
+                echo "Przelew";
+                break;
+            case 3:
+                echo "Payu";
+                break;
+            default:
+                echo "Błędnie wprowadzony rodzaj płatności";
+        }
+    }
+
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
 
-            //zapisywanie zamówienia do bazy danych
+//zapisywanie zamówienia do bazy danych
 
             $sql = "INSERT INTO Orders(id_user, status,  payment_method, amount,
                 adress_street, adress_local, postal_code, adress_city)
@@ -178,7 +197,7 @@ class Order {
         return false;
     }
 
-    //Usuwa zamówienie z bazy
+//Usuwa zamówienie z bazy
     public function delete(mysqli $connection) {
 
         if ($this->id != -1) {
@@ -250,7 +269,7 @@ class Order {
         }
     }
 
-    // wyświetlanie wszystkich zamówień wg statusu
+// wyświetlanie wszystkich zamówień wg statusu
     static public function loadAllOrdersByStatus(mysqli $connection, $status) {
 
         $sql = "SELECT * FROM Orders WHERE status=$status ORDER BY id ASC";
@@ -326,7 +345,7 @@ class Order {
         return null;
     }
 
-    //Wyswietla zamówienia w wierszu tabeli admina
+//Wyswietla zamówienia w wierszu tabeli admina
     public function showOrderInAdminTabRow($conn, $no) {
 
         echo "<td>" . $no . "</td>";
@@ -353,7 +372,7 @@ class Order {
         echo "</tr>";
     }
 
-    //Wyswietla zamówienia w wierszu tabeli usera
+//Wyswietla zamówienia w wierszu tabeli usera
     public function showOrderInUserTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
         echo "'order.php?orderId=";
@@ -368,7 +387,7 @@ class Order {
         echo "</tr>";
     }
 
-    //Metoda zlicza produkty w koszyku
+//Metoda zlicza produkty w koszyku
     public function countProductsInCart(mysqli $connection) {
         $orderId = $this->id;
         $sql = "SELECT * FROM Product_orders WHERE id_orders=$orderId ";

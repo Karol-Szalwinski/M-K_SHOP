@@ -25,7 +25,6 @@ if (isset($_GET['orderId']) && is_numeric($_GET['orderId'])) {
     if ($order = Order::loadOrderById($conn, $orderId)) {
         $orderDate = $order->getCreationDate();
         $orderStatus = $order->getStatus();
-        $orderPayment = $order->getPaymentMethod();
         $orderStreet = $order->getAdressStreet();
         $ordersLocalNo = $order->getAdressLocalNo();
         $ordersPostCode = $order->getPostalCode();
@@ -133,7 +132,7 @@ if (isset($_POST['status']) && $_POST['status'] > -1) {
                         <p><?php echo $ordersPostCode . " " . $orderCity ?></p>
                         <hr>
                         <h4>Płatność</h4>
-                        <p><?php echo $orderPayment ?></p>
+                        <p><?php $order->printPaymentMethod() ?></p>
                     </div>
                 </div>
             </div>
