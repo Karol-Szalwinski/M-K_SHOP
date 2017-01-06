@@ -49,13 +49,9 @@ $_SESSION['active-button'] = 0;
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <?php
-                                $arraySize = count(Photo::loadAllPhotos($conn));
-                                for ($i = 1; $i <= $arraySize; $i++) {
-                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
-                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
-                                }
-                                 ?>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                                <li data-target="#myCarousel" data-slide-to="3"></li>
 
                             </ol>
 
@@ -63,14 +59,29 @@ $_SESSION['active-button'] = 0;
                             <div class="carousel-inner" role="listbox">
                                 <?php
                                 $photoPath = Photo::loadAllPhotos($conn);
-                                foreach ($photoPath as $path) { // co z klasą div active ?
+                                $randomPhoto = array_rand($photoPath, 4);
+                                var_dump($randomPhoto);
+                                $photoOne = Photo::loadPhotoById($conn, $randomPhoto[0]);
+                                $photoSecond = Photo::loadPhotoById($conn, $randomPhoto[1]);
+                                $photoThird = Photo::loadPhotoById($conn, $randomPhoto[2]);
+                                $photoFourth = Photo::loadPhotoById($conn, $randomPhoto[3]);
+                                
+                                
                                 echo "<div class='item active'>
-                                    <img src=".$path->getPath()." width='460' height='245'>
+                                    <img src=".$photoOne->getPath()." width='460' height='245'>
                                 </div>";
+                                echo "<div class='item'>
+                                    <img src=".$photoSecond->getPath()." width='460' height='245'>
+                                </div>";
+                                echo "<div class='item'>
+                                    <img src=".$photoThird->getPath()." width='460' height='245'>
+                                </div>";
+                                echo "<div class='item'>
+                                    <img src=".$photoFourth->getPath()." width='460' height='245'>
+                                </div>";
+                                
 
-                                }
                                 ?>
-
                             </div>
 
                             <!-- Left and right controls -->
