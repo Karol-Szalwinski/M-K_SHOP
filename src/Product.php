@@ -387,30 +387,29 @@ class Product {
 
     //Wyswietla produkt w wierszu tabeli
     public function showProductInTabRow($conn, $no) {
+        $myPath = Photo::loadOnePhotoByProductID($conn, $this->getId());
         echo '<tr onclick="location.href=';
         echo "'product.php?productId=";
         echo $this->getId();
         echo "'" . '">';
         echo "<td>" . $no . "</td>";
-        echo "<td><img src='../images/image_1.jpg' width='100'"
+        echo "<td><img src='" . $myPath . "' width='100'"
         . " height='100'></td>";
-        //echo "<td><img src='" . $mojaSciezka . "' width='100'"
-        //. " height='100'></td>";
         echo "<td>" . $this->getName() . "</td>";
         echo "<td>" . $this->getAvailability() . "</td>";
         echo "<td>" . showPrice($this->getPrice()) . "</td>";
         echo "</tr>";
-        //$mojaSciezka = Photo::loadAllPhotosByProductId($conn, $this->getId());
     }
 
     //Wyswietla produkt w wierszu tabeli
     public function showProductInAdminTabRow($conn, $no) {
+       $myPath = Photo::loadOnePhotoByProductID($conn, $this->getId());        
         echo '<tr onclick="location.href=';
         echo "'showProduct.php?productId=";
         echo $this->getId();
         echo "'" . '">';
         echo "<td>" . $no . "</td>";
-        echo "<td><img src='../images/image_1.jpg' width='100'"
+        echo "<td><img src='". $myPath."' width='100'"
         . " height='100'></td>";
         echo "<td>" . $this->getName() . "</td>";
         echo "<td>" . $this->getAvailability() . "</td>";

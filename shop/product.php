@@ -100,25 +100,27 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                                 <?php
-                                echo "<li data-target='#myCarousel' data-slide-to='1'></li>";
-                                echo "<li data-target='#myCarousel' data-slide-to='2'></li>";
+                                $arraySize = count(Photo::loadAllPhotosByProductId($conn, $productId));
+                                for ($i = 1; $i <= $arraySize; $i++) {
+                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
+                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
+                                }
                                  ?>
 
                             </ol>
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <img src="../images/image_1.jpg" alt="Procesor1" width="460" height="245">
-                                </div>
+                                <?php
+                                $photoPath = Photo::loadAllPhotosByProductId($conn, $productId);
+                                foreach ($photoPath as $path) { // co z klsą div active ?
+                                echo "<div class='item'>
+                                    <img src=".$path->getPath()." width='460' height='245'>
+                                </div>";
 
-                                <div class="item">
-                                    <img src="../images/image_2.jpg"  alt="Procesor2" width="460" height="245">
-                                </div>
-                                
-                                <div class="item">
-                                    <img src="../images/image_3.jpg"  alt="Procesor2" width="460" height="245">
-                                </div>
+                                }
+                                ?>
+
                             </div>
 
                             <!-- Left and right controls -->

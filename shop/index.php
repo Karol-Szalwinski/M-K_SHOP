@@ -44,7 +44,50 @@ $_SESSION['active-button'] = 0;
                     <p>Sklep M&K powstał z potrzeby dostarczenia wysokiej jakości produktów naszym wymagającym klientom w całej Polsce. Jako profesjonaliści w branży E-Commerce dostarczamy nowoczesne i innowacyjne produkty, których na próżno szukać u naszej konkurencji. W trosce o wysoki komfort procesu zakupowego zapewniamy profesjonalną pomoc na każdym etapie składania zamówienia, jak również przykładamy ogromną wagę do utrzymania długofalowej relacji z naszymi klientami. Dziękujemy że jesteście z nami !</p>
                     <hr>
                     <h3>Zobacz nasze Produkty</h3>
-                    <p>Tutaj Karuzela z produktami</p>
+                    <p>
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                <?php
+                                $arraySize = count(Photo::loadAllPhotos($conn));
+                                for ($i = 1; $i <= $arraySize; $i++) {
+                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
+                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
+                                }
+                                 ?>
+
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                <?php
+                                $photoPath = Photo::loadAllPhotos($conn);
+                                foreach ($photoPath as $path) { // co z klasą div active ?
+                                echo "<div class='item active'>
+                                    <img src=".$path->getPath()." width='460' height='245'>
+                                </div>";
+
+                                }
+                                ?>
+
+                            </div>
+
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>                        
+                        
+                        
+                        
+                        
+                    </p>
                 </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">
