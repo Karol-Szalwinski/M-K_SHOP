@@ -113,5 +113,5 @@ var_dump($product);
         
         var_dump($newPhoto);
       */  
-        $sciezka = Photo::loadOnePhotoByProductID($conn, 31);
+        $sciezka = Photo::loadAllPhotosByProductId($conn, 5);
         var_dump($sciezka);

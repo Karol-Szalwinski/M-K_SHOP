@@ -59,16 +59,17 @@ $_SESSION['active-button'] = 0;
                             <div class="carousel-inner" role="listbox">
                                 <?php
                                 $photoPath = Photo::loadAllPhotos($conn);
+                                var_dump($photoPath);
                                 $randomPhoto = array_rand($photoPath, 4);
                                 var_dump($randomPhoto);
-                                $photoOne = Photo::loadPhotoById($conn, $randomPhoto[0]);
+                                $photoOne = $randomPhoto[0]->getPath();
                                 $photoSecond = Photo::loadPhotoById($conn, $randomPhoto[1]);
                                 $photoThird = Photo::loadPhotoById($conn, $randomPhoto[2]);
                                 $photoFourth = Photo::loadPhotoById($conn, $randomPhoto[3]);
                                 
                                 
                                 echo "<div class='item active'>
-                                    <img src=".$photoOne->getPath()." width='460' height='245'>
+                                    <img src=".$photoOne." width='460' height='245'>
                                 </div>";
                                 echo "<div class='item'>
                                     <img src=".$photoSecond->getPath()." width='460' height='245'>

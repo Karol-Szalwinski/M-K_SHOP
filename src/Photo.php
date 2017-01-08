@@ -104,7 +104,7 @@ class Photo {
 //wyświetlanie zdjęć danego produktu wg id tego produktu    
         static public function loadAllPhotosByProductId(mysqli $connection, $productId) {
 
-        $sql = "SELECT * FROM Photos WHERE id_product=$productId ORDER BY name DESC";
+        $sql = "SELECT * FROM Photos WHERE id_product=$productId ORDER BY id DESC";
         $ret = [];
 
         $result = $connection->query($sql);

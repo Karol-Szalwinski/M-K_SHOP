@@ -101,23 +101,24 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                                 <?php
                                 $arraySize = count(Photo::loadAllPhotosByProductId($conn, $productId));
-                                for ($i = 1; $i <= $arraySize; $i++) {
-                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
+                                for ($i = 1; $i < $arraySize; $i++) {
                                 echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
                                 }
                                  ?>
-
                             </ol>
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
+                                                                
                                 <?php
                                 $photoPath = Photo::loadAllPhotosByProductId($conn, $productId);
+                                $isActive = 'active';
+                                
                                 foreach ($photoPath as $path) { // co z klsą div active ?
-                                echo "<div class='item'>
+                                echo "<div class='item ".$isActive."'>
                                     <img src=".$path->getPath()." width='460' height='245'>
                                 </div>";
-
+                                $isActive = '';
                                 }
                                 ?>
 
