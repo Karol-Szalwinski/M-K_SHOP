@@ -76,19 +76,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <?php
+                                $arraySize = count(Photo::loadAllPhotosByProductId($conn, $productId));
+                                for ($i = 1; $i < $arraySize; $i++) {
+                                    echo "<li data-target='#myCarousel' data-slide-to='" . $i . "'></li>";
+                                }
+                                ?>
 
                             </ol>
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <img src="../images/image_1.jpg" alt="Procesor1" width="460" height="245">
-                                </div>
+                                <?php
+                                $photoPath = Photo::loadAllPhotosByProductId($conn, $productId);
+                                $isActive = 'active';
 
-                                <div class="item">
-                                    <img src="../images/image_2.jpg"  alt="Procesor2" width="460" height="245">
-                                </div>
+                                foreach ($photoPath as $path) {
+                                    echo "<div class='item " . $isActive . "'>
+                                    <img src=" . $path->getPath() . " width='460' height='245'>
+                                </div>";
+                                    $isActive = '';
+                                }
+                                ?>
                             </div>
 
                             <!-- Left and right controls -->

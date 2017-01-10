@@ -47,7 +47,7 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
     //Jeżeli uda się dodawanie produktu
     if ($product->addProductToCart($conn, $myCartId, $quantity)) {
         //Wyświetlam komunikat i odświeżam dostępność
-        $errors[] ="Dodano produkt do koszyka";
+        $errors[] = "Dodano produkt do koszyka";
         $availability = $product->getAvailability();
     } else {
         $errors[] = "Nie udało się dodać produktu do koszyka";
@@ -102,23 +102,23 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                                 <?php
                                 $arraySize = count(Photo::loadAllPhotosByProductId($conn, $productId));
                                 for ($i = 1; $i < $arraySize; $i++) {
-                                echo "<li data-target='#myCarousel' data-slide-to='".$i."'></li>";
+                                    echo "<li data-target='#myCarousel' data-slide-to='" . $i . "'></li>";
                                 }
-                                 ?>
+                                ?>
                             </ol>
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                                                                
+
                                 <?php
                                 $photoPath = Photo::loadAllPhotosByProductId($conn, $productId);
                                 $isActive = 'active';
-                                
-                                foreach ($photoPath as $path) { // co z klsą div active ?
-                                echo "<div class='item ".$isActive."'>
-                                    <img src=".$path->getPath()." width='460' height='245'>
+
+                                foreach ($photoPath as $path) {
+                                    echo "<div class='item " . $isActive . "'>
+                                    <img src=" . $path->getPath() . " width='460' height='245'>
                                 </div>";
-                                $isActive = '';
+                                    $isActive = '';
                                 }
                                 ?>
 

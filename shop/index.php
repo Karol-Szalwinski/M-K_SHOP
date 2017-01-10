@@ -45,60 +45,57 @@ $_SESSION['active-button'] = 0;
                     <hr>
                     <h3>Zobacz nasze Produkty</h3>
                     <p>
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                                <li data-target="#myCarousel" data-slide-to="3"></li>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
 
-                            </ol>
+                        </ol>
 
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
-                                <?php
-                                $photoPath = Photo::loadAllPhotos($conn);
-                                var_dump($photoPath);
-                                $randomPhoto = array_rand($photoPath, 4);
-                                var_dump($randomPhoto);
-                                $photoOne = $randomPhoto[0]->getPath();
-                                $photoSecond = Photo::loadPhotoById($conn, $randomPhoto[1]);
-                                $photoThird = Photo::loadPhotoById($conn, $randomPhoto[2]);
-                                $photoFourth = Photo::loadPhotoById($conn, $randomPhoto[3]);
-                                
-                                
-                                echo "<div class='item active'>
-                                    <img src=".$photoOne." width='460' height='245'>
-                                </div>";
-                                echo "<div class='item'>
-                                    <img src=".$photoSecond->getPath()." width='460' height='245'>
-                                </div>";
-                                echo "<div class='item'>
-                                    <img src=".$photoThird->getPath()." width='460' height='245'>
-                                </div>";
-                                echo "<div class='item'>
-                                    <img src=".$photoFourth->getPath()." width='460' height='245'>
-                                </div>";
-                                
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <?php
+                            $photoPath = Photo::loadAllPhotos($conn);
+                            $max = count($photoPath) - 1;
 
-                                ?>
-                            </div>
+                            $photoOne = $photoPath[rand(0, $max)]->getPath();
+                            $photoSecond = $photoPath[rand(0, $max)]->getPath();
+                            $photoThird = $photoPath[rand(0, $max)]->getPath();
+                            $photoFourth = $photoPath[rand(0, $max)]->getPath();
 
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>                        
-                        
-                        
-                        
-                        
+
+                            echo "<div class='item active'>
+                                    <img src=" . $photoOne . " width='460' height='245'>
+                                </div>";
+                            echo "<div class='item'>
+                                    <img src=" . $photoSecond . " width='460' height='245'>
+                                </div>";
+                            echo "<div class='item'>
+                                    <img src=" . $photoThird . " width='460' height='245'>
+                                </div>";
+                            echo "<div class='item'>
+                                    <img src=" . $photoFourth . " width='460' height='245'>
+                                </div>";
+                            ?>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>                        
+
+
+
+
                     </p>
                 </div>
                 <div class="col-sm-2 sidenav">
@@ -113,7 +110,7 @@ $_SESSION['active-button'] = 0;
         </div>
 
         <!—--------------Stopka------------------->
-        <?php require_once __DIR__ . '/footer.php' ?>
+<?php require_once __DIR__ . '/footer.php' ?>
 
     </body>
 </html>
