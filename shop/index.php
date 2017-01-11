@@ -32,17 +32,23 @@ $_SESSION['active-button'] = 0;
 
         <!—-----------Główna treść --------------->
 
-        <div class="container-fluid text-center">
+        <div class="container-fluid">
 
             <div class="row content">
 
                 <!—-----------Panel z kategoriami --------------->
                 <?php require_once __DIR__ . '/sidebar.php' ?>
 
-                <div class="col-sm-8 text-left"> 
-                    <h1>Witamy w M&K SHOP</h1>
-                    <p>Sklep M&K powstał z potrzeby dostarczenia wysokiej jakości produktów naszym wymagającym klientom w całej Polsce. Jako profesjonaliści w branży E-Commerce dostarczamy nowoczesne i innowacyjne produkty, których na próżno szukać u naszej konkurencji. W trosce o wysoki komfort procesu zakupowego zapewniamy profesjonalną pomoc na każdym etapie składania zamówienia, jak również przykładamy ogromną wagę do utrzymania długofalowej relacji z naszymi klientami. Dziękujemy że jesteście z nami !</p>
-                    <hr>
+                <div class="col-sm-10 text-center"> 
+                    <div>
+                        <h1>Witamy w M&K SHOP</h1>
+                        <p>Sklep M&K powstał z potrzeby dostarczenia wysokiej jakości produktów naszym wymagającym klientom w całej Polsce.</p>
+                        <p>Jako profesjonaliści w branży E-Commerce dostarczamy nowoczesne i innowacyjne produkty, których na próżno szukać u naszej konkurencji.</p>
+                        <p>W trosce o wysoki komfort procesu zakupowego zapewniamy profesjonalną pomoc na każdym etapie składania zamówienia,
+                            jak również przykładamy ogromną wagę do utrzymania długofalowej relacji z naszymi klientami.</p>
+                        <p>Dziękujemy że jesteście z nami !</p>
+                        <hr>
+                    </div>
                     <h3>Zobacz nasze Produkty</h3>
                     <p>
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -56,7 +62,7 @@ $_SESSION['active-button'] = 0;
                         </ol>
 
                         <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
+                        <div class="carousel-inner " role="listbox">
                             <?php
                             $photoPath = Photo::loadAllPhotos($conn);
                             $max = count($photoPath) - 1;
@@ -66,22 +72,16 @@ $_SESSION['active-button'] = 0;
                             $photoThird = $photoPath[rand(0, $max)]->getPath();
                             $photoFourth = $photoPath[rand(0, $max)]->getPath();
 
-
-                            echo "<div class='item active'>
-                                    <img src=" . $photoOne . " width='460' height='245'>
+                            echo "<div class='item text-center active'><img src=" . $photoOne . " width='460' height='345' style='display:block;margin:auto' >
                                 </div>";
-                            echo "<div class='item'>
-                                    <img src=" . $photoSecond . " width='460' height='245'>
+                            echo "<div class='item text-center'><img src=" . $photoSecond . " width='460' height='345' style='display:block;margin:auto'>
                                 </div>";
-                            echo "<div class='item'>
-                                    <img src=" . $photoThird . " width='460' height='245'>
+                            echo "<div class='item text-center'><img src=" . $photoThird . " width='460' height='345' style='display:block;margin:auto'>
                                 </div>";
-                            echo "<div class='item'>
-                                    <img src=" . $photoFourth . " width='460' height='245'>
+                            echo "<div class='item text-center'><img src=" . $photoFourth . " width='460' height='345' style='display:block;margin:auto'>
                                 </div>";
                             ?>
                         </div>
-
                         <!-- Left and right controls -->
                         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -92,25 +92,12 @@ $_SESSION['active-button'] = 0;
                             <span class="sr-only">Next</span>
                         </a>
                     </div>                        
-
-
-
-
-                    </p>
-                </div>
-                <div class="col-sm-2 sidenav">
-                    <div class="well">
-                        <p>Okienko logowania może tu być</p>
-                    </div>
-                    <div class="well">
-                        <p>Tu jakaś reklama</p>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!—--------------Stopka------------------->
-<?php require_once __DIR__ . '/footer.php' ?>
+        <?php require_once __DIR__ . '/footer.php' ?>
 
     </body>
 </html>
