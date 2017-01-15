@@ -3,7 +3,7 @@
     <Admin
             id="2"
             name="Admin"
-            email="admin@admin"
+            email="admin@admin.pl"
             hashed_password="$2y$10$rqZKTBh37Nutx1Q2Rfsv7enV6CZkGdKO7Ry7E79PUqedahpObegiO"/>
     <Admin
             id="5"

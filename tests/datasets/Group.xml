@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Groups
+            id="10"
+            group_name="Dyski SSD"/>
+    <Groups
+            id="11"
+            group_name="Dyski FDSH"/>
+
+</dataset>

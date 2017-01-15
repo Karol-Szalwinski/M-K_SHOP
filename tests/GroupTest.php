@@ -1,8 +1,59 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once __DIR__ . '/../src/Group.php';
 
+class GroupTest extends PHPUnit_Extensions_Database_TestCase {
+
+    protected static $mysqliConn;
+
+    public function getConnection() {
+        $conn = new PDO(
+                $GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']
+        );
+        return new PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection($conn, $GLOBALS['DB_NAME']);
+    }
+
+    public function getDataSet() {
+        return $this->createFlatXmlDataSet(__DIR__ . '/datasets/Group.xml');
+    }
+
+    static public function setUpBeforeClass() {
+        self::$mysqliConn = new mysqli(
+                $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_NAME']
+        );
+    }
+
+    public function testSaveWhenCreatingNewGroup() {
+        $group = new Group();
+        $group->setGroupName('testGroup');
+        $this->assertTrue($group->saveToDB(self::$mysqliConn));
+    }
+
+    public function testIfLoadAllGroups() {
+        $this->markTestIncomplete();
+        /**
+        $groups = Group::loadAllGroups(self::$mysqliConn);
+        $this->assertEquals($groups, array(
+    '0' => array (
+        'id' => '10',
+        'groupName' => 'Dyski SSD'
+    ),
+    '1' => array (
+        'id' => '110',
+        'groupName' => 'Dyski FDSH'
+    )));
+         * 
+         */
+    }
+
+    public function testLoadGroupByIdWithCorrectId() {
+        $group = Group::loadCategoryById(self::$mysqliConn, 10);
+        $this->assertEquals(10, $group->getId());
+    }
+
+    public function testIfDeleteCategoryById() {
+        $group = Group::deleteCategoryById(self::$mysqliConn, 11);
+        $this->assertTrue($group);
+    }
+    
+}

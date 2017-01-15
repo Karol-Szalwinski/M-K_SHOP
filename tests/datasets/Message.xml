@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Messages
+            id="3"
+            id_receiver="15"
+            id_sender="2"
+            title="zamowienie nr 2"
+            text_message="Test"/>
+    <Messages
+            id="4"
+            id_receiver="15"
+            id_sender="2"
+            title="zamowienie nr 20"
+            text_message="Testowa wiadomosc"/>
+    <Messages
+            id="5"
+            id_receiver="15"
+            id_sender="2"
+            title="zamowienie nr 21"
+            text_message="zamowienie wyslane"/>
+    <Messages
+            id="6"
+            id_receiver="13"
+            id_sender="3"
+            title="zamowienie nr 22"
+            text_message="zamowienie anulowano"/>
+
+
+</dataset>
