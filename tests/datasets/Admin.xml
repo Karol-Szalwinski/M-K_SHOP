@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Admin
+            id="2"
+            name="Admin"
+            email="admin@admin"
+            hashed_password="$2y$10$rqZKTBh37Nutx1Q2Rfsv7enV6CZkGdKO7Ry7E79PUqedahpObegiO"/>
+    <Admin
+            id="5"
+            name="Admin2"
+            email="admin1@admin.pl"
+            hashed_password="$2y$10$c8Oei4DTa/ifgo8/aGKaWeANR427pHm/C69yu6Sse8d2e0IPNNN9C"/>
+
+</dataset>
