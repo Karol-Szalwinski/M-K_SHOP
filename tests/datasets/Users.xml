@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Users
+            id="2"
+            name="Karol"
+            surname="Kamil"
+            hashed_password="$2y$10$u2w3q9.yWVirbzN9WWD2jOBqi2EKxrrpnUQi69EQcy8kE/MM2fQuq"
+            email="user@user.pl"
+            adress_street="Polna"
+            adress_local="96"
+            postal_code="96-200"
+            adress_city="Rawa"/>
+    <Users
+            id="4"
+            name="Janusz"
+            surname="Handlarz"
+            hashed_password="$2y$10$tw74Uo0gqvuTnAFbK/G8P.px4hWMRhB7KOIVOgW00rxuiGgC9nrdK"
+            email="user2@user.pl"
+            adress_street="Polska"
+            adress_local="77"
+            postal_code="89-547"
+            adress_city="Warszawa"/>
+
+
+
+</dataset>
