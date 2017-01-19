@@ -36,5 +36,19 @@ class AdminTest extends PHPUnit_Extensions_Database_TestCase {
         $user->setAdresscity('Elk');
         $this->assertTrue($user->saveToDB(self::$mysqliConn));
     }
-    
+
+    public function testLoadUserByIdWithCorrectId() {
+        $user = User::loadUserById(self::$mysqliConn, 4);
+        $this->assertEquals(4, $user->getId());
+    }
+
+    public function testIfLoadAllUsers() {      
+        $noUsers = count(User::loadAllUsers(self::$mysqliConn));
+        $this->assertEquals($noUsers, 2);
+    }
+
+    public function testIfDeleteUser() {
+        $this->markTestIncomplete();
+    }
+
 }
