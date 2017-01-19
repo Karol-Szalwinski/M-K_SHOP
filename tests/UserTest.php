@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../src/User.php';
 
-class AdminTest extends PHPUnit_Extensions_Database_TestCase {
+class UserTest extends PHPUnit_Extensions_Database_TestCase {
 
     protected static $mysqliConn;
 

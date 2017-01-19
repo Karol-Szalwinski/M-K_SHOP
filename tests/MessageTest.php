@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../src/Message.php';
 
-class AdminTest extends PHPUnit_Extensions_Database_TestCase {
+class MessageTest extends PHPUnit_Extensions_Database_TestCase {
 
     protected static $mysqliConn;
    
@@ -26,12 +26,21 @@ class AdminTest extends PHPUnit_Extensions_Database_TestCase {
     //$mysqliConn->getConnection->query("set foreign_key_checks=0");
     
     public function testSaveWhenCreatingNewMessage() {
-        
-        $message = new Message();
-        $message->setReceiverId(15);
-        $message->setSenderId(2);
-        $message->setTitle('zamowienie');
-        $message->setTextMessage('zmowienie');
-        $this->assertTrue($message->saveToDB(self::$mysqliConn->getConnection->query("set foreign_key_checks=0")));
+        $this->markTestIncomplete();
+        //$message = new Message();
+        //$message->setReceiverId(4);
+        //$message->setSenderId(2);
+        //$message->setTitle('zamowienie');
+        //$message->setTextMessage('zmowienie');
+        //$this->assertTrue($message->saveToDB(self::$mysqliConn));
+    }
+    
+    public function testLoadMessageByReceiverIdWithCorrectReceiverId() {
+        $message = Message::loadMessagesByReceiverId(self::$mysqliConn, 13);
+        $this->assertEquals(6, $message->getId());
+    }
+        public function testLoadMessageBySenderIdWithCorrectSenderId() {
+        $message = Message::loadMessagesBySenderIdId(self::$mysqliConn, 3);
+        $this->assertEquals(6, $message->getId());
     }
 }
