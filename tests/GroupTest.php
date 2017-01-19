@@ -30,20 +30,12 @@ class GroupTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function testIfLoadAllGroups() {
-        $this->markTestIncomplete();
-        /**
-        $groups = Group::loadAllGroups(self::$mysqliConn);
-        $this->assertEquals($groups, array(
-    '0' => array (
-        'id' => '10',
-        'groupName' => 'Dyski SSD'
-    ),
-    '1' => array (
-        'id' => '110',
-        'groupName' => 'Dyski FDSH'
-    )));
-         * 
-         */
+        $noGroups = count(Group::loadAllGroups(self::$mysqliConn));
+        $this->assertEquals($noGroups, 2);
+    }
+
+    public function testLoadGroupByIdIfIdIsNotInDB() {
+        $this->assertNull(Group::loadCategoryById(self::$mysqliConn, 45));
     }
 
     public function testLoadGroupByIdWithCorrectId() {
@@ -55,5 +47,5 @@ class GroupTest extends PHPUnit_Extensions_Database_TestCase {
         $group = Group::deleteCategoryById(self::$mysqliConn, 11);
         $this->assertTrue($group);
     }
-    
+
 }

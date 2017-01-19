@@ -42,13 +42,32 @@ class AdminTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(4, $user->getId());
     }
 
-    public function testIfLoadAllUsers() {      
+    public function testIfLoadAllUsers() {
         $noUsers = count(User::loadAllUsers(self::$mysqliConn));
         $this->assertEquals($noUsers, 2);
     }
 
     public function testIfDeleteUser() {
-        $this->markTestIncomplete();
+        $user = new User();
+        $this->assertTrue($user->delete(self::$mysqliConn));
+    }
+
+    public function testLoadUserByIdIfIdIsNotInDB() {
+        $this->assertNull(User::loadUserById(self::$mysqliConn, 32));
+    }
+
+    public function testLoadUserByEmailWithCorrectEmail() {
+        $user = User::loadUserByEmail(self::$mysqliConn, 'user2@user.pl');
+        $this->assertEquals(4, $user->getId());
+    }
+
+    public function testIfLoginReturnsUserId() {
+        $this->assertEquals(2, User::loginUser(self::$mysqliConn, 'user@user.pl', '12345'));
+    }
+
+    public function testIfEmailIsAvailable() {
+        $user = User::emailIsAvailable(self::$mysqliConn, 'user3@user3.pl');
+        $this->assertEquals($user, true);
     }
 
 }
