@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Photos
+            id="1"
+            id_product="1"
+            path="../images/image_1.jpg"/>
+    <Photos
+            id="2"
+            id_product="1"
+            path="../images/image_2.jpg"/>
+    <Photos
+            id="3"
+            id_product="3"
+            path="../images/image_3.jpg"/>
+    <Photos
+            id="4"
+            id_product="4"
+            path="../images/image_4.jpg"/>
+
+
+</dataset>

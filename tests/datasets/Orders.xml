@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Orders
+            id="1"
+            id_user="2"
+            status="2"
+            creation_date="2017-01-02 12:44:02"
+            payment_method="cash"
+            amount="200"
+            adress_street="Marszalkowska"
+            adress_local="25"
+            postal_code="00-131"
+            adress_city="Warszawa"/>
+    <Orders
+            id="2"
+            id_user="4"
+            status="2"
+            creation_date="2016-12-02 15:36:09"
+            payment_method="transfer"
+            amount="500"
+            adress_street="Woronicza"
+            adress_local="230"
+            postal_code="01-211"
+            adress_city="Warszawa"/>
+    <Orders
+            id="3"
+            id_user="4"
+            status="3"
+            creation_date="2017-01-10 12:40:10"
+            payment_method="cash"
+            amount="100"
+            adress_street="Waszyngtona"
+            adress_local="15a"
+            postal_code="02-200"
+            adress_city="Warszawa"/>
+    <Orders
+            id="4"
+            id_user="2"
+            status="3"
+            creation_date="2017-01-20 23:55:20"
+            payment_method="transfer"
+            amount="550.71"
+            adress_street="Wiertnicza"
+            adress_local="141"
+            postal_code="00-300"
+            adress_city="Warszawa"/>
+</dataset>

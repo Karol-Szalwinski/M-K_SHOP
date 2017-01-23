@@ -14,7 +14,7 @@ class StatusTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function getDataSet() {
-        return $this->createFlatXmlDataSet(__DIR__ . '/datasets/Status.xml');
+        return $this->createFlatXmlDataSet(__DIR__ . '/datasets/Statuses.xml');
     }
 
     static public function setUpBeforeClass() {
