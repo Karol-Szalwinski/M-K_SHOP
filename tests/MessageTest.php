@@ -45,8 +45,7 @@ class MessageTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function testLoadMessageByReceiverIdIfIdIsNotInDB() {
-        $this->markTestIncomplete();
-        //$this->assertNull(Message::loadMessagesByReceiverId(self::$mysqliConn, 84));
+        $this->assertEmpty(Message::loadMessagesByReceiverId(self::$mysqliConn, 22));
     }
 
 }

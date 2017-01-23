@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Statuses
+        id="2"
+        status_name="oplacone"/>
+    <Statuses
+        id="3"
+        status_name="zrealizowane"/>
+</dataset>
