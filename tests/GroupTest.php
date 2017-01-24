@@ -14,7 +14,7 @@ class GroupTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function getDataSet() {
-        return $this->createFlatXmlDataSet(__DIR__ . '/datasets/Group.xml');
+        return $this->createFlatXmlDataSet(__DIR__ . '/datasets/Groups.xml');
     }
 
     static public function setUpBeforeClass() {

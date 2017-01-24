@@ -2,7 +2,8 @@
 
 require_once __DIR__ . '/../src/Product.php';
 
-class ProductsTest extends PHPUnit_Framework_TestCase {
+
+class ProductTest extends PHPUnit_Extensions_Database_TestCase {
 
     protected static $mysqliConn;
 
@@ -14,49 +15,49 @@ class ProductsTest extends PHPUnit_Framework_TestCase {
     }
 
     public function getDataSet() {
-        return $this->createFlatXMLDataSet(__DIR__ . '/datasets/Product.xml');
+        return $this->createFlatXmlDataSet(__DIR__ . '/datasets/Product.xml');
     }
 
-    static public function setUpConn() {
-        $servername = "localhost";
-        $username = "root";
-        $password = "Coderslab";
-        $basename = "M_K-SHOP_TEST";
-        self::$mysqliConn = new mysqli($servername, $username, $password, $basename);
-        if (self::$mysqliConn->connect_error) {
-            die("DB connection error: " . self::$mysqliConn->connect_error);
-        }
+    static public function setUpBeforeClass() {
+        self::$mysqliConn = new mysqli(
+                $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_NAME']
+        );
     }
 
-    static public function closeConn() {
-        self::$mysqliConn->close();
-        self::$mysqliConn = null;
+    public function testIfLoadProducByIdWithCorrectId() {
+        $product = Product::loadProductById(self::$mysqliConn, 1);
+        $this->assertEquals(1, $product->getId());
     }
-    
-    /*
-     * public function testIfReturnNullWhenLoadedProductDoesNotExist(){
-    
-        
-        $this->assertNull(Product::loadProductById(self::$mysqliConn, 53230));
+
+    public function testIfLoadAllProductsByGroupId() {
+        $noProducts = count(Product::loadAllProductsByGroupId(self::$mysqliConn, 11));
+        $this->assertEquals(2, $noProducts);
     }
-    */
-    public function testConstructor() {
+
+    public function testIfGetProductsByGroupId() {
+        $noProducts = count(Product::getAllProductsByGroupId(self::$mysqliConn, 10));
+        $this->assertEquals(2, $noProducts);
+    }
+
+    public function testIfLoadAllProducts() {
+        $noProducts = count(Product::loadAllProducts(self::$mysqliConn));
+        $this->assertEquals(4, $noProducts);
+    }
+
+    public function testSaveWhenCreatingNewProduct() {
+
         $product = new Product();
-        $this->assertEquals(10, 10);
-        $this->assertEquals(-1, $product->getId());
+        $product->setIdGroup(11);
+        $product->setName("nowy dysk");
+        $product->setPrice(100.25);
+        $product->setDescription("najnowszy dysk");
+        $product->setAvailability(20);
+        $product->setDeleted(1);
+        $this->assertTrue($product->saveToDB(self::$mysqliConn));
     }
-}
-/*
-public function __construct() {
 
-        $this->id = -1;
-        $this->idGroup = -1;
-        $this->name = "";
-        $this->price = 0;
-        $this->description = "";
-        $this->availability = 0;
-        $this->deleted = 0;
+    public function testLoadProductByIdIfIdIsNotInDB() {
+        $this->assertNull(Product::loadProductById(self::$mysqliConn, 78));
     }
- * 
- * */
- 
+
+}

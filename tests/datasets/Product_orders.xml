@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<dataset>
+    <Product_orders
+            id="1"
+            id_orders="1"
+            id_product="4"
+            quantity="2"
+            real_price="200"/>
+    <Product_orders
+            id="2"
+            id_orders="1"
+            id_product="3"
+            quantity="6"
+            real_price="1200"/>
+    <Product_orders
+            id="3"
+            id_orders="3"
+            id_product="2"
+            quantity="7"
+            real_price="5749.38"/>
+    <Product_orders
+            id="4"
+            id_orders="4"
+            id_product="1"
+            quantity="5"
+            real_price="2806.70"/>
+</dataset>

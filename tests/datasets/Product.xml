@@ -1,6 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" ?>
 <dataset>
- 
-
+    <Product
+            id="1"
+            id_group="10"
+            name="Dysk 1111"
+            price="561.34"
+            description="fajny dysk"
+            availability="55"
+            deleted="0"/>
+    <Product
+            id="2"
+            id_group="10"
+            name="Dysk 1222"
+            price="821.34"
+            description="drogi dysk"
+            availability="155"
+            deleted="0"/>
+    <Product
+            id="3"
+            id_group="11"
+            name="Dysk 3333"
+            price="200"
+            description="dysk"
+            availability="200"
+            deleted="0"/>
+    <Product
+            id="4"
+            id_group="11"
+            name="Dysk 3333"
+            price="200"
+            description="nowy dysk"
+            availability="200"
+            deleted="0"/>
 </dataset>
