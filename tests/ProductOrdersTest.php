@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../src/Product.php';
 require_once __DIR__ . '/../src/Order.php';
+require_once __DIR__ . '/../src/myFunctions.php';
 
 class ProductOrdersTest extends PHPUnit_Extensions_Database_TestCase {
 
@@ -39,15 +40,14 @@ class ProductOrdersTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertTrue($product);
     }
 
-    public function testIfDeleteAllProductFromCart() {
-        $this->markTestSkipped();
-        //$product = Product::deleteAllProductFromCart(self::$mysqliConn, 1);
-        //$this->assertTrue($product);
-    }
-    
     public function testIfShowAllProductsByCartId() {
-        $product = count(Product::showAllProductsByOrderIdInTabRow(self::$mysqliConn, 1));
-        $this->assertEquals(2, $product);
+        $product = count(Product::showAllProductsByOrderIdInTabRow(self::$mysqliConn, 4));
+        $this->assertEquals(1, $product);
+    }
+
+    public function testIfCountProductsInCart() {
+        $order = Order::loadOrderById(self::$mysqliConn, 4);
+        $this->assertEquals(1, $order->countProductsInCart(self::$mysqliConn));
     }
 
 }

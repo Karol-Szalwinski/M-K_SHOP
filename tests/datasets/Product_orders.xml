@@ -5,7 +5,7 @@
             id_orders="1"
             id_product="4"
             quantity="2"
-            real_price="200"/>
+            real_price="400"/>
     <Product_orders
             id="2"
             id_orders="1"

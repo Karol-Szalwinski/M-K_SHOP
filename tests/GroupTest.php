@@ -44,7 +44,7 @@ class GroupTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function testIfDeleteCategoryById() {
-        $group = Group::deleteCategoryById(self::$mysqliConn, 11);
+        $group = Group::deleteCategoryById(self::$mysqliConn, 1);
         $this->assertTrue($group);
     }
 
