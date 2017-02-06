@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
 
     //sprawdzam przesłaną nazwę produktu
     if (isset($_POST['name']) && strlen(trim($_POST['name'])) > 0) {
-        $name = substr(trim($_POST['name']), 0, 20);
+        $name = substr(trim($_POST['name']), 0, 100);
     } else {
         $errors[] = 'Podałeś nieprawidłową nazwę';
     }

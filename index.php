@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * Strona główna, przekierowuje od razu na sklep
+ * Strona główna, przekierowywuje na sklep
  */
 
 header("Location: shop/index.php");
