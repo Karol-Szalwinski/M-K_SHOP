@@ -1,5 +1,3 @@
-
-
 <?php
 /*
  * Strona kontaktu z administracja naszego sklepu
@@ -11,8 +9,6 @@ if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserId = $loggedUser->getId();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -32,10 +28,10 @@ if ($loggedUser = isLoggedUser($conn)) {
         <div class="container-fluid text-center">
 
             <div class="row content">
-                
+
                 <!—-----------Panel z kategoriami --------------->
                 <?php require_once __DIR__ . '/sidebar.php' ?>
-                
+
                 <div class="col-sm-8 text-left"> 
                     <h1>Witamy w M&K SHOP</h1>
                     <hr>
@@ -44,12 +40,11 @@ if ($loggedUser = isLoggedUser($conn)) {
                     <p>Wszystkie maile są czytane raz w roku przez 10minut.</p>
                     <p>Na wszystkie przeczytane przez nas maile odpowiemy niezwłocznie w następnym roku kalendarzowym.</p>
                     <hr>
-                    
                 </div>
-                
+
             </div>
         </div>
-        
+
         <!—--------------Stopka------------------->
         <?php require_once __DIR__ . '/footer.php' ?>
 

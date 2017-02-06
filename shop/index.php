@@ -4,7 +4,9 @@
  *  link do rejestracji, menu z wszystkimi grupami
  * przedmiotów i karuzelę z kilkoma wybranymi przedmiotami.
  */
+
 require_once __DIR__ . '/../src/required.php';
+
 //Ustalamy id i name zalogowanego usera
 if ($loggedUser = isLoggedUser($conn)) {
     $loggedUserName = $loggedUser->getName();
@@ -14,8 +16,6 @@ if ($loggedUser = isLoggedUser($conn)) {
 //Ustalamy aktywną zakładkę
 $_SESSION['active-button'] = 0;
 ?>
-
-
 
 <!DOCTYPE html>
 <html>

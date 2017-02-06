@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-<?php require_once __DIR__ . '/header.php' ?>
+            <?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <div class="row content">
 
                 <!—-----------Panel z kategoriami --------------->
-<?php require_once __DIR__ . '/sidebar.php' ?>
+                <?php require_once __DIR__ . '/sidebar.php' ?>
 
                 <div class="col-sm-10 text-left"> 
 
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         </div>
 
         <!—--------------Stopka------------------->
-<?php require_once __DIR__ . '/footer.php' ?>
+        <?php require_once __DIR__ . '/footer.php' ?>
 
     </body>
 </html>

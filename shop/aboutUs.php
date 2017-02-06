@@ -14,8 +14,6 @@ if ($loggedUser = isLoggedUser($conn)) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,10 +32,10 @@ if ($loggedUser = isLoggedUser($conn)) {
         <div class="container-fluid text-center">
 
             <div class="row content">
-                
+
                 <!—-----------Panel z kategoriami --------------->
                 <?php require_once __DIR__ . '/sidebar.php' ?>
-                
+
                 <div class="col-sm-8 text-left"> 
                     <h1>Witamy w M&K SHOP</h1>
                     <hr>
@@ -45,13 +43,11 @@ if ($loggedUser = isLoggedUser($conn)) {
                     <p>Od początku naszej działalności, czyli od roku 2004, marzyliśmy o stworzeniu miejsca dla przyjemnych, bezpiecznych i prostych zakupów w internecie.</p>
                     <p>Obecnie jesteśmy najczęściej ocenianym sklepem internetowym w Polsce i zdobywcą licznych branżowych nagród.</p>
                     <p>Zatrudniamy kilkuset pracowników, mamy placówki odbioru osobistego (netpunkty) w 18 miastach a naszą stronę odwiedza 1,5 mln osób miesięcznie.</p>
-                    <hr>
-                    
+                    <hr>         
                 </div>
-                
             </div>
         </div>
-        
+
         <!—--------------Stopka------------------->
         <?php require_once __DIR__ . '/footer.php' ?>
 

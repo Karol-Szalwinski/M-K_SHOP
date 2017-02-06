@@ -185,7 +185,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password1'])) {
                                             <th>Wartosc</th>
                                             <th>Status</th>
                                             <th></th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -201,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password1'])) {
                                                 $no++;
                                                 $order->showOrderInUserTabRow($conn, $no);
                                             }
-                                        } 
+                                        }
                                         ?>
                                         <tr>
                                             <td colspan="2"></td>

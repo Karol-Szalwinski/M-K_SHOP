@@ -44,7 +44,6 @@ if (isset($_SESSION['active-button'])) {
             <li class="<?php echo $logged ?>"><a href='logoutUser.php'><span class='glyphicon glyphicon-log-out'></span> Wyloguj</a></li>
             <li class="<?php echo $logoff ?>"><a href='registerUser.php'><span class='glyphicon glyphicon-user'></span> Zarejestruj się</a></li>
             <li class="<?php echo $logoff ?>"><a href='loginUser.php'><span class='glyphicon glyphicon-log-in'></span> Zaloguj</a></li>
-
         </ul>
     </div>
 </nav>

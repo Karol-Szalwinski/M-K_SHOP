@@ -78,11 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //usera, logujemy go i przekierowywujemy na główną.
     if (empty($errors)) {
         echo "Dane rejestracji są poprawne<br>";
+        
         $newUser = new User;
         $newUser->setEmail($userEmail)->setName($userName)->setSurname($userSurname);
         $newUser->setAdressStreet($userStreet)->setAdressLocalNo($userLocalNo);
         $newUser->setPostalCode($userPostcode)->setAdresscity($userCity);
         $newUser->setPassword($userPassword)->saveToDB($conn);
+        
         //tworzę pusty koszyk dla użytkownika
         $newCart = new Order();
         $newUserId = $newUser->getId();
@@ -90,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ->setStatus(0)
                 ->setPaymentMethod("Cash")
                 ->setAmount(0.00)->saveToDB($conn);
+        
         //loguję użytkownika i przekiwrowuję
         $_SESSION['loggedUser'] = $newUser->getId();
         header("Location: index.php");

@@ -164,7 +164,6 @@ if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quant
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

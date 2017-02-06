@@ -65,7 +65,6 @@ if ($loggedUser = isLoggedUser($conn)) {
                                 }
                             } else {
                                 echo "<h4>Użytkownik nie ma żadnych wiadomości</h4>";
-                                
                             }
                             ?>
                         </tbody>

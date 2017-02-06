@@ -105,6 +105,7 @@ if ($loggedUser = isLoggedUser($conn)) {
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/style.css" type="text/css" />
         <script>
+            //Skrypt do ukrywania formularza zmiany ilości
             $(document).ready(function () {
                 $("tr").click(function () {
                     $(".default").show();
@@ -114,7 +115,6 @@ if ($loggedUser = isLoggedUser($conn)) {
                 });
                 //Podpowiedzi w dymku
                 $('[data-toggle="tooltip"]').tooltip();
-
             });
         </script>
     </head>
@@ -151,6 +151,7 @@ if ($loggedUser = isLoggedUser($conn)) {
                             </tr>
                         </thead>
                         <tbody>
+
                             <?php
                             $amount = Product::showAllProductsByCartIdInTabRow($conn, $myCartId);
                             ?>
@@ -176,19 +177,23 @@ if ($loggedUser = isLoggedUser($conn)) {
                         <form method="POST">
                             <div class="form-group">
                                 <label for="street">Ulica:</label>
-                                <input type="text" class="form-control" id="street" name="street" value="<?php echo $loggedUser->getAdressStreet() ?>">
+                                <input type="text" class="form-control" id="street"
+                                       name="street" value="<?php echo $loggedUser->getAdressStreet() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="user-local-no">Nr domu / lokalu:</label>
-                                <input type="text" class="form-control" id="user-local-no" name="user-local-no" value="<?php echo $loggedUser->getAdressLocalNo() ?>">
+                                <input type="text" class="form-control" id="user-local-no"
+                                       name="user-local-no" value="<?php echo $loggedUser->getAdressLocalNo() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="postcode">Kod pocztowy:</label>
-                                <input type="text" class="form-control" id="postcode" name="postcode" value="<?php echo $loggedUser->getPostalCode() ?>">
+                                <input type="text" class="form-control" id="postcode"
+                                       name="postcode" value="<?php echo $loggedUser->getPostalCode() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="city">Miejscowość:</label>
-                                <input type="text" class="form-control" id="city" name="city" value="<?php echo $loggedUser->getAdressCity() ?>">
+                                <input type="text" class="form-control" id="city" name="city" 
+                                       value="<?php echo $loggedUser->getAdressCity() ?>">
                             </div>
                             <div class="form-group">
                                 <label for="payment">Płatność</label>
@@ -204,8 +209,6 @@ if ($loggedUser = isLoggedUser($conn)) {
                         </form>
                         <hr>
                     </div>
-
-
                 </div>
             </div>
         </div>
