@@ -1,12 +1,5 @@
 <?php
 
-/*
- * klasa zamówienia:
- * - składanie nowych zamówień/ edycja zamówienia
- * - wyświetlanie zamównia wg użytkownika/ wszystkich zamówień
- *  co jeszcze ?
- */
-
 class Order {
 
     private $id;
@@ -162,12 +155,9 @@ class Order {
         }
     }
 
+    //zapisywanie zamówienia do bazy danych
     public function saveToDB(mysqli $connection) {
-
         if ($this->id == -1) {
-
-//zapisywanie zamówienia do bazy danych
-
             $sql = "INSERT INTO Orders(id_user, status,  payment_method, amount,
                 adress_street, adress_local, postal_code, adress_city)
                VALUES ('$this->idUser','$this->status', '$this->paymentMethod', '$this->amount',
@@ -176,7 +166,6 @@ class Order {
             $result = $connection->query($sql);
             if ($result == true) {
                 $this->id = $connection->insert_id;
-
                 return true;
             } else {
                 return false;
@@ -193,18 +182,16 @@ class Order {
                 return true;
             }
         }
-
         return false;
     }
 
-//Usuwa zamówienie z bazy
+    //Usuwa zamówienie z bazy
     public function delete(mysqli $connection) {
 
         if ($this->id != -1) {
             $sql = "DELETE FROM Orders WHERE id=$this->id";
             $result = $connection->query($sql);
             if ($result == true) {
-
                 $this->id = -1;
                 return true;
             }
@@ -221,8 +208,8 @@ class Order {
         $result = $connection->query($sql);
 
         if ($result == true && $result->num_rows == 1) {
-
             $row = $result->fetch_assoc();
+
             $loadedOrder = new Order();
             $loadedOrder->id = $row['id'];
             $loadedOrder->idUser = $row['id_user'];
@@ -234,14 +221,12 @@ class Order {
             $loadedOrder->adressLocalNo = $row['adress_local'];
             $loadedOrder->postalCode = $row['postal_code'];
             $loadedOrder->adressCity = $row['adress_city'];
-
             return $loadedOrder;
         }
-
         return null;
     }
 
-// wyświetlanie wszystkich zamówień wg id użytkownika
+    // wyświetlanie wszystkich zamówień wg id użytkownika
     static public function loadAllOrdersByUserId(mysqli $connection, $userId) {
 
         $sql = "SELECT * FROM Orders WHERE id_user=$userId AND status<>0 ORDER BY status DESC";
@@ -264,12 +249,11 @@ class Order {
                 $loadedOrder->adressCity = $row['adress_city'];
                 $ret[] = $loadedOrder;
             }
-
             return $ret;
         }
     }
 
-// wyświetlanie wszystkich zamówień wg statusu
+    // wyświetlanie wszystkich zamówień wg statusu
     static public function loadAllOrdersByStatus(mysqli $connection, $status) {
 
         $sql = "SELECT * FROM Orders WHERE status=$status ORDER BY id ASC";
@@ -297,7 +281,7 @@ class Order {
         }
     }
 
-// wyświetlanie wszystkich zamówień w bazie
+    // wyświetlanie wszystkich zamówień w bazie
     static public function loadAllOrders(mysqli $connection) {
 
         $sql = "SELECT * FROM Orders ORDER BY status DESC";
@@ -323,7 +307,6 @@ class Order {
                 $ret[] = $loadedOrder;
             }
         }
-
         return $ret;
     }
 
@@ -341,7 +324,6 @@ class Order {
             $loadedOrder->amount = $row['amount'];
             return $loadedOrder;
         }
-
         return null;
     }
 
@@ -353,7 +335,6 @@ class Order {
         echo "<td>" . $this->getCreationDate() . "</td>";
         echo "<td>" . showPrice($this->getAmount()) . "</td>";
         echo "<td>" . Status::loadStatusById($conn, $this->getStatus())->getStatusName() . "</td>";
-
 
         echo '<td onclick="location.href=';
         echo "'showOrder.php?orderId=";
@@ -371,7 +352,7 @@ class Order {
         echo "</tr>";
     }
 
-//Wyswietla zamówienia w wierszu tabeli usera
+    //Wyswietla zamówienia w wierszu tabeli usera
     public function showOrderInUserTabRow($conn, $no) {
         echo '<tr onclick="location.href=';
         echo "'order.php?orderId=";
@@ -386,7 +367,7 @@ class Order {
         echo "</tr>";
     }
 
-//Metoda zlicza produkty w koszyku
+    //Metoda zlicza produkty w koszyku
     public function countProductsInCart(mysqli $connection) {
         $orderId = $this->id;
         $sql = "SELECT * FROM Product_orders WHERE id_orders=$orderId ";

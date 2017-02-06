@@ -1,10 +1,5 @@
 <?php
-/**
- * klasa administratora:
- * -możliwość zakładania/usuwania konta administratora
- * -możliwość wyświetlania danych admiistratora wg id/maila
- * -logowanie dla administratora
- */
+
 class Admin {
 
     private $id;
@@ -60,12 +55,11 @@ class Admin {
     public function getHashedPassword() {
         return $this->hashedPassword;
     }
-
+    
+    //Saving new Admin to DB
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
-
-            //Saving new Admin to DB
 
             $sql = "INSERT INTO Admin(name, email, hashed_password)
                    VALUES ('$this->name', '$this->email', '$this->hashedPassword')";
@@ -109,15 +103,12 @@ class Admin {
             $loadedAdmin->email = $row['email'];
             $loadedAdmin->hashedPassword = $row['hashed_password'];
 
-
             return $loadedAdmin;
         }
-
         return null;
     }
 
-        static public function loadAdminByEmail(mysqli $connection, $email) {
-
+    static public function loadAdminByEmail(mysqli $connection, $email) {
         $sql = "SELECT * FROM Admin WHERE email='$email'";
 
         $result = $connection->query($sql);
@@ -133,16 +124,15 @@ class Admin {
 
             return $loadedAdmin;
         }
-
         return null;
     }
-   
-        //metoda sprawdza czy jest email w bazie i porównuje z hasłem
+
+    //metoda sprawdza czy jest email w bazie i porównuje z hasłem
     static public function loginAdmin(mysqli $conn, $email, $password) {
         $sql = "SELECT * FROM Admin WHERE email = '$email'";
         $result = $conn->query($sql);
         if ($result->num_rows == 1) {
-            //zwracamy wynik jako tabl assocjacyjne, gdzi kluczami sa nazwy kolumn
+            //zwracamy wynik jako tabl assocjacyjne, gdzie kluczami sa nazwy kolumn
             $row = $result->fetch_assoc();
 
             if (password_verify($password, $row['hashed_password'])) {
@@ -154,7 +144,8 @@ class Admin {
             return false;
         }
     }
-        //metoda sprawdza czy jest dostępny adres email w bazie
+
+    //metoda sprawdza czy jest dostępny adres email w bazie
     static public
             function emailIsAvailable(mysqli $connection, $email) {
         $sql = "SELECT * FROM Admin WHERE `email`='$email'";
