@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $errors[] = 'Podałeś nieprawidłowe imię użytkownika';
     }
-    
+
     //sprawdzam hasło, jego długość, obcinam białe znaki
     if (isset($_POST['user-password']) && strlen(trim($_POST['user-password'])) >= 5) {
         $adminPassword = trim($_POST['user-password']);
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         var_dump($newAdmin);
         //loguję użytkownika i przekiwrowuję
         $_SESSION['loggedAdmin'] = $newAdmin->getId();
-        //header("Location: index.php");
+        header("Location: index.php");
     }
 }
 ?>
@@ -81,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="container-fluid text-center">
             <div class="col-sm-5 text-left"> 
-                    <!-Tutaj wyświetlam błędy-->
-                    <?php printErrors($errors); ?>
+                <!-Tutaj wyświetlam błędy-->
+                <?php printErrors($errors); ?>
                 <h3>Zarejestruj nowego administratora</h3>
                 <form action=# method="POST">
                     <div class="form-group">
@@ -105,11 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <button type="submit" class="btn btn-info">Zarejestruj admina</button>
                     <hr>
                 </form>
-
             </div>
-
         </div>
-
     </body>
 </html>
 

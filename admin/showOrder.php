@@ -64,23 +64,23 @@ if (isset($_POST['status']) && $_POST['status'] >= 1 && $_POST['status'] <= 3) {
         <script>
             $(document).ready(function () {
 
-               $('#default').click(function() {
-                    
+                $('#default').click(function () {
+
                     $('#edit').toggle('fast');
                     $(this).toggle('fast');
                     return false;
-                }); 
-                $('#edit form').click(function() {
-                    
+                });
+                $('#edit form').click(function () {
+
                     this.submit();
                     return false
                 });
-                
-                $(document).click(function() {
-                    
+
+                $(document).click(function () {
+
                     $('#edit').hide();
                     $('#default').show();
-                }); 
+                });
                 //Podpowiedzi w dymku
                 $('[data-toggle="tooltip"]').tooltip();
 

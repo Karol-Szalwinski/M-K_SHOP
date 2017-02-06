@@ -3,7 +3,6 @@
 /*
  * Panel użytkownika
  * Strona ta ma mieć informacje o użytkowniku, pokazywać wszystkie poprzednie zakupy tego użytkownika.
-
  */
 require_once __DIR__ . '/../src/required.php';
 
@@ -19,6 +18,7 @@ if (isset($_GET['userId']) && is_numeric($_GET['userId'])) {
 
     //Jeżeli użytkownik o tym userId jest w bazie
     if ($loadedUser = User::loadUserById($conn, $userId)) {
+        
         $userName = $loadedUser->getName();
         $userSurname = $loadedUser->getSurname();
         $userEmail = $loadedUser->getEmail();
@@ -26,6 +26,7 @@ if (isset($_GET['userId']) && is_numeric($_GET['userId'])) {
         $userNo = $loadedUser->getAdressLocalNo();
         $userPostcode = $loadedUser->getPostalCode();
         $userCity = $loadedUser->getAdressCity();
+        
     } else {
         $errors[] = 'Nie ma takiego użytkownika';
     }
@@ -54,11 +55,8 @@ if (!empty($errors)) {
         <!—-----------Główna treść --------------->
 
         <div class="container-fluid text-center">
-
             <div class="row content">
-
                 <div class="col-sm-12 text-left"> 
-
                     <h3><?php echo $userName . " " . $userSurname ?> - Profil użytkownika</h3>
                     <hr>
                     <p>Id: <?php echo $userId ?></p>
@@ -80,6 +78,7 @@ if (!empty($errors)) {
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <?php
                             //Wyświetlam wszystkie zamówienia użytkownika
                             $no = 0;
@@ -104,10 +103,8 @@ if (!empty($errors)) {
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
-
         </div>
     </div>
 </body>

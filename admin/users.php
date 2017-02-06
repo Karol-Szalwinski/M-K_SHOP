@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-id']) &&
     <body>
         <!-----------Nagłówek z menu-------------->
         <header>
-<?php require_once __DIR__ . '/header.php' ?>
+            <?php require_once __DIR__ . '/header.php' ?>
         </header>
 
         <!—-----------Główna treść --------------->
@@ -63,16 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user-id']) &&
                             </tr>
                         </thead>
                         <tbody>
-<?php
-//Wyświetlam wszystkie zamówienia
-$no = 0;
-$allUsers = User::loadAllUsers($conn);
-foreach ($allUsers as $user) {
+                            <?php
+                            //Wyświetlam wszystkie zamówienia
+                            $no = 0;
+                            $allUsers = User::loadAllUsers($conn);
+                            foreach ($allUsers as $user) {
 
-    $no++;
-    $user->showUserInAdminTabRow($no);
-}
-?>
+                                $no++;
+                                $user->showUserInAdminTabRow($no);
+                            }
+                            ?>
 
                         </tbody>
                     </table>

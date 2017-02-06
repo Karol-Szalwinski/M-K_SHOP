@@ -8,8 +8,10 @@ require_once __DIR__ . '/../src/required.php';
 
 //Ustalam aktywną zakładkę w menu
 $_SESSION['active-button-admin-menu'] = 2;
+
 //Czyścimy zmienną sesyjną
-$_SESSION['photo']=[];
+$_SESSION['photo'] = [];
+
 $errors = [];
 
 //jeśli admin jest zalogowany to przekierowuję na główną
@@ -19,13 +21,12 @@ if (!isLoggedAdmin($conn)) {
 
 //sprawdzam czy została przesłany odpowiednie id produktu do usunięcia
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product-id']) &&
-        $_POST['product-id'] > 0 ) {
-    
-        if($productToDel = Product::loadProductById($conn, $_POST['product-id'])) {
-            $productToDel->setDeleted()->setAvailability(0)->saveToDB($conn);
-            $errors[] = "Pomyślnie usunięto produkt z ofery sprzedaży";
-        } 
-    
+        $_POST['product-id'] > 0) {
+
+    if ($productToDel = Product::loadProductById($conn, $_POST['product-id'])) {
+        $productToDel->setDeleted()->setAvailability(0)->saveToDB($conn);
+        $errors[] = "Pomyślnie usunięto produkt z ofery sprzedaży";
+    }
 }
 ?>
 
@@ -74,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product-id']) &&
                         </thead>
                         <tbody>
                             <?php
+                            
                             //Wyświetlam wszystkie produkty
                             $no = 0;
                             $allProducts = Product::loadAllProducts($conn);
@@ -87,6 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product-id']) &&
                 </div>
             </div>
         </div>
-
     </body>
 </html>

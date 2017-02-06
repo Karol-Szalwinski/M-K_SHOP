@@ -1,6 +1,5 @@
 <?php
-
-/* 
+/*
  * plik główny panelu administratora
  * 
  */
@@ -14,8 +13,6 @@ if (!isLoggedAdmin($conn)) {
     header("Location: loginAdmin.php");
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -36,14 +33,15 @@ if (!isLoggedAdmin($conn)) {
 
             <div class="row content">
                 <div class="col-sm-2 text-left">
-                    
+
                 </div>
-                
+
                 <div class="col-sm-10 text-left"> 
                     <h2>Witamy w panelu administracyjnym M&K SHOP</h2>
+                    <br><br>
                     <p> Możesz zarządzać z tego miejsca kategoriami, produktami, użytkownikami i zamówieniami</p>
                     <hr>
-                    
+
                 </div>
 
             </div>

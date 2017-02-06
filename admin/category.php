@@ -98,12 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id']) &&
                             ?>
                         </tbody>
                     </table>
-
-
                 </div>
-
             </div>
         </div>
-
     </body>
 </html>

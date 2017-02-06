@@ -6,13 +6,12 @@ if (!isLoggedAdmin($conn)) {
 }
 $errors = [];
 //sprawdzam zdjęcie
-$errors9 = [];
 
 If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
     if ($_FILES['fileToUpload']['size'] > 0) {
         $uploadFile = '../images/' . basename($_FILES['fileToUpload']['name']);
     } else {
-        $errors9[] = "brak załadowanego zdjęcia";
+        $errors[] = "brak załadowanego zdjęcia";
     }
     if (empty($errors9)) {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
@@ -23,6 +22,7 @@ If ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
 }
 //sprawdzam czy zostały przesłane odpowiednie dane 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
+
     //sprawdzam przesłane id kategorii
     if (isset($_POST['category']) && is_numeric($_POST['category']) &&
             $_POST['category'] > 0) {
@@ -30,18 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
     } else {
         $errors[] = 'Nie wybrałeś kategorii';
     }
+
     //sprawdzam przesłaną nazwę produktu
     if (isset($_POST['name']) && strlen(trim($_POST['name'])) > 0) {
         $name = substr(trim($_POST['name']), 0, 20);
     } else {
         $errors[] = 'Podałeś nieprawidłową nazwę';
     }
+
     //sprawdzam przesłany opis produktu
     if (isset($_POST['description']) && strlen(trim($_POST['description'])) > 20) {
         $description = trim($_POST['description']);
     } else {
         $errors[] = 'Podałeś za krótki opis. Napisz chociaż jedno zdanie';
     }
+
     //sprawdzam przesłaną ilość
     if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) &&
             $_POST['quantity'] > 0) {
@@ -49,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
     } else {
         $errors[] = 'Ilość musi być większa od 0';
     }
+
     //sprawdzam przesłaną cenę
     if (isset($_POST['price']) && is_numeric($_POST['price']) &&
             $_POST['price'] > 0) {
@@ -56,8 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
     } else {
         $errors[] = 'Cena musi być większa od 0';
     }
-//Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy nowy
-//produkt i wracamy do listy produktów
+
+    //Jeżeli wszystkie powyższe dane zwalidowały się poprawnie tworzymy nowy
+    //produkt i wracamy do listy produktów
     if (empty($errors)) {
         echo "Dane produktu są poprawne<br>";
         $newProduct = new Product();
@@ -65,14 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
                 ->setAvailability($quantity)->setPrice($price)->saveToDB($conn);
 
         $last_id = $conn->insert_id;
-        
+
         foreach ($_SESSION['photo'] as $value) {
             $newPhoto = new Photo();
             $newPhoto->setProductId($last_id);
             $newPhoto->setPath($value);
             $newPhoto->saveToDB($conn);
         }
-        $_SESSION['photo']=[];
+        $_SESSION['photo'] = [];
         header("Location: products.php");
     }
 }
@@ -99,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
                 <!-Tutaj wyświetlam błędy-->
                 <?php
                 printErrors($errors);
-                printErrors($errors9)
                 ?>
                 <div class="col-sm-12 text-left">
                     <br>
@@ -158,9 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
                     }
                     ?>
                 </div>
-
             </div>
         </div>
-
     </body>
 </html>

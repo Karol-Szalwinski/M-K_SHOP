@@ -60,12 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <!—-----------Główna treść --------------->
 
         <div class="container-fluid text-center">
-
             <div class="row content">
-
-
                 <div class="col-sm-12 text-left"> 
-
                     <h3><?php echo $productname ?></h3>
                     <h4>Kategoria: <?php echo Group::loadCategoryById($conn, $category)->getGroupName() ?></h4>
                     <hr>
@@ -125,11 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             <h3> <?php echo $availability ?> Sztuk</h3>
                             <br><br>
                         </div> 
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

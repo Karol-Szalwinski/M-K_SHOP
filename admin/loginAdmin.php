@@ -27,8 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,9 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="row content">
                 <br><br>
                 <div class="col-sm-4 text-left">
-
                 </div>
-
                 <div class="col-sm-4 text-left panel panel-default panel-body">
                     <!-Tutaj wyświetlam błędy-->
                     <?php printErrors($errors); ?>
@@ -61,9 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <button type="submit" class="btn btn-danger">Zaloguj</button>
                     </form>
                 </div>
-
             </div>
         </div>
-
     </body>
 </html>

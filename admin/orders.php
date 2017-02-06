@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order-id']) &&
                                         <th></th>
                                         <th></th>
                                         <th></th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order-id']) &&
                                         <th></th>
                                         <th></th>
                                         <th></th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -132,7 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order-id']) &&
                                         <th></th>
                                         <th></th>
                                         <th></th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -155,6 +152,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order-id']) &&
                 </div>
             </div>
         </div>
-
     </body>
 </html>
