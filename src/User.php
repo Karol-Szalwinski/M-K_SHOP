@@ -1,11 +1,5 @@
 <?php
 
-/**
- * klasa użytkownika:
- * -możliwość zakładania/usuwania konta użytkownika
- * -możliwość wyświetlania danych użytkownika wg id/maila
- * -wyświetlanie wszytskich użytkowników, logowanie
- */
 class User {
 
     private $id;
@@ -134,14 +128,10 @@ class User {
         }
         return $this;
     }
-    
- 
 
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
-
-            //Saving new user to DB
 
             $sql = "INSERT INTO Users(name, surname, hashed_password, email,
                 adress_street, adress_local, postal_code, adress_city)
@@ -194,7 +184,7 @@ class User {
             $loadedUser->adressLocalNo = $row['adress_local'];
             $loadedUser->postalCode = $row['postal_code'];
             $loadedUser->adressCity = $row['adress_city'];
- 
+
             return $loadedUser;
         }
 
@@ -220,7 +210,7 @@ class User {
                 $loadedUser->adressLocalNo = $row['adress_local'];
                 $loadedUser->postalCode = $row['postal_code'];
                 $loadedUser->adressCity = $row['adress_city'];
- 
+
                 $ret[] = $loadedUser;
             }
         }

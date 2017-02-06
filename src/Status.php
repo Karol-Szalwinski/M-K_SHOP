@@ -1,9 +1,5 @@
 <?php
 
-/* klasa status:
- * zmiana nazwy statusu dla zamówienia
- */
-
 class Status {
 
     private $id;
@@ -38,7 +34,6 @@ class Status {
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
-
 
             $sql = "INSERT INTO Statuses(status_name)
                    VALUES ('$this->statusName')";
@@ -78,7 +73,6 @@ class Status {
                 $loadedStatus = new Status();
                 $loadedStatus->id = $row['id'];
                 $loadedStatus->statusName = $row['status_name'];
-
 
                 $ret[] = $loadedStatus;
             }

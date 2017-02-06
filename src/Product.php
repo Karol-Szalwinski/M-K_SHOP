@@ -1,12 +1,5 @@
 <?php
 
-/**
- * klasa przedmiotu:
- * - możliwość wyświetlania również przedmiotu dla danej grupy
- * - możliwość wyświetlania wszytskich przedmiotów
- * - możliwość wprowadzania nowego przedmiotu do sklepu i usuwania go
- * coś jeszcze?
- */
 class Product {
 
     private $id;
@@ -100,7 +93,7 @@ class Product {
         return $this->deleted;
     }
 
-// wyświetlanie produktu wg id
+    // wyświetlanie produktu wg id
     static public function loadProductById(mysqli $connection, $id) {
         $sql = "SELECT * FROM Product WHERE id=$id";
         $result = $connection->query($sql);
@@ -117,11 +110,10 @@ class Product {
             $loadedProduct->deleted = $row['deleted'];
             return $loadedProduct;
         }
-
         return null;
     }
 
-// wyświetlanie produktu wg nr grupy
+    // wyświetlanie produktu wg nr grupy
     static public function loadAllProductsByGroupId(mysqli $connection, $idGroup) {
 
         $sql = "SELECT * FROM Product WHERE id_group=$idGroup AND deleted=0 ORDER BY name DESC";
@@ -165,7 +157,7 @@ class Product {
         return $ret;
     }
 
-// wyświetlanie wszytskich produktów w bazie
+    // wyświetlanie wszytskich produktów w bazie
     static public function loadAllProducts(mysqli $connection) {
 
         $sql = "SELECT * FROM Product WHERE deleted=0 ORDER BY name DESC";
@@ -191,7 +183,7 @@ class Product {
         return $ret;
     }
 
-// zapisywanie produktu do bazy danych
+    // zapisywanie produktu do bazy danych
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
@@ -244,7 +236,7 @@ class Product {
         //Pobieram poprzednią ilosć z bazy
         $sql = "SELECT * FROM Product_orders WHERE id=$productOrderId";
         $result = $conn->query($sql);
-        
+
         if ($result == true) {
             $row = $result->fetch_assoc();
             $oldQuantity = $row['quantity'];
@@ -260,7 +252,7 @@ class Product {
                 $product->setAvailability($actualAvailability -= $newQuantity - $oldQuantity)->saveToDB($conn);
                 //Podnoszę wartość koszyka
                 $order = Order::loadOrderById($conn, $row['id_orders']);
-                $amount = $order->getAmount() + ($newQuantity - $oldQuantity) * $row['real_price'] ;
+                $amount = $order->getAmount() + ($newQuantity - $oldQuantity) * $row['real_price'];
 
                 $order->setAmount($amount)->saveToDB($conn);
                 return true;
@@ -294,21 +286,6 @@ class Product {
                 return true;
             } else {
                 return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    //Usuwanie wszystkich produktów z koszyka -> nie testowane
-    static public function deleteAllProductFromCart($conn, $orderId) {
-        $sql = "SELECT * FROM Product_orders 
-                WHERE id_orders=$orderId";
-        $result = $conn->query($sql);
-        if ($result == true && $result->num_rows != 0) {
-            foreach ($result as $row) {
-                $productOrderId = $row['id'];
-                Product::deleteProductFromCart($conn, $productOrderId);
             }
         } else {
             return false;
@@ -403,13 +380,13 @@ class Product {
 
     //Wyswietla produkt w wierszu tabeli
     public function showProductInAdminTabRow($conn, $no) {
-       $myPath = Photo::loadOnePhotoByProductID($conn, $this->getId());        
+        $myPath = Photo::loadOnePhotoByProductID($conn, $this->getId());
         echo '<tr onclick="location.href=';
         echo "'showProduct.php?productId=";
         echo $this->getId();
         echo "'" . '">';
         echo "<td>" . $no . "</td>";
-        echo "<td><img src='". $myPath."' width='100'"
+        echo "<td><img src='" . $myPath . "' width='100'"
         . " height='100'></td>";
         echo "<td>" . $this->getName() . "</td>";
         echo "<td>" . $this->getAvailability() . "</td>";

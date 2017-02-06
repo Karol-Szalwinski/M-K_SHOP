@@ -1,12 +1,5 @@
 <?php
 
-/*
- * klasa grupy produktów:
- * -możliwość edycji i zapsu grup produktów (relacja jedna grupa - wiele produktów)
- * -możliwość wyświetlania produktów z danej grupy (już jest w klasie Product !!)
- * -możliwość wyświetlania wszytskich grup
- */
-
 class Group {
 
     private $id;
@@ -39,11 +32,10 @@ class Group {
         return $this->groupName;
     }
 
+    //Saving new Group to DB
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
-
-            //Saving new Group to DB
 
             $sql = "INSERT INTO Groups(group_name)
                    VALUES ('$this->groupName')";
@@ -101,7 +93,6 @@ class Group {
 
             return $loadedGroup;
         }
-
         return null;
     }
 
@@ -137,13 +128,12 @@ class Group {
         }
         return true;
     }
-    
-        //Metoda zlicza produkty w kategorii
+
+    //Metoda zlicza produkty w kategorii
     public function countProductsInCategory(mysqli $connection) {
         $sql = "SELECT * FROM Product WHERE id_group=$this->id";
         $result = $connection->query($sql);
         return $result->num_rows;
     }
-
 
 }

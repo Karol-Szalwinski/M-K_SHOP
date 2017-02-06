@@ -1,12 +1,5 @@
 <?php
 
-/*
- * klasa zdjęć:
- * -wyświetlanie wszytskich zdjęć produktów/ zdjęć produktów dla danej grupy
- * -wyświetlanie zdjęcia danego produktu
- * -zapisywanie zdjecia dla danego produktu w grupie/usuwanie zdjęcia
- */
-
 class Photo {
 
     private $id;
@@ -48,20 +41,17 @@ class Photo {
             $this->path = $newPath;
         }
     }
+
 //zapisywanie zdjęcia (jego ścieżki do bazy danych - modyfikacja
     public function saveToDB(mysqli $connection) {
 
         if ($this->id == -1) {
-
-            //Saving new photo to DB
-
             $sql = "INSERT INTO Photos(id_product, path)
                    VALUES ('$this->idProduct', '$this->path')";
 
             $result = $connection->query($sql);
             if ($result == true) {
                 $this->id = $connection->insert_id;
-
                 return true;
             } else {
 
@@ -80,7 +70,8 @@ class Photo {
             }
         }
     }
-//wyświetlanie zdjęcia wg id danego zdjecia
+
+    //wyświetlanie zdjęcia wg id danego zdjecia
     static public function loadPhotoById(mysqli $connection, $id) {
 
         $sql = "SELECT * FROM Photos WHERE id=$id";
@@ -95,14 +86,14 @@ class Photo {
             $loadedPhoto->idProduct = $row['id_product'];
             $loadedPhoto->path = $row['path'];
 
-
             return $loadedPhoto;
         }
 
         return null;
     }
+
 //wyświetlanie zdjęć danego produktu wg id tego produktu    
-        static public function loadAllPhotosByProductId(mysqli $connection, $productId) {
+    static public function loadAllPhotosByProductId(mysqli $connection, $productId) {
 
         $sql = "SELECT * FROM Photos WHERE id_product=$productId ORDER BY id DESC";
         $ret = [];
@@ -121,29 +112,26 @@ class Photo {
             return $ret;
         }
     }
+
     //wyświetlanie zdjęć danego produktu wg id tego produktu  - do    
-        static public function loadOnePhotoByProductID(mysqli $connection, $productId) {
+    static public function loadOnePhotoByProductID(mysqli $connection, $productId) {
 
         $sql = "SELECT * FROM Photos WHERE id_product=$productId LIMIT 1";
 
         $result = $connection->query($sql);
 
         if ($result == true && $result->num_rows == 1) {
-
             $row = $result->fetch_assoc();
-            
             $loadedPath = $row['path'];
-
 
             return $loadedPath;
         }
 
         return null;
     }
-    
-    
- //wyświetlanie zdjęć wszystkich produktów   
-        static public function loadAllPhotos(mysqli $connection) {
+
+    //wyświetlanie zdjęć wszystkich produktów   
+    static public function loadAllPhotos(mysqli $connection) {
 
         $sql = "SELECT * FROM Photos ORDER BY id DESC";
         $ret = [];
@@ -152,16 +140,14 @@ class Photo {
         if ($result == true && $result->num_rows != 0) {
             foreach ($result as $row) {
 
-
-            $loadedPhoto = new Photo();
-            $loadedPhoto->id = $row['id'];
-            $loadedPhoto->idProduct = $row['id_product'];
-            $loadedPhoto->path = $row['path'];
+                $loadedPhoto = new Photo();
+                $loadedPhoto->id = $row['id'];
+                $loadedPhoto->idProduct = $row['id_product'];
+                $loadedPhoto->path = $row['path'];
 
                 $ret[] = $loadedPhoto;
             }
         }
-
         return $ret;
     }
 

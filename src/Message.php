@@ -1,12 +1,5 @@
 <?php
 
-/**
- * klasa wiadomosci:
- * - możliwość przesyłania wiadomosci do użytkownika
- * - możliwość wyświetlania otrzymanych wiadomości u użytkownika
- * - możliwość wyświetlania wysłanych wiadomości u administratora
- * coś jeszcze ?
- */
 class Message {
 
     private $id;
@@ -95,7 +88,6 @@ class Message {
 
         if ($this->id == -1) {
 
-
             $sql = "INSERT INTO Messages(id_receiver, id_sender, title, text_message)
                    VALUES ('$this->idReceiver', '$this->idSender', '$this->title', '$this->textMessage')";
 
@@ -130,11 +122,9 @@ class Message {
                 $loadedMessage->textMessage = $row['text_message'];
                 $loadedMessage->creationDate = $row['creation_date'];
 
-
                 $ret[] = $loadedMessage;
             }
         }
-
         return $ret;
     }
 
@@ -157,13 +147,12 @@ class Message {
                 $loadedMessage->textMessage = $row['text_message'];
                 $loadedMessage->creationDate = $row['creation_date'];
 
-
                 $ret[] = $loadedMessage;
             }
         }
         return $ret;
     }
-    
+
     //Wyświetlamy wiadomość w wierszu tabeli
     public function showMessageInUserTabRow($no) {
         echo "<tr>";
@@ -173,7 +162,5 @@ class Message {
         echo "<td>" . $this->getTextMessage() . "</td>";
         echo "</tr>";
     }
-    
-
 
 }
