@@ -314,7 +314,6 @@ class Product {
                 Product::makeFormToChangeQuantity($row['quantity'], $availability, $row['id']);
                 echo "</td>";
                 echo "<td>" . showPrice($row['real_price']) . "</td>";
-
                 echo "<td>" . showPrice($row['quantity'] * $row['real_price']) . "</td>";
                 echo "<td><form method='POST'><input type='hidden' name='delete-id' value='{$row['id']}'>";
                 echo "<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";

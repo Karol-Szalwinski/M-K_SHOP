@@ -4,7 +4,7 @@
         <?php
         $allCategories = Group::loadAllGroups($conn);
         foreach ($allCategories as $category) {
-            $category->showCategoryInSidebar();
+            $category->showGroupInSidebar();
         }
         ?>
     </ul>

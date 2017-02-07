@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             //Jeżeli kategoria o tym Id jest w bazie i ma produkty to dostosuwujemy tytuł
             if (!empty($allProducts && $categoryId > 0)) {
-                $title = "Wszystkie towary z kategorii " . Group::loadCategoryById($conn, $categoryId)->getGroupName();
+                $title = "Wszystkie towary z kategorii " . Group::loadGroupById($conn, $categoryId)->getGroupName();
             } else {
                 $title = 'Nie ma produktów w tej kategorii.';
             }

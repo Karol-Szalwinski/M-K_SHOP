@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category'])) {
 //sprawdzam czy została przesłana odpowiednia kategoria do usunięcia
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id']) &&
         $_POST['category-id'] > 0 ) {
-    if (Group::loadCategoryById($conn, $_POST['category-id'])->countProductsInCategory($conn) == 0) {
-        if(Group::deleteCategoryById($conn, $_POST['category-id'])) {
+    if (Group::loadGroupById($conn, $_POST['category-id'])->countProductsInGroup($conn) == 0) {
+        if(Group::deleteGroupById($conn, $_POST['category-id'])) {
             $errors[] = "Pomyślnie usunięto kategorię";
         } 
         
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category-id']) &&
                             foreach ($allCategories as $category) {
                                 
                                 $no++;
-                                $category->showCategoryInTabRow($conn, $no);
+                                $category->showGroupInTabRow($conn, $no);
                             }
                             ?>
                         </tbody>

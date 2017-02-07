@@ -81,7 +81,7 @@ class Group {
     }
 
     // wyświetlanie kategorii wg id
-    static public function loadCategoryById(mysqli $connection, $id) {
+    static public function loadGroupById(mysqli $connection, $id) {
         $sql = "SELECT * FROM Groups WHERE id=$id";
         $result = $connection->query($sql);
         if ($result == true && $result->num_rows == 1) {
@@ -97,18 +97,18 @@ class Group {
     }
 
     //Wyswietla kategorię w wierszu tabeli
-    public function showCategoryInTabRow($conn, $no) {
+    public function showGroupInTabRow($conn, $no) {
         echo "<tr>";
         echo"<td>$no</td>";
         echo"<td>$this->groupName</td>";
-        echo"<td>" . $this->countProductsInCategory($conn) . "</td>";
+        echo"<td>" . $this->countProductsInGroup($conn) . "</td>";
         echo"<td><form method='POST'><input type='hidden' name='category-id' value='$this->id'>";
         echo"<button type='submit' class='btn btn-danger'>Usuń</button></td></form>";
         echo"</tr>";
     }
 
     //wyswietla kategorię jako przycisk sidebara
-    public function showCategoryInSidebar() {
+    public function showGroupInSidebar() {
         echo "<li>";
         echo "<a href='category.php?categoryId=$this->id'>";
         echo $this->groupName;
@@ -116,7 +116,7 @@ class Group {
     }
 
     //Usuwa kategorię po id
-    static public function deleteCategoryById(mysqli $connection, $id) {
+    static public function deleteGroupById(mysqli $connection, $id) {
 
         if ($id > 0) {
             $sql = "DELETE FROM Groups WHERE id=$id";
@@ -130,7 +130,7 @@ class Group {
     }
 
     //Metoda zlicza produkty w kategorii
-    public function countProductsInCategory(mysqli $connection) {
+    public function countProductsInGroup(mysqli $connection) {
         $sql = "SELECT * FROM Product WHERE id_group=$this->id";
         $result = $connection->query($sql);
         return $result->num_rows;
